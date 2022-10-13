@@ -12,18 +12,18 @@ public class Hand {
         this.cards.add(card1);
     }
 
-    // returns the hand power between 1 and 9 (from higher card to straight flush) => only 1 possibility for now
+    // returns the hand power => only HIGH_CARD is implemented for now
     private HandType calculatePrimary() {
         return HandType.HIGH_CARD;
     }
 
-    private ArrayList<Integer> calculateSecondary(HandType primary) {
+    private ArrayList<CardValue> calculateSecondary(HandType primary) {
         if (primary == HandType.HIGH_CARD) {
-            var ret = new ArrayList<Integer>();
+            var ret = new ArrayList<CardValue>();
             ret.add(cards.get(0).value());
             return ret;
         }
-        throw new IllegalArgumentException("The primary power must be between 1 and 9");
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 
     public Power getPower() {

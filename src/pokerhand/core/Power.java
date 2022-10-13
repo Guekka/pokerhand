@@ -3,7 +3,7 @@ package pokerhand.core;
 import java.util.List;
 import java.util.Objects;
 
-public record Power(HandType primary, List<Integer> secondary) implements Comparable<Power> {
+public record Power(HandType primary, List<CardValue> secondary) implements Comparable<Power> {
 
     @Override
     public int compareTo(Power power) {
@@ -16,10 +16,10 @@ public record Power(HandType primary, List<Integer> secondary) implements Compar
 
         //if the primary power is the same, we can compare the secondary power (secondary list will be the same size)
         for (int i = 0; i < this.secondary.size(); i++) {
-            if (this.secondary.get(i) > power.secondary.get(i))
+            if (this.secondary.get(i).compareTo(power.secondary.get(i)) > 0)
                 return 1;
 
-            if (this.secondary.get(i) < power.secondary.get(i))
+            if (this.secondary.get(i).compareTo(power.secondary.get(i)) < 0)
                 return -1;
         }
 
@@ -38,11 +38,6 @@ public record Power(HandType primary, List<Integer> secondary) implements Compar
     @Override
     public int hashCode() {
         return Objects.hash(this.primary, this.secondary);
-    }
-
-    @Override
-    public String toString() {
-        return this.primary + " / " + this.secondary;
     }
 
 }

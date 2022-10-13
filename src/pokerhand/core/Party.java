@@ -6,10 +6,10 @@ import java.util.List;
 public class Party {
     private final ArrayList<Hand> hands;
 
-    public Party(int hand1card1, int hand2card1) {
+    public Party(Hand hand1, Hand hand2) {
         this.hands = new ArrayList<>();
-        this.hands.add(new Hand(new Card(hand1card1)));
-        this.hands.add(new Hand(new Card(hand2card1)));
+        this.hands.add(hand1);
+        this.hands.add(hand2);
     }
 
     public List<Hand> getHands() {
