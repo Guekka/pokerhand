@@ -1,5 +1,7 @@
 package pokerhand.core;
 
+import utils.ListComparator;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -14,17 +16,9 @@ public record Power(HandType handType, List<CardValue> secondary) implements Com
         if (this.handType.compareTo(power.handType) < 0)
             return -1;
 
-        //if the handType power is the same, we can compare the secondary power (secondary list will be the same size)
-        for (int i = 0; i < this.secondary.size(); i++) {
-            if (this.secondary.get(i).compareTo(power.secondary.get(i)) > 0)
-                return 1;
-
-            if (this.secondary.get(i).compareTo(power.secondary.get(i)) < 0)
-                return -1;
-        }
-
-        //if the secondary power is the same, Powers are equal
-        return 0;
+        //if the primary power is the same, we can compare the secondary power
+        var comparator = new ListComparator<CardValue>();
+        return comparator.compare(this.secondary, power.secondary);
     }
 
     @Override
