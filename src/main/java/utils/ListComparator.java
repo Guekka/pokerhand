@@ -3,7 +3,7 @@ package utils;
 import java.util.Comparator;
 import java.util.List;
 
-public class ListComparator<T extends Comparable> implements Comparator<List<T>> {
+public class ListComparator<T extends Comparable<T>> implements Comparator<List<T>> {
     @Override
     public int compare(List<T> lhs, List<T> rhs) {
         if (lhs.size() != rhs.size())
