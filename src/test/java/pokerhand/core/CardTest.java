@@ -15,13 +15,13 @@ class CardTest {
 
     @Test
     void value() {
-        var card = new Card(CardValue.ACE);
+        var card = new Card(CardValue.ACE, CardColor.CLUB);
         assertEquals(CardValue.ACE, card.value());
     }
 
     @Test
     void testToString() {
-        var card = new Card(CardValue.ACE);
+        var card = new Card(CardValue.ACE, CardColor.DIAMOND);
         assertEquals("ACE", card.toString());
     }
 
@@ -31,19 +31,19 @@ class CardTest {
 
         private static Stream<Arguments> provideValidCardStrings() {
             return Stream.of(
-                    Arguments.of("A", new Card(CardValue.ACE)),
-                    Arguments.of("K", new Card(CardValue.KING)),
-                    Arguments.of("Q", new Card(CardValue.QUEEN)),
-                    Arguments.of("J", new Card(CardValue.JACK)),
-                    Arguments.of("10", new Card(CardValue.TEN)),
-                    Arguments.of("9", new Card(CardValue.NINE)),
-                    Arguments.of("8", new Card(CardValue.EIGHT)),
-                    Arguments.of("7", new Card(CardValue.SEVEN)),
-                    Arguments.of("6", new Card(CardValue.SIX)),
-                    Arguments.of("5", new Card(CardValue.FIVE)),
-                    Arguments.of("4", new Card(CardValue.FOUR)),
-                    Arguments.of("3", new Card(CardValue.THREE)),
-                    Arguments.of("2", new Card(CardValue.TWO))
+                    Arguments.of("A", new Card(CardValue.ACE, CardColor.DIAMOND)),
+                    Arguments.of("K", new Card(CardValue.KING, CardColor.DIAMOND)),
+                    Arguments.of("Q", new Card(CardValue.QUEEN, CardColor.DIAMOND)),
+                    Arguments.of("J", new Card(CardValue.JACK, CardColor.DIAMOND)),
+                    Arguments.of("10", new Card(CardValue.TEN, CardColor.DIAMOND)),
+                    Arguments.of("9", new Card(CardValue.NINE, CardColor.DIAMOND)),
+                    Arguments.of("8", new Card(CardValue.EIGHT, CardColor.CLUB)),
+                    Arguments.of("7", new Card(CardValue.SEVEN, CardColor.CLUB)),
+                    Arguments.of("6", new Card(CardValue.SIX, CardColor.CLUB)),
+                    Arguments.of("5", new Card(CardValue.FIVE, CardColor.CLUB)),
+                    Arguments.of("4", new Card(CardValue.FOUR, CardColor.CLUB)),
+                    Arguments.of("3", new Card(CardValue.THREE, CardColor.CLUB)),
+                    Arguments.of("2", new Card(CardValue.TWO, CardColor.CLUB))
             );
         }
 
@@ -75,12 +75,12 @@ class CardTest {
         @Test
         @DisplayName("Test of Card comparison")
         void testCompareTo() {
-            var card1 = new Card(CardValue.ACE);
-            var card2 = new Card(CardValue.KING);
-            var card3 = new Card(CardValue.ACE);
+            var card1 = new Card(CardValue.ACE, CardColor.CLUB);
+            var card2 = new Card(CardValue.KING, CardColor.CLUB);
+            var card3 = new Card(CardValue.ACE, CardColor.CLUB);
             assertTrue(card1.compareTo(card2) > 0);
             assertTrue(card2.compareTo(card1) < 0);
-            assertTrue(card1.compareTo(card3) == 0);
+            assertEquals(0, card1.compareTo(card3));
         }
 
         @ParameterizedTest
