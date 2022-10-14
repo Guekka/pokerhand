@@ -8,10 +8,7 @@ import pokerhand.core.Party;
 import java.util.Scanner;
 
 public class ConsoleInterface {
-    public static Hand getHandFromConsole() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter card value: ");
-        String value = scanner.nextLine();
+    public static Hand getHandFromConsole(String value) {
         //switch statement with 13 cases, one for each card value
         CardValue cardValue = switch (value) {
             case "J" -> CardValue.JACK;
@@ -31,12 +28,14 @@ public class ConsoleInterface {
     }
 
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter card value: ");
         // PokerHand console interface
         System.out.println("Welcome to PokerHand console interface!");
         System.out.println("Please enter the first hand:");
-        Hand hand1 = getHandFromConsole();
+        Hand hand1 = getHandFromConsole(scanner.nextLine());
         System.out.println("Please enter the second hand:");
-        Hand hand2 = getHandFromConsole();
+        Hand hand2 = getHandFromConsole(scanner.nextLine());
         Party party = new Party(hand1, hand2);
         System.out.println("The winner is:");
         System.out.println(party.getWinner());
