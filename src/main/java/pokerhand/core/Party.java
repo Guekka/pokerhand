@@ -1,6 +1,7 @@
 package pokerhand.core;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Party {
@@ -10,6 +11,11 @@ public class Party {
         this.hands = new ArrayList<>();
         this.hands.add(hand1);
         this.hands.add(hand2);
+    }
+
+    public Hand getWinner() {
+        // get maximum element
+        return hands.stream().max(Comparator.comparing(Hand::getPower)).orElseThrow();
     }
 
     public List<Hand> getHands() {
