@@ -30,4 +30,9 @@ public class Hand {
         HandType handType = calculateHandType();
         return new Power(handType, calculateSecondary(handType));
     }
+
+    @Override
+    public String toString() {
+        return cards.toString();
+    }
 }
