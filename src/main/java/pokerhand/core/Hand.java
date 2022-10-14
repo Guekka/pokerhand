@@ -13,12 +13,12 @@ public class Hand {
     }
 
     // returns the hand power => only HIGH_CARD is implemented for now
-    private HandType calculatePrimary() {
+    private HandType calculateHandType() {
         return HandType.HIGH_CARD;
     }
 
-    private ArrayList<CardValue> calculateSecondary(HandType primary) {
-        if (primary == HandType.HIGH_CARD) {
+    private ArrayList<CardValue> calculateSecondary(HandType handType) {
+        if (handType == HandType.HIGH_CARD) {
             var ret = new ArrayList<CardValue>();
             ret.add(cards.get(0).value());
             return ret;
@@ -27,7 +27,7 @@ public class Hand {
     }
 
     public Power getPower() {
-        var primary = calculatePrimary();
-        return new Power(primary, calculateSecondary(primary));
+        HandType handType = calculateHandType();
+        return new Power(handType, calculateSecondary(handType));
     }
 }
