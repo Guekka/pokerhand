@@ -1,10 +1,24 @@
 package pokerhand.core;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Hand {
     //for now, the hand will only contain one card
     private final ArrayList<Card> cards;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Hand hand = (Hand) o;
+        return Objects.equals(cards, hand.cards);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cards);
+    }
 
     public Hand(Card card1) {
         this.cards = new ArrayList<>();
