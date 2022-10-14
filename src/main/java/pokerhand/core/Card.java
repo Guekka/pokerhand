@@ -52,7 +52,15 @@ public record Card(CardValue value, CardColor color) implements Comparable<Card>
 
     @Override
     public int compareTo(Card other) {
-        return this.value.compareTo(other.value);
+        if (value.compareTo(other.value()) > 0) {
+            return 1;
+
+        } else if (value.compareTo(other.value()) < 0) {
+            return -1;
+        }
+
+        // Here, cards have the same value but maybe not the same color
+        return this.color().compareTo(other.color());
     }
 
 }

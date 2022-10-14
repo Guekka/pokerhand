@@ -44,6 +44,9 @@ public class Hand {
      * Calculates the highest hand type of this hand
      */
     private HandType calculateHandType() {
+        if (isFlush())
+            return HandType.FLUSH;
+
         return HandType.HIGH_CARD;
     }
 
@@ -58,8 +61,30 @@ public class Hand {
                     .map(Card::value)
                     .toList();
         }
+        if (handType == HandType.FLUSH) {
+            return cards.stream().sorted().map(Card::value).toList();
+        }
+
         throw new UnsupportedOperationException("Not implemented yet");
+
     }
+
+    public boolean isFlush() {
+        CardColor possibleColor = cards.get(0).color();
+        boolean sameColor = true;
+        for (Card c : cards
+        ) {
+            if (c.color() != possibleColor) {
+                sameColor = false;
+                break;
+
+            }
+
+
+        }
+        return sameColor;
+    }
+
 
     public Power getPower() {
         HandType handType = calculateHandType();
