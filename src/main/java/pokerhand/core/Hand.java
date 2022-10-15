@@ -21,7 +21,7 @@ public class Hand {
             case "K" -> CardValue.KING;
             case "A" -> CardValue.ACE;
             default -> {
-                if (value.matches("[2-9]")) {
+                if (value.matches("([2-9]|10)")) {
                     yield CardValue.values()[Integer.parseInt(value) - 2];
                 } else {
                     throw new IllegalArgumentException("Card must be between 2 and 10, or J, Q, K, A");
