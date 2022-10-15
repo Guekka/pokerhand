@@ -14,9 +14,9 @@ public class ConsoleInterface {
         // PokerHand console interface
         System.out.println("Welcome to PokerHand console interface!");
         System.out.println("Please enter the first hand:");
-        Hand hand1 = Hand.getHandFromString(scanner.nextLine());
+        Hand hand1 = Hand.fromString(scanner.nextLine());
         System.out.println("Please enter the second hand:");
-        Hand hand2 = Hand.getHandFromString(scanner.nextLine());
+        Hand hand2 = Hand.fromString(scanner.nextLine());
         Party party = new Party(hand1, hand2);
         System.out.println("The winner is:");
         System.out.println(party.getWinner());

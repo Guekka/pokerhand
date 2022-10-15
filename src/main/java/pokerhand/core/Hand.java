@@ -7,6 +7,31 @@ public class Hand {
     //for now, the hand will only contain one card
     private final ArrayList<Card> cards;
 
+    public Hand(Card card1) {
+        this.cards = new ArrayList<>();
+        //this.card contains card1
+        this.cards.add(card1);
+    }
+
+    public static Hand fromString(String value) {
+        //switch statement with 13 cases, one for each card value
+        CardValue cardValue = switch (value) {
+            case "J" -> CardValue.JACK;
+            case "Q" -> CardValue.QUEEN;
+            case "K" -> CardValue.KING;
+            case "A" -> CardValue.ACE;
+            default -> {
+                if (value.matches("[2-9]")) {
+                    yield CardValue.values()[Integer.parseInt(value) - 2];
+                } else {
+                    throw new IllegalArgumentException("Card must be between 2 and 10, or J, Q, K, A");
+                }
+            }
+        };
+        return new Hand(new Card(cardValue));
+
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -18,12 +43,6 @@ public class Hand {
     @Override
     public int hashCode() {
         return Objects.hash(cards);
-    }
-
-    public Hand(Card card1) {
-        this.cards = new ArrayList<>();
-        //this.card contains card1
-        this.cards.add(card1);
     }
 
     // returns the hand power => only HIGH_CARD is implemented for now
@@ -48,24 +67,5 @@ public class Hand {
     @Override
     public String toString() {
         return cards.toString();
-    }
-
-    public static Hand getHandFromString(String value) {
-        //switch statement with 13 cases, one for each card value
-        CardValue cardValue = switch (value) {
-            case "J" -> CardValue.JACK;
-            case "Q" -> CardValue.QUEEN;
-            case "K" -> CardValue.KING;
-            case "A" -> CardValue.ACE;
-            default -> {
-                if (value.matches("[2-9]")) {
-                    yield CardValue.values()[Integer.parseInt(value) - 2];
-                } else {
-                    throw new IllegalArgumentException("Card must be between 2 and 10, or J, Q, K, A");
-                }
-            }
-        };
-        return new Hand(new Card(cardValue));
-
     }
 }
