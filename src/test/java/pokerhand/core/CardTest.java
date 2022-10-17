@@ -12,4 +12,10 @@ class CardTest {
         assertEquals(CardValue.ACE, card.value());
     }
 
+    @Test
+    void testToString() {
+        var card = new Card(CardValue.ACE);
+        assertEquals("ACE", card.toString());
+    }
+
 }
