@@ -3,12 +3,7 @@
 
 name: Java CI with Maven
 
-on:
-  check_run:
-    types: [rerequested, completed]
-  pull_request:
-    types: [review_requested, opened, reopened]
-
+on: push
 jobs:
   build:
 
