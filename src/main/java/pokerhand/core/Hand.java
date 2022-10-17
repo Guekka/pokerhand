@@ -14,21 +14,7 @@ public class Hand {
     }
 
     public static Hand fromString(String value) {
-        //switch statement with 13 cases, one for each card value
-        CardValue cardValue = switch (value) {
-            case "J" -> CardValue.JACK;
-            case "Q" -> CardValue.QUEEN;
-            case "K" -> CardValue.KING;
-            case "A" -> CardValue.ACE;
-            default -> {
-                if (value.matches("([2-9]|10)")) {
-                    yield CardValue.values()[Integer.parseInt(value) - 2];
-                } else {
-                    throw new IllegalArgumentException("Card must be between 2 and 10, or J, Q, K, A");
-                }
-            }
-        };
-        return new Hand(new Card(cardValue));
+        return new Hand(Card.fromString(value));
 
     }
 

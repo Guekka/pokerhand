@@ -7,7 +7,37 @@ package pokerhand.core;
  * @param value the value of the card
  */
 public record Card(CardValue value) {
+    /**
+     * Representation of the card as a string.
+     *
+     * @return the string representation of the card
+     */
     public String toString() {
         return value.toString();
+    }
+
+
+    /**
+     * Creates a Card from a string.
+     *
+     * @param string the string representation of the card
+     * @return the card represented by the string
+     */
+    public static Card fromString(String string) {
+        CardValue cardValue = switch (string) {
+            case "J" -> CardValue.JACK;
+            case "Q" -> CardValue.QUEEN;
+            case "K" -> CardValue.KING;
+            case "A" -> CardValue.ACE;
+            default -> {
+                if (string.matches("([2-9]|10)")) {
+                    yield CardValue.values()[Integer.parseInt(string) - 2];
+                } else {
+                    throw new IllegalArgumentException("Card must be between 2 and 10, or J, Q, K, A");
+                }
+            }
+        };
+        return new Card(cardValue);
+
     }
 }
