@@ -1,7 +1,10 @@
 package pokerhand.core;
 
+
 /**
- * @param value only value attribute is needed for the first slice, the color attribute will be added later
+ * The Card class represents a card in a poker hand with a CardValue.
+ *
+ * @param value the value of the card
  */
 public record Card(CardValue value) {
     public String toString() {
