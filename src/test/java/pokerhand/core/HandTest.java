@@ -61,5 +61,58 @@ class HandTest {
         }
     }
 
+    @Nested
+    @DisplayName("Test comparaison between two hands")
+    class TestComparisons {
+        @Nested
+        @DisplayName("Test the equals method")
+        class TestEquals {
+            @Test
+            void testEqualHandType() {
+                Hand hand1 = new Hand(new Card(CardValue.ACE));
+                Hand hand2 = new Hand(new Card(CardValue.ACE));
+                assertEquals(hand1, hand2);
+            }
 
+            @Test
+            void testDifferentObjects() {
+                Hand hand1 = new Hand(new Card(CardValue.ACE));
+                assertNotEquals(hand1, new Object());
+            }
+
+            @Test
+            void testDifferentHandType() {
+                Hand hand1 = new Hand(new Card(CardValue.ACE));
+                Hand hand2 = new Hand(new Card(CardValue.KING));
+                assertNotEquals(hand1, hand2);
+            }
+        }
+        @Nested
+        @DisplayName("Test the hashcode method")
+        class TestHashCode {
+            @Test
+            void testEqualHandType() {
+                Hand hand1 = new Hand(new Card(CardValue.ACE));
+                Hand hand2 = new Hand(new Card(CardValue.ACE));
+                assertEquals(hand1.hashCode(), hand2.hashCode());
+            }
+
+            @Test
+            void testDifferentHandType() {
+                Hand hand1 = new Hand(new Card(CardValue.ACE));
+                Hand hand2 = new Hand(new Card(CardValue.KING));
+                assertNotEquals(hand1.hashCode(), hand2.hashCode());
+            }
+        }
+
+    }
+
+    @Test
+    void testToString(){
+        assertEquals("[ACE]", new Hand(new Card(CardValue.ACE)).toString());
+        assertEquals("[KING]", new Hand(new Card(CardValue.KING)).toString());
+        assertEquals("[QUEEN]", new Hand(new Card(CardValue.QUEEN)).toString());
+        assertEquals("[JACK]", new Hand(new Card(CardValue.JACK)).toString());
+        assertEquals("[TEN]", new Hand(new Card(CardValue.TEN)).toString());
+    }
 }
