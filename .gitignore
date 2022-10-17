@@ -111,3 +111,6 @@ fabric.properties
 
 # ignore sonarLint
 .idea/sonarlint/**/*
+
+# ignore discord plugin
+.idea/discord.xml
