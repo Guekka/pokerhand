@@ -5,6 +5,9 @@ import pokerhand.core.Party;
 
 import java.util.Scanner;
 
+/**
+ * The ConsoleInterface class is used to interact with the user.
+ */
 public class ConsoleInterface {
 
 
