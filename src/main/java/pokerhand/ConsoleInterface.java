@@ -13,8 +13,6 @@ public class ConsoleInterface {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter card value: ");
-        // PokerHand console interface
         System.out.println("Welcome to PokerHand console interface!");
         System.out.println("Please enter the first hand:");
         Hand hand1 = Hand.fromString(scanner.nextLine());

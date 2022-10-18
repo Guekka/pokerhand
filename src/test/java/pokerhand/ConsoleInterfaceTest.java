@@ -27,7 +27,7 @@ class ConsoleInterfaceTest {
             ConsoleInterface consoleInterface = new ConsoleInterface();
             ConsoleInterface.main(new String[]{}); // call the method under test
             var splits = byteOut.toString().split("\n");
-            assertEquals("Welcome to PokerHand console interface!", splits[1].trim());
+            assertEquals("Welcome to PokerHand console interface!", splits[0].trim());
             assertEquals("Please enter the first hand:", splits[1].trim());
             assertEquals("Please enter the second hand:", splits[2].trim());
             assertEquals("The winner is:", splits[3].trim());
