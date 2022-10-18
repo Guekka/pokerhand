@@ -15,20 +15,20 @@ class HandTest {
     @DisplayName("Tests if the power of a hand with a single card is calculated correctly")
     class TestPowerWithOneCard {
         @Test
-        void testEqualHandType() {
+        void test_getPower_FromTheSameHand_ReturnsEqualPower() {
             Hand hand = new Hand(new Card(CardValue.ACE));
             assertEquals(hand.getPower(), hand.getPower());
         }
 
         @Test
-        void testSmallerHandType() {
+        void test_getPower_WhenTheFirstHandIsMorePowerfulThanTheSecondHand_ReturnsAHigherPowerForTheFirstHandThanTheSecondHand() {
             Hand hand1 = new Hand(new Card(CardValue.ACE));
             Hand hand2 = new Hand(new Card(CardValue.KING));
             assertEquals(1, hand1.getPower().compareTo(hand2.getPower()));
         }
 
         @Test
-        void testBiggerHandType() {
+        void test_getPower_WhenTheFirstHandIsLessPowerfulThanTheSecondHand_ReturnsALowerPowerForTheFirstHandThanTheSecondHand() {
             Hand hand = new Hand(new Card(CardValue.ACE));
             Hand hand2 = new Hand(new Card(CardValue.KING));
             assertEquals(-1, hand2.getPower().compareTo(hand.getPower()));
@@ -99,20 +99,20 @@ class HandTest {
         @DisplayName("Test the equals method")
         class TestEquals {
             @Test
-            void testEqualHandType() {
+            void test_equals_WhenGivenEqualHands_ReturnsTrue() {
                 Hand hand1 = new Hand(new Card(CardValue.ACE));
                 Hand hand2 = new Hand(new Card(CardValue.ACE));
                 assertEquals(hand1, hand2);
             }
 
             @Test
-            void testDifferentObjects() {
+            void test_equals_WhenGivenDifferentObjects_ReturnsFalse() {
                 Hand hand1 = new Hand(new Card(CardValue.ACE));
                 assertNotEquals(hand1, new Object());
             }
 
             @Test
-            void testDifferentHandType() {
+            void test_equals_WhenGivenDifferentHandTypes_ReturnsFalse() {
                 Hand hand1 = new Hand(new Card(CardValue.ACE));
                 Hand hand2 = new Hand(new Card(CardValue.KING));
                 assertNotEquals(hand1, hand2);
@@ -123,14 +123,14 @@ class HandTest {
         @DisplayName("Test the hashcode method")
         class TestHashCode {
             @Test
-            void testEqualHandType() {
+            void test_hashcode_WhenGivenEqualHands_ReturnsTheSameHashCode() {
                 Hand hand1 = new Hand(new Card(CardValue.ACE));
                 Hand hand2 = new Hand(new Card(CardValue.ACE));
                 assertEquals(hand1.hashCode(), hand2.hashCode());
             }
 
             @Test
-            void testDifferentHandType() {
+            void test_hashcode_WhenGivenDifferentHandTypes_ReturnsDifferentHashcode() {
                 Hand hand1 = new Hand(new Card(CardValue.ACE));
                 Hand hand2 = new Hand(new Card(CardValue.KING));
                 assertNotEquals(hand1.hashCode(), hand2.hashCode());
@@ -140,7 +140,7 @@ class HandTest {
     }
 
     @Test
-    void testToString() {
+    void test_toString_WhenGivenDifferentHands_ReturnsCorrectStringRepresentationOfTheHand() {
         assertEquals("[ACE]", new Hand(new Card(CardValue.ACE)).toString());
         assertEquals("[KING]", new Hand(new Card(CardValue.KING)).toString());
         assertEquals("[QUEEN]", new Hand(new Card(CardValue.QUEEN)).toString());
