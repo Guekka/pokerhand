@@ -1,6 +1,11 @@
 package pokerhand.core;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,29 +40,55 @@ class HandTest {
     @Nested
     @DisplayName("Test from string method")
     class TestFromString {
-        @Test
-        void testValidCard() {
-            assertEquals(new Hand(new Card(CardValue.ACE)), Hand.fromString("A"));
-            assertEquals(new Hand(new Card(CardValue.KING)), Hand.fromString("K"));
-            assertEquals(new Hand(new Card(CardValue.QUEEN)), Hand.fromString("Q"));
-            assertEquals(new Hand(new Card(CardValue.JACK)), Hand.fromString("J"));
-            assertEquals(new Hand(new Card(CardValue.TEN)), Hand.fromString("10"));
-            assertEquals(new Hand(new Card(CardValue.NINE)), Hand.fromString("9"));
-            assertEquals(new Hand(new Card(CardValue.EIGHT)), Hand.fromString("8"));
-            assertEquals(new Hand(new Card(CardValue.SEVEN)), Hand.fromString("7"));
-            assertEquals(new Hand(new Card(CardValue.SIX)), Hand.fromString("6"));
-            assertEquals(new Hand(new Card(CardValue.FIVE)), Hand.fromString("5"));
-            assertEquals(new Hand(new Card(CardValue.FOUR)), Hand.fromString("4"));
-            assertEquals(new Hand(new Card(CardValue.THREE)), Hand.fromString("3"));
-            assertEquals(new Hand(new Card(CardValue.TWO)), Hand.fromString("2"));
+
+        private static Stream<Arguments> provideValidHandStrings() {
+            return Stream.of(
+                    Arguments.of("A", new Hand(new Card(CardValue.ACE))),
+                    Arguments.of("K", new Hand(new Card(CardValue.KING))),
+                    Arguments.of("Q", new Hand(new Card(CardValue.QUEEN))),
+                    Arguments.of("J", new Hand(new Card(CardValue.JACK))),
+                    Arguments.of("10", new Hand(new Card(CardValue.TEN))),
+                    Arguments.of("9", new Hand(new Card(CardValue.NINE))),
+                    Arguments.of("8", new Hand(new Card(CardValue.EIGHT))),
+                    Arguments.of("7", new Hand(new Card(CardValue.SEVEN))),
+                    Arguments.of("6", new Hand(new Card(CardValue.SIX))),
+                    Arguments.of("5", new Hand(new Card(CardValue.FIVE))),
+                    Arguments.of("4", new Hand(new Card(CardValue.FOUR))),
+                    Arguments.of("3", new Hand(new Card(CardValue.THREE))),
+                    Arguments.of("2", new Hand(new Card(CardValue.TWO)))
+            );
         }
 
-        @Test
-        void testInvalidCard() {
-            assertThrows(IllegalArgumentException.class, () -> Hand.fromString("A21"));
-            assertThrows(IllegalArgumentException.class, () -> Hand.fromString("123dc"));
-            assertThrows(IllegalArgumentException.class, () -> Hand.fromString("11"));
-            assertThrows(IllegalArgumentException.class, () -> Hand.fromString("12"));
+        @ParameterizedTest
+        @DisplayName("Test valid hand strings")
+        @MethodSource("provideValidHandStrings")
+        void test_fromString_WhenGivenValidString_ReturnsCorrectHand(String handString, Hand expectedHand) {
+            assertEquals(expectedHand, Hand.fromString(handString));
+        }
+
+        private static Stream<Arguments> provideInvalidHandStrings() {
+            return Stream.of(
+                    Arguments.of("A21"),
+                    Arguments.of("123dc"),
+                    Arguments.of("11"),
+                    Arguments.of("12"),
+                    Arguments.of(""),
+                    Arguments.of(" "),
+                    Arguments.of("  "),
+                    Arguments.of("\n"),
+                    Arguments.of("\t"),
+                    Arguments.of("1"),
+                    Arguments.of("0"),
+                    Arguments.of("13"),
+                    Arguments.of("Z")
+            );
+        }
+
+        @ParameterizedTest
+        @DisplayName("Test invalid hand strings")
+        @MethodSource("provideInvalidHandStrings")
+        void test_fromString_WhenGivenInvalidString_ThrowsIllegalArgumentException(String handString) {
+            assertThrows(IllegalArgumentException.class, () -> Hand.fromString(handString));
         }
     }
 
@@ -87,6 +118,7 @@ class HandTest {
                 assertNotEquals(hand1, hand2);
             }
         }
+
         @Nested
         @DisplayName("Test the hashcode method")
         class TestHashCode {
@@ -108,7 +140,7 @@ class HandTest {
     }
 
     @Test
-    void testToString(){
+    void testToString() {
         assertEquals("[ACE]", new Hand(new Card(CardValue.ACE)).toString());
         assertEquals("[KING]", new Hand(new Card(CardValue.KING)).toString());
         assertEquals("[QUEEN]", new Hand(new Card(CardValue.QUEEN)).toString());
