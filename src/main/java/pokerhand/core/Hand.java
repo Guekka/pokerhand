@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Hand {
-    //for now, the hand will only contain one card
     private final ArrayList<Card> cards;
 
     public Hand(Card card1) {
         this.cards = new ArrayList<>();
-        //this.card contains card1
         this.cards.add(card1);
     }
 
@@ -31,7 +29,6 @@ public class Hand {
         return Objects.hash(cards);
     }
 
-    // returns the hand power => only HIGH_CARD is implemented for now
     private HandType calculateHandType() {
         return HandType.HIGH_CARD;
     }
