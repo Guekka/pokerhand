@@ -1,19 +1,25 @@
 package pokerhand.core;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 public class Hand {
-    private final ArrayList<Card> cards;
+    private final List<Card> cards;
 
-    public Hand(Card card1) {
-        this.cards = new ArrayList<>();
-        this.cards.add(card1);
+    public Hand(List<Card> cards) {
+        if (cards.isEmpty()) {
+            throw new IllegalArgumentException("Hand must contain at least one card");
+        }
+        this.cards = cards;
     }
 
     public static Hand fromString(String value) {
-        return new Hand(Card.fromString(value));
-
+        var cards = Arrays.stream(value.split(" "))
+                .map(Card::fromString)
+                .toList();
+        return new Hand(cards);
     }
 
     @Override
@@ -33,11 +39,12 @@ public class Hand {
         return HandType.HIGH_CARD;
     }
 
-    private ArrayList<CardValue> calculateSecondary(HandType handType) {
+    private List<CardValue> calculateSecondary(HandType handType) {
         if (handType == HandType.HIGH_CARD) {
-            var ret = new ArrayList<CardValue>();
-            ret.add(cards.get(0).value());
-            return ret;
+            return cards.stream()
+                    .sorted(Collections.reverseOrder())
+                    .map(Card::value)
+                    .toList();
         }
         throw new UnsupportedOperationException("Not implemented yet");
     }
