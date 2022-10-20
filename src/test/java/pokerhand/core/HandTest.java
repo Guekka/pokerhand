@@ -13,12 +13,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class HandTest {
 
     @Nested
-    @DisplayName("Tests if the power of a hand with a single card is calculated correctly")
-    class TestPowerWithOneCard {
+    @DisplayName("Tests if the power of a hand is calculated correctly")
+    class TestPower {
         @Test
         void test_getPower_FromTheSameHand_ReturnsEqualPower() {
-            Hand hand = new Hand(List.of(new Card(CardValue.ACE)));
-            assertEquals(hand.getPower(), hand.getPower());
+            Hand hand1 = new Hand(List.of(new Card(CardValue.ACE)));
+            assertEquals(hand1.getPower(), hand1.getPower());
+
+            Hand hand2 = new Hand(List.of(new Card(CardValue.ACE), new Card(CardValue.KING), new Card(CardValue.QUEEN), new Card(CardValue.JACK), new Card(CardValue.TEN)));
+            assertEquals(hand2.getPower(), hand2.getPower());
         }
 
         @Test
@@ -26,6 +29,10 @@ class HandTest {
             Hand hand1 = new Hand(List.of(new Card(CardValue.ACE)));
             Hand hand2 = new Hand(List.of(new Card(CardValue.KING)));
             assertEquals(1, hand1.getPower().compareTo(hand2.getPower()));
+
+            Hand hand3 = new Hand(List.of(new Card(CardValue.ACE), new Card(CardValue.KING), new Card(CardValue.QUEEN), new Card(CardValue.JACK), new Card(CardValue.TEN)));
+            Hand hand4 = new Hand(List.of(new Card(CardValue.ACE), new Card(CardValue.KING), new Card(CardValue.QUEEN), new Card(CardValue.JACK), new Card(CardValue.NINE)));
+            assertEquals(1, hand3.getPower().compareTo(hand4.getPower()));
         }
 
         @Test
@@ -33,6 +40,10 @@ class HandTest {
             Hand hand = new Hand(List.of(new Card(CardValue.ACE)));
             Hand hand2 = new Hand(List.of(new Card(CardValue.KING)));
             assertEquals(-1, hand2.getPower().compareTo(hand.getPower()));
+
+            Hand hand3 = new Hand(List.of(new Card(CardValue.ACE), new Card(CardValue.KING), new Card(CardValue.QUEEN), new Card(CardValue.JACK), new Card(CardValue.NINE)));
+            Hand hand4 = new Hand(List.of(new Card(CardValue.ACE), new Card(CardValue.KING), new Card(CardValue.QUEEN), new Card(CardValue.JACK), new Card(CardValue.TEN)));
+            assertEquals(-1, hand3.getPower().compareTo(hand4.getPower()));
         }
 
 
@@ -57,6 +68,17 @@ class HandTest {
                     Arguments.of("4", new Hand(List.of(new Card(CardValue.FOUR)))),
                     Arguments.of("3", new Hand(List.of(new Card(CardValue.THREE)))),
                     Arguments.of("2", new Hand(List.of(new Card(CardValue.TWO))))
+
+                    Arguments.arguments("A K Q J 10", new Hand(List.of(new Card(CardValue.ACE), new Card(CardValue.KING), new Card(CardValue.QUEEN), new Card(CardValue.JACK), new Card(CardValue.TEN)))),
+                    Arguments.arguments("K Q J 10 9", new Hand(List.of(new Card(CardValue.KING), new Card(CardValue.QUEEN), new Card(CardValue.JACK), new Card(CardValue.TEN), new Card(CardValue.NINE)))),
+                    Arguments.arguments("Q J 10 9 8", new Hand(List.of(new Card(CardValue.QUEEN), new Card(CardValue.JACK), new Card(CardValue.TEN), new Card(CardValue.NINE), new Card(CardValue.EIGHT)))),
+                    Arguments.arguments("J 10 9 8 7", new Hand(List.of(new Card(CardValue.JACK), new Card(CardValue.TEN), new Card(CardValue.NINE), new Card(CardValue.EIGHT), new Card(CardValue.SEVEN)))),
+                    Arguments.arguments("10 9 8 7 6", new Hand(List.of(new Card(CardValue.TEN), new Card(CardValue.NINE), new Card(CardValue.EIGHT), new Card(CardValue.SEVEN), new Card(CardValue.SIX)))),
+                    Arguments.arguments("9 8 7 6 5", new Hand(List.of(new Card(CardValue.NINE), new Card(CardValue.EIGHT), new Card(CardValue.SEVEN), new Card(CardValue.SIX), new Card(CardValue.FIVE)))),
+                    Arguments.arguments("8 7 6 5 4", new Hand(List.of(new Card(CardValue.EIGHT), new Card(CardValue.SEVEN), new Card(CardValue.SIX), new Card(CardValue.FIVE), new Card(CardValue.FOUR)))),
+                    Arguments.arguments("7 6 5 4 3", new Hand(List.of(new Card(CardValue.SEVEN), new Card(CardValue.SIX), new Card(CardValue.FIVE), new Card(CardValue.FOUR), new Card(CardValue.THREE)))),
+                    Arguments.arguments("6 5 4 3 2", new Hand(List.of(new Card(CardValue.SIX), new Card(CardValue.FIVE), new Card(CardValue.FOUR), new Card(CardValue.THREE), new Card(CardValue.TWO))))
+
             );
         }
 
@@ -82,6 +104,11 @@ class HandTest {
                     Arguments.of("0"),
                     Arguments.of("13"),
                     Arguments.of("Z")
+
+                    Arguments.of("A K Q J 99"),
+                    Arguments.of("A K aj J 10"),
+                    Arguments.of("9i K Q J 10"),
+                    Arguments.of("8 2 3 1 9"),
             );
         }
 
@@ -94,8 +121,8 @@ class HandTest {
     }
 
     @Nested
-    @DisplayName("Test comparaison between two hands with one card")
-    class TestComparisonOneCard {
+    @DisplayName("Test comparaison between two hands")
+    class TestComparison {
         @Nested
         @DisplayName("Test the equals method")
         class TestEquals {
@@ -104,6 +131,10 @@ class HandTest {
                 Hand hand1 = new Hand(List.of(new Card(CardValue.ACE)));
                 Hand hand2 = new Hand(List.of(new Card(CardValue.ACE)));
                 assertEquals(hand1, hand2);
+
+                Hand hand3 = new Hand(List.of(new Card(CardValue.ACE), new Card(CardValue.KING), new Card(CardValue.QUEEN), new Card(CardValue.JACK), new Card(CardValue.TEN)));
+                Hand hand4 = new Hand(List.of(new Card(CardValue.ACE), new Card(CardValue.KING), new Card(CardValue.QUEEN), new Card(CardValue.JACK), new Card(CardValue.TEN)));
+                assertEquals(hand3, hand4);
             }
 
             @Test
@@ -117,6 +148,10 @@ class HandTest {
                 Hand hand1 = new Hand(List.of(new Card(CardValue.ACE)));
                 Hand hand2 = new Hand(List.of(new Card(CardValue.KING)));
                 assertNotEquals(hand1, hand2);
+
+                Hand hand3 = new Hand(List.of(new Card(CardValue.ACE), new Card(CardValue.KING), new Card(CardValue.QUEEN), new Card(CardValue.JACK), new Card(CardValue.TEN)));
+                Hand hand4 = new Hand(List.of(new Card(CardValue.ACE), new Card(CardValue.KING), new Card(CardValue.QUEEN), new Card(CardValue.JACK), new Card(CardValue.NINE)));
+                assertNotEquals(hand3, hand4);
             }
         }
         
@@ -129,6 +164,10 @@ class HandTest {
                 Hand hand1 = new Hand(List.of(new Card(CardValue.ACE)));
                 Hand hand2 = new Hand(List.of(new Card(CardValue.ACE)));
                 assertEquals(hand1.hashCode(), hand2.hashCode());
+
+                Hand hand3 = new Hand(List.of(new Card(CardValue.ACE), new Card(CardValue.KING), new Card(CardValue.QUEEN), new Card(CardValue.JACK), new Card(CardValue.TEN)));
+                Hand hand4 = new Hand(List.of(new Card(CardValue.ACE), new Card(CardValue.KING), new Card(CardValue.QUEEN), new Card(CardValue.JACK), new Card(CardValue.TEN)));
+                assertEquals(hand3.hashCode(), hand4.hashCode());
             }
 
             @Test
@@ -136,6 +175,10 @@ class HandTest {
                 Hand hand1 = new Hand(List.of(new Card(CardValue.ACE)));
                 Hand hand2 = new Hand(List.of(new Card(CardValue.KING)));
                 assertNotEquals(hand1.hashCode(), hand2.hashCode());
+
+                Hand hand3 = new Hand(List.of(new Card(CardValue.ACE), new Card(CardValue.KING), new Card(CardValue.QUEEN), new Card(CardValue.JACK), new Card(CardValue.TEN)));
+                Hand hand4 = new Hand(List.of(new Card(CardValue.ACE), new Card(CardValue.KING), new Card(CardValue.QUEEN), new Card(CardValue.JACK), new Card(CardValue.NINE)));
+                assertNotEquals(hand3.hashCode(), hand4.hashCode());
             }
         }
 
@@ -148,5 +191,9 @@ class HandTest {
         assertEquals("[QUEEN]", new Hand(List.of(new Card(CardValue.QUEEN))).toString());
         assertEquals("[JACK]", new Hand(List.of(new Card(CardValue.JACK))).toString());
         assertEquals("[TEN]", new Hand(List.of(new Card(CardValue.TEN))).toString());
+
+        assertEquals("[ACE, KING, QUEEN, JACK, TEN]", new Hand(List.of(new Card(CardValue.ACE), new Card(CardValue.KING), new Card(CardValue.QUEEN), new Card(CardValue.JACK), new Card(CardValue.TEN))).toString());
+        assertEquals("[TEN, NINE, EIGHT, SEVEN, SIX]", new Hand(List.of(new Card(CardValue.TEN), new Card(CardValue.NINE), new Card(CardValue.EIGHT), new Card(CardValue.SEVEN), new Card(CardValue.SIX))).toString());
+        assertEquals("[SIX, FIVE, FOUR, THREE, TWO]", new Hand(List.of(new Card(CardValue.SIX), new Card(CardValue.FIVE), new Card(CardValue.FOUR), new Card(CardValue.THREE), new Card(CardValue.TWO))).toString());
     }
 }
