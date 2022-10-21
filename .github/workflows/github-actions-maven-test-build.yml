@@ -8,6 +8,8 @@ on:
     branches: [ main ]
   pull_request:
     types: [opened, reopened, review_requested]
+  workflow_dispatch:
+
 jobs:
   build:
 
@@ -19,6 +21,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
+          cache: 'maven'
       - run: mvn --batch-mode --update-snapshots verify
       - run: mkdir staging && cp target/*.jar staging
       - uses: actions/upload-artifact@v3

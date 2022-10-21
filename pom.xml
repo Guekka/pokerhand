@@ -151,9 +151,22 @@
                 <configuration>
                     <source>17</source>
                     <doclint>none</doclint>
+                    <show>public</show>
+                    <show>protected</show>
+                    <show>package</show>
+                    <show>private</show>
+                    <detectJavaApiLink>false</detectJavaApiLink>
+                    <detectOfflineLinks>false</detectOfflineLinks>
                 </configuration>
             </plugin>
 
         </plugins>
     </reporting>
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/pns-si3-projects/dojo-poker-22-23-ps5-22-23-poker-f</url>
+        </repository>
+    </distributionManagement>
 </project>
