@@ -47,13 +47,6 @@ class CardTest {
             );
         }
 
-        @ParameterizedTest
-        @DisplayName("Test valid card strings")
-        @MethodSource("provideValidCardStrings")
-        void testValidCard(String cardString, Card expectedCard) {
-            assertEquals(expectedCard, Card.fromString(cardString));
-        }
-
         private static Stream<Arguments> provideInvalidCardStrings() {
             return Stream.of(
                     Arguments.of("A21"),
@@ -70,6 +63,24 @@ class CardTest {
                     Arguments.of("13"),
                     Arguments.of("Z")
             );
+        }
+
+        @ParameterizedTest
+        @DisplayName("Test valid card strings")
+        @MethodSource("provideValidCardStrings")
+        void testValidCard(String cardString, Card expectedCard) {
+            assertEquals(expectedCard, Card.fromString(cardString));
+        }
+
+        @Test
+        @DisplayName("Test of Card comparison")
+        void testCompareTo() {
+            var card1 = new Card(CardValue.ACE);
+            var card2 = new Card(CardValue.KING);
+            var card3 = new Card(CardValue.ACE);
+            assertTrue(card1.compareTo(card2) > 0);
+            assertTrue(card2.compareTo(card1) < 0);
+            assertTrue(card1.compareTo(card3) == 0);
         }
 
         @ParameterizedTest
