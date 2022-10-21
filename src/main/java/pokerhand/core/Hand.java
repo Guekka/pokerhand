@@ -1,21 +1,30 @@
 package pokerhand.core;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 public class Hand {
-    //for now, the hand will only contain one card
-    private final ArrayList<Card> cards;
+    private final List<Card> cards;
 
-    public Hand(Card card1) {
-        this.cards = new ArrayList<>();
-        //this.card contains card1
-        this.cards.add(card1);
+    public Hand(List<Card> cards) {
+        if (cards.isEmpty()) {
+            throw new IllegalArgumentException("Hand must contain at least one card");
+        }
+        this.cards = cards;
     }
 
+    /**
+     * Creates a Hand from a string.
+     *
+     * @param value Expected format: "A 10 2"
+     */
     public static Hand fromString(String value) {
-        return new Hand(Card.fromString(value));
-
+        var cards = Arrays.stream(value.split(" "))
+                .map(Card::fromString)
+                .toList();
+        return new Hand(cards);
     }
 
     @Override
@@ -31,16 +40,23 @@ public class Hand {
         return Objects.hash(cards);
     }
 
-    // returns the hand power => only HIGH_CARD is implemented for now
+    /**
+     * Calculates the highest hand type of this hand
+     */
     private HandType calculateHandType() {
         return HandType.HIGH_CARD;
     }
 
-    private ArrayList<CardValue> calculateSecondary(HandType handType) {
+    /**
+     * Calculates the secondary power of a hand.
+     * For HIGH_CARD, this is done by reverse sorting the cards
+     */
+    private List<CardValue> calculateSecondary(HandType handType) {
         if (handType == HandType.HIGH_CARD) {
-            var ret = new ArrayList<CardValue>();
-            ret.add(cards.get(0).value());
-            return ret;
+            return cards.stream()
+                    .sorted(Collections.reverseOrder())
+                    .map(Card::value)
+                    .toList();
         }
         throw new UnsupportedOperationException("Not implemented yet");
     }

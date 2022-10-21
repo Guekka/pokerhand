@@ -6,7 +6,7 @@ package pokerhand.core;
  *
  * @param value the value of the card
  */
-public record Card(CardValue value) {
+public record Card(CardValue value) implements Comparable<Card> {
     /**
      * Representation of the card as a string.
      *
@@ -39,5 +39,10 @@ public record Card(CardValue value) {
         };
         return new Card(cardValue);
 
+    }
+
+    @Override
+    public int compareTo(Card other) {
+        return this.value.compareTo(other.value);
     }
 }
