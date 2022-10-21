@@ -14,6 +14,7 @@ public record Card(CardValue value, CardColor color) implements Comparable<Card>
      * @return the card represented by the string
      */
     public static Card fromString(String string) {
+        
         String value = string.substring(0, string.length() - 2);
         CardValue cardValue = switch (string) {
             case "J" -> CardValue.JACK;
@@ -63,4 +64,11 @@ public record Card(CardValue value, CardColor color) implements Comparable<Card>
         return this.color().compareTo(other.color());
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Card card) {
+            return this.value == card.value && this.color == card.color;
+        }
+        return false;
+    }
 }
