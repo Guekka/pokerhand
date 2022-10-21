@@ -15,6 +15,11 @@ public class Hand {
         this.cards = cards;
     }
 
+    /**
+     * Creates a Hand from a string.
+     *
+     * @param value Expected format: "A 10 2"
+     */
     public static Hand fromString(String value) {
         var cards = Arrays.stream(value.split(" "))
                 .map(Card::fromString)
@@ -35,10 +40,17 @@ public class Hand {
         return Objects.hash(cards);
     }
 
+    /**
+     * Calculates the highest hand type of this hand
+     */
     private HandType calculateHandType() {
         return HandType.HIGH_CARD;
     }
 
+    /**
+     * Calculates the secondary power of a hand.
+     * For HIGH_CARD, this is done by reverse sorting the cards
+     */
     private List<CardValue> calculateSecondary(HandType handType) {
         if (handType == HandType.HIGH_CARD) {
             return cards.stream()
