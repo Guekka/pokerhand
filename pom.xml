@@ -116,6 +116,12 @@
                 <configuration>
                     <source>17</source>
                     <doclint>none</doclint>
+                    <show>public</show>
+                    <show>protected</show>
+                    <show>package</show>
+                    <show>private</show>
+                    <detectJavaApiLink>false</detectJavaApiLink>
+                    <detectOfflineLinks>false</detectOfflineLinks>
                 </configuration>
             </plugin>
 
