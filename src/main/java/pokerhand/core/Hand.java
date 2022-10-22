@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public class Hand {
     private final List<Card> cards;
@@ -42,9 +43,91 @@ public class Hand {
      * Calculates the highest hand type of this hand
      */
     private HandType calculateHandType() {
-        if (isFlush()) return HandType.FLUSH;
-
+        if (isStraightFlush()) {
+            return HandType.STRAIGHT_FLUSH;
+        }
+        if (isFourOfAKind()) {
+            return HandType.FOUR_OF_A_KIND;
+        }
+        if (isFullHouse()) {
+            return HandType.FULL_HOUSE;
+        }
+        if (isFlush()) {
+            return HandType.FLUSH;
+        }
+        if (isStraight()) {
+            return HandType.STRAIGHT;
+        }
+        if (isThreeOfAKind()) {
+            return HandType.THREE_OF_A_KIND;
+        }
+        if (isTwoPair()) {
+            return HandType.TWO_PAIR;
+        }
+        if (isPair()) {
+            return HandType.PAIR;
+        }
         return HandType.HIGH_CARD;
+    }
+
+    private boolean isStraightFlush() {
+        return false;
+    }
+
+    private boolean isFourOfAKind() {
+        return cards.stream()
+                .map(Card::value)
+                .distinct()
+                .count() == 2;
+    }
+
+    private boolean isFullHouse() {
+        return false;
+    }
+
+    private boolean isStraight() {
+        return false;
+    }
+
+    private boolean isThreeOfAKind() {
+        return cards.stream()
+                .map(Card::value)
+                .distinct()
+                .count() == 3;
+    }
+
+    private boolean isTwoPair() {
+        return false;
+    }
+
+    private boolean isPair() {
+        return cards.stream()
+                .map(Card::value)
+                .distinct()
+                .count() == 4;
+    }
+
+    /**
+     * method to get the duplicate cards in the Hand, then the other values sorted
+     *
+     * @param numberOfCards the number of identical cards in the hand
+     */
+    private List<CardValue> sameCardHands(int numberOfCards) {
+        CardValue duplicate = this.cards.stream()
+                .map(Card::value)
+                .distinct()
+                .filter(value -> this.cards.stream()
+                        .filter(card -> card.value().equals(value))
+                        .count() == numberOfCards)
+                .findFirst()
+                .orElseThrow();
+        List<CardValue> rest = this.cards.stream()
+                .filter(card -> !card.value().equals(duplicate))
+                .sorted(Collections.reverseOrder())
+                .map(Card::value)
+                .toList();
+        return Stream.concat(Stream.of(duplicate), rest.stream())
+                .toList();
     }
 
     /**
@@ -52,15 +135,20 @@ public class Hand {
      * For HIGH_CARD, this is done by reverse sorting the cards
      */
     private List<CardValue> calculateSecondary(HandType handType) {
-        if (handType == HandType.HIGH_CARD) {
-            return cards.stream().sorted(Collections.reverseOrder()).map(Card::value).toList();
-        }
-        if (handType == HandType.FLUSH) {
-            return cards.stream().sorted(Collections.reverseOrder()).map(Card::value).toList();
-        }
+        return switch (handType) {
+            case HIGH_CARD, FLUSH -> this.cards.stream()
+                    .sorted(Collections.reverseOrder())
+                    .map(Card::value)
+                    .toList();
 
-        throw new UnsupportedOperationException("Not implemented yet");
+            case PAIR -> sameCardHands(2);
 
+            case THREE_OF_A_KIND -> sameCardHands(3);
+
+            case FOUR_OF_A_KIND -> sameCardHands(4);
+
+            default -> throw new UnsupportedOperationException("Not implemented yet");
+        };
     }
 
     public boolean isFlush() {
@@ -77,5 +165,9 @@ public class Hand {
     @Override
     public String toString() {
         return cards.toString();
+    }
+
+    public String getHandType() {
+        return calculateHandType().toString();
     }
 }
