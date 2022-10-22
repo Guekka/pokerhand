@@ -22,7 +22,7 @@ class CardTest {
     @Test
     void testToString() {
         var card = new Card(CardValue.ACE, CardColor.DIAMOND);
-        assertEquals("ACE", card.toString());
+        assertEquals("ACEDIAMOND", card.toString());
     }
 
     @Nested
@@ -31,19 +31,19 @@ class CardTest {
 
         private static Stream<Arguments> provideValidCardStrings() {
             return Stream.of(
-                    Arguments.of("A", new Card(CardValue.ACE, CardColor.DIAMOND)),
-                    Arguments.of("K", new Card(CardValue.KING, CardColor.DIAMOND)),
-                    Arguments.of("Q", new Card(CardValue.QUEEN, CardColor.DIAMOND)),
-                    Arguments.of("J", new Card(CardValue.JACK, CardColor.DIAMOND)),
-                    Arguments.of("10", new Card(CardValue.TEN, CardColor.DIAMOND)),
-                    Arguments.of("9", new Card(CardValue.NINE, CardColor.DIAMOND)),
-                    Arguments.of("8", new Card(CardValue.EIGHT, CardColor.CLUB)),
-                    Arguments.of("7", new Card(CardValue.SEVEN, CardColor.CLUB)),
-                    Arguments.of("6", new Card(CardValue.SIX, CardColor.CLUB)),
-                    Arguments.of("5", new Card(CardValue.FIVE, CardColor.CLUB)),
-                    Arguments.of("4", new Card(CardValue.FOUR, CardColor.CLUB)),
-                    Arguments.of("3", new Card(CardValue.THREE, CardColor.CLUB)),
-                    Arguments.of("2", new Card(CardValue.TWO, CardColor.CLUB))
+                    Arguments.of("ACa", new Card(CardValue.ACE, CardColor.DIAMOND)),
+                    Arguments.of("KCa", new Card(CardValue.KING, CardColor.DIAMOND)),
+                    Arguments.of("QCa", new Card(CardValue.QUEEN, CardColor.DIAMOND)),
+                    Arguments.of("JCo", new Card(CardValue.JACK, CardColor.HEART)),
+                    Arguments.of("10Co", new Card(CardValue.TEN, CardColor.HEART)),
+                    Arguments.of("9Co", new Card(CardValue.NINE, CardColor.HEART)),
+                    Arguments.of("8Tr", new Card(CardValue.EIGHT, CardColor.CLUB)),
+                    Arguments.of("7Tr", new Card(CardValue.SEVEN, CardColor.CLUB)),
+                    Arguments.of("6Tr", new Card(CardValue.SIX, CardColor.CLUB)),
+                    Arguments.of("5Pi", new Card(CardValue.FIVE, CardColor.SPADE)),
+                    Arguments.of("4Pi", new Card(CardValue.FOUR, CardColor.SPADE)),
+                    Arguments.of("3Pi", new Card(CardValue.THREE, CardColor.SPADE)),
+                    Arguments.of("2Pi", new Card(CardValue.TWO, CardColor.SPADE))
             );
         }
 

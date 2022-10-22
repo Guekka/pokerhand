@@ -14,31 +14,34 @@ public record Card(CardValue value, CardColor color) implements Comparable<Card>
      * @return the card represented by the string
      */
     public static Card fromString(String string) {
-        String value = string.substring(0, string.length() - 2);
-        CardValue cardValue = switch (string) {
-            case "J" -> CardValue.JACK;
-            case "Q" -> CardValue.QUEEN;
-            case "K" -> CardValue.KING;
-            case "A" -> CardValue.ACE;
-            default -> {
-                if (value.matches("([2-9]|10)")) {
-                    yield (CardValue.values()[Integer.parseInt(string) - 2]);
-                } else {
-                    throw new IllegalArgumentException("Card must be between 2 and 10, or J, Q, K, A");
+        if (string.length() >= 3 && string.length() <= 4) {
+            String value = string.substring(0, string.length() - 2);
+            CardValue cardValue = switch (value) {
+                case "J" -> CardValue.JACK;
+                case "Q" -> CardValue.QUEEN;
+                case "K" -> CardValue.KING;
+                case "A" -> CardValue.ACE;
+                default -> {
+                    if (value.matches("([2-9]|10)")) {
+                        yield (CardValue.values()[Integer.parseInt(value) - 2]);
+                    } else {
+                        throw new IllegalArgumentException("Card must be between 2 and 10, or J, Q, K, A");
+                    }
                 }
-            }
-        };
-        String color = string.substring(string.length() - 2);
+            };
+            String color = string.substring(string.length() - 2);
 
-        CardColor cardColor = switch (color) {
-            case "Tr" -> CardColor.CLUB;
-            case "Co" -> CardColor.HEART;
-            case "Ca" -> CardColor.DIAMOND;
-            case "Pi" -> CardColor.SPADE;
-            default -> throw new IllegalArgumentException("CardColor must be between Tr ,Co,Ca,Pi");
-        };
-        return new Card(cardValue, cardColor);
-
+            CardColor cardColor = switch (color) {
+                case "Tr" -> CardColor.CLUB;
+                case "Co" -> CardColor.HEART;
+                case "Ca" -> CardColor.DIAMOND;
+                case "Pi" -> CardColor.SPADE;
+                default -> throw new IllegalArgumentException("CardColor must be between Tr ,Co,Ca,Pi");
+            };
+            return new Card(cardValue, cardColor);
+        } else {
+            throw new IllegalArgumentException("Card must have 3 or 4 characters like 2Tr or 10Ca");
+        }
     }
 
     /**
@@ -47,7 +50,13 @@ public record Card(CardValue value, CardColor color) implements Comparable<Card>
      * @return the string representation of the card
      */
     public String toString() {
-        return value.toString();
+        /**  String colorToPrinted = switch (color) {
+         case CLUB -> "Tr";
+         case HEART -> "Co";
+         case DIAMOND -> "Ca";
+         case SPADE -> "Pi";
+         };**/
+        return value.toString() + color.toString();
     }
 
     @Override
