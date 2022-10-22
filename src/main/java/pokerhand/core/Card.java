@@ -40,8 +40,9 @@ public record Card(CardValue value, CardColor color) implements Comparable<Card>
             };
             return new Card(cardValue, cardColor);
         } else {
-            throw new IllegalArgumentException("Card must have 3 or 4 characters like 2Tr or 10Ca");
+            throw new IllegalArgumentException("Card must have 3 or 4 characters");
         }
+
     }
 
     /**
@@ -50,12 +51,6 @@ public record Card(CardValue value, CardColor color) implements Comparable<Card>
      * @return the string representation of the card
      */
     public String toString() {
-        /**  String colorToPrinted = switch (color) {
-         case CLUB -> "Tr";
-         case HEART -> "Co";
-         case DIAMOND -> "Ca";
-         case SPADE -> "Pi";
-         };**/
         return value.toString() + color.toString();
     }
 

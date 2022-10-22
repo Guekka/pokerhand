@@ -34,15 +34,15 @@ class CardTest {
                     Arguments.of("ACa", new Card(CardValue.ACE, CardColor.DIAMOND)),
                     Arguments.of("KCa", new Card(CardValue.KING, CardColor.DIAMOND)),
                     Arguments.of("QCa", new Card(CardValue.QUEEN, CardColor.DIAMOND)),
-                    Arguments.of("JCo", new Card(CardValue.JACK, CardColor.HEART)),
+                    Arguments.of("JCa", new Card(CardValue.JACK, CardColor.DIAMOND)),
                     Arguments.of("10Co", new Card(CardValue.TEN, CardColor.HEART)),
                     Arguments.of("9Co", new Card(CardValue.NINE, CardColor.HEART)),
-                    Arguments.of("8Tr", new Card(CardValue.EIGHT, CardColor.CLUB)),
-                    Arguments.of("7Tr", new Card(CardValue.SEVEN, CardColor.CLUB)),
+                    Arguments.of("8Co", new Card(CardValue.EIGHT, CardColor.HEART)),
+                    Arguments.of("7Co", new Card(CardValue.SEVEN, CardColor.HEART)),
                     Arguments.of("6Tr", new Card(CardValue.SIX, CardColor.CLUB)),
-                    Arguments.of("5Pi", new Card(CardValue.FIVE, CardColor.SPADE)),
-                    Arguments.of("4Pi", new Card(CardValue.FOUR, CardColor.SPADE)),
-                    Arguments.of("3Pi", new Card(CardValue.THREE, CardColor.SPADE)),
+                    Arguments.of("5Tr", new Card(CardValue.FIVE, CardColor.CLUB)),
+                    Arguments.of("4Tr", new Card(CardValue.FOUR, CardColor.CLUB)),
+                    Arguments.of("3Tr", new Card(CardValue.THREE, CardColor.CLUB)),
                     Arguments.of("2Pi", new Card(CardValue.TWO, CardColor.SPADE))
             );
         }
