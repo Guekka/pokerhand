@@ -16,15 +16,15 @@ class HandTest {
 
     @Test
     void test_toString_WhenGivenDifferentHands_ReturnsCorrectStringRepresentationOfTheHand() {
-        assertEquals("[ACE]", new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB))).toString());
-        assertEquals("[KING]", new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB))).toString());
-        assertEquals("[QUEEN]", new Hand(List.of(new Card(CardValue.QUEEN, CardColor.CLUB))).toString());
-        assertEquals("[JACK]", new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB))).toString());
-        assertEquals("[TEN]", new Hand(List.of(new Card(CardValue.TEN, CardColor.CLUB))).toString());
+        assertEquals("[ACE Tr]", new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB))).toString());
+        assertEquals("[KING Tr]", new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB))).toString());
+        assertEquals("[QUEEN Tr]", new Hand(List.of(new Card(CardValue.QUEEN, CardColor.CLUB))).toString());
+        assertEquals("[JACK Tr]", new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB))).toString());
+        assertEquals("[TEN Co]", new Hand(List.of(new Card(CardValue.TEN, CardColor.HEART))).toString());
 
-        assertEquals("[ACE, KING, QUEEN, JACK, TEN]", new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB))).toString());
-        assertEquals("[TEN, NINE, EIGHT, SEVEN, SIX]", new Hand(List.of(new Card(CardValue.TEN, CardColor.CLUB), new Card(CardValue.NINE, CardColor.CLUB), new Card(CardValue.EIGHT, CardColor.CLUB), new Card(CardValue.SEVEN, CardColor.CLUB), new Card(CardValue.SIX, CardColor.CLUB))).toString());
-        assertEquals("[SIX, FIVE, FOUR, THREE, TWO]", new Hand(List.of(new Card(CardValue.SIX, CardColor.CLUB), new Card(CardValue.FIVE, CardColor.CLUB), new Card(CardValue.FOUR, CardColor.CLUB), new Card(CardValue.THREE, CardColor.CLUB), new Card(CardValue.TWO, CardColor.CLUB))).toString());
+        assertEquals("[ACE Tr, KING Tr, QUEEN Tr, JACK Tr, TEN Tr]", new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB))).toString());
+        assertEquals("[TEN Co, NINE Ca, EIGHT Co, SEVEN Ca, SIX Pi]", new Hand(List.of(new Card(CardValue.TEN, CardColor.HEART), new Card(CardValue.NINE, CardColor.DIAMOND), new Card(CardValue.EIGHT, CardColor.HEART), new Card(CardValue.SEVEN, CardColor.DIAMOND), new Card(CardValue.SIX, CardColor.SPADE))).toString());
+        assertEquals("[SIX Co, FIVE Pi, FOUR Tr, THREE Tr, TWO Tr]", new Hand(List.of(new Card(CardValue.SIX, CardColor.CLUB), new Card(CardValue.FIVE, CardColor.CLUB), new Card(CardValue.FOUR, CardColor.CLUB), new Card(CardValue.THREE, CardColor.CLUB), new Card(CardValue.TWO, CardColor.CLUB))).toString());
     }
 
     @Nested
