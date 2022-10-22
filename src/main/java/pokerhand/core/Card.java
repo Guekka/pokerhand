@@ -14,7 +14,6 @@ public record Card(CardValue value, CardColor color) implements Comparable<Card>
      * @return the card represented by the string
      */
     public static Card fromString(String string) {
-<<<<<<< HEAD
         if (string.length() >= 3 && string.length() <= 4) {
             String value = string.substring(0, string.length() - 2);
             CardValue cardValue = switch (value) {
@@ -28,20 +27,8 @@ public record Card(CardValue value, CardColor color) implements Comparable<Card>
                     } else {
                         throw new IllegalArgumentException("Card must be between 2 and 10, or J, Q, K, A");
                     }
-=======
-        
-        String value = string.substring(0, string.length() - 2);
-        CardValue cardValue = switch (string) {
-            case "J" -> CardValue.JACK;
-            case "Q" -> CardValue.QUEEN;
-            case "K" -> CardValue.KING;
-            case "A" -> CardValue.ACE;
-            default -> {
-                if (value.matches("([2-9]|10)")) {
-                    yield (CardValue.values()[Integer.parseInt(string) - 2]);
-                } else {
-                    throw new IllegalArgumentException("Card must be between 2 and 10, or J, Q, K, A");
->>>>>>> d589b4885bf2679d39b7db34deb60427b122de86
+
+
                 }
             };
             String color = string.substring(string.length() - 2);
