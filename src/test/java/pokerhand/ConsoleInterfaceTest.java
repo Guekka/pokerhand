@@ -18,7 +18,7 @@ class ConsoleInterfaceTest {
         @DisplayName("Test the integration of the console interface")
         void test_main_WhenGivenTwoHandsWithOneCardBiggerThanTheOther_PrintsTheBiggerHand() {
             InputStream sysInBackup = System.in; // backup System.in to restore it later
-            ByteArrayInputStream in = new ByteArrayInputStream("4\n5".getBytes());
+            ByteArrayInputStream in = new ByteArrayInputStream("4Co\n5Co".getBytes());
             PrintStream sysOutBackup = System.out; // backup System.out to restore it later
             ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
             PrintStream out = new PrintStream(byteOut);
@@ -31,7 +31,7 @@ class ConsoleInterfaceTest {
             assertEquals("Please enter the first hand:", splits[1].trim());
             assertEquals("Please enter the second hand:", splits[2].trim());
             assertEquals("The winner is:", splits[3].trim());
-            assertEquals("[FIVE]", splits[4].trim());
+            assertEquals("[FIVE HEART]", splits[4].trim());
 
 
             System.setIn(sysInBackup);

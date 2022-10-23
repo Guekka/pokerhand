@@ -16,15 +16,15 @@ class HandTest {
 
     @Test
     void test_toString_WhenGivenDifferentHands_ReturnsCorrectStringRepresentationOfTheHand() {
-        assertEquals("[ACE Tr]", new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB))).toString());
-        assertEquals("[KING Tr]", new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB))).toString());
-        assertEquals("[QUEEN Tr]", new Hand(List.of(new Card(CardValue.QUEEN, CardColor.CLUB))).toString());
-        assertEquals("[JACK Tr]", new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB))).toString());
-        assertEquals("[TEN Co]", new Hand(List.of(new Card(CardValue.TEN, CardColor.HEART))).toString());
+        assertEquals("[ACE CLUB]", new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB))).toString());
+        assertEquals("[KING CLUB]", new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB))).toString());
+        assertEquals("[QUEEN CLUB]", new Hand(List.of(new Card(CardValue.QUEEN, CardColor.CLUB))).toString());
+        assertEquals("[JACK CLUB]", new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB))).toString());
+        assertEquals("[TEN HEART]", new Hand(List.of(new Card(CardValue.TEN, CardColor.HEART))).toString());
 
-        assertEquals("[ACE Tr, KING Tr, QUEEN Tr, JACK Tr, TEN Tr]", new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB))).toString());
-        assertEquals("[TEN Co, NINE Ca, EIGHT Co, SEVEN Ca, SIX Pi]", new Hand(List.of(new Card(CardValue.TEN, CardColor.HEART), new Card(CardValue.NINE, CardColor.DIAMOND), new Card(CardValue.EIGHT, CardColor.HEART), new Card(CardValue.SEVEN, CardColor.DIAMOND), new Card(CardValue.SIX, CardColor.SPADE))).toString());
-        assertEquals("[SIX Co, FIVE Pi, FOUR Tr, THREE Tr, TWO Tr]", new Hand(List.of(new Card(CardValue.SIX, CardColor.CLUB), new Card(CardValue.FIVE, CardColor.CLUB), new Card(CardValue.FOUR, CardColor.CLUB), new Card(CardValue.THREE, CardColor.CLUB), new Card(CardValue.TWO, CardColor.CLUB))).toString());
+        assertEquals("[ACE CLUB, KING CLUB, QUEEN CLUB, JACK CLUB, TEN CLUB]", new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB))).toString());
+        assertEquals("[TEN HEART, NINE DIAMOND, EIGHT HEART, SEVEN DIAMOND, SIX SPADE]", new Hand(List.of(new Card(CardValue.TEN, CardColor.HEART), new Card(CardValue.NINE, CardColor.DIAMOND), new Card(CardValue.EIGHT, CardColor.HEART), new Card(CardValue.SEVEN, CardColor.DIAMOND), new Card(CardValue.SIX, CardColor.SPADE))).toString());
+        assertEquals("[SIX HEART, FIVE SPADE, FOUR CLUB, THREE CLUB, TWO CLUB]", new Hand(List.of(new Card(CardValue.SIX, CardColor.HEART), new Card(CardValue.FIVE, CardColor.SPADE), new Card(CardValue.FOUR, CardColor.CLUB), new Card(CardValue.THREE, CardColor.CLUB), new Card(CardValue.TWO, CardColor.CLUB))).toString());
     }
 
     @Nested
@@ -70,29 +70,29 @@ class HandTest {
 
         private static Stream<Arguments> provideValidHandStrings() {
             return Stream.of(
-                    Arguments.of("A", new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB)))),
-                    Arguments.of("K", new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB)))),
-                    Arguments.of("Q", new Hand(List.of(new Card(CardValue.QUEEN, CardColor.CLUB)))),
-                    Arguments.of("J", new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB)))),
-                    Arguments.of("10", new Hand(List.of(new Card(CardValue.TEN, CardColor.CLUB)))),
-                    Arguments.of("9", new Hand(List.of(new Card(CardValue.NINE, CardColor.CLUB)))),
-                    Arguments.of("8", new Hand(List.of(new Card(CardValue.EIGHT, CardColor.CLUB)))),
-                    Arguments.of("7", new Hand(List.of(new Card(CardValue.SEVEN, CardColor.CLUB)))),
-                    Arguments.of("6", new Hand(List.of(new Card(CardValue.SIX, CardColor.CLUB)))),
-                    Arguments.of("5", new Hand(List.of(new Card(CardValue.FIVE, CardColor.CLUB)))),
-                    Arguments.of("4", new Hand(List.of(new Card(CardValue.FOUR, CardColor.CLUB)))),
-                    Arguments.of("3", new Hand(List.of(new Card(CardValue.THREE, CardColor.CLUB)))),
-                    Arguments.of("2", new Hand(List.of(new Card(CardValue.TWO, CardColor.CLUB)))),
+                    Arguments.of("ATr", new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB)))),
+                    Arguments.of("KTr", new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB)))),
+                    Arguments.of("QTr", new Hand(List.of(new Card(CardValue.QUEEN, CardColor.CLUB)))),
+                    Arguments.of("JPi", new Hand(List.of(new Card(CardValue.JACK, CardColor.SPADE)))),
+                    Arguments.of("10Pi", new Hand(List.of(new Card(CardValue.TEN, CardColor.SPADE)))),
+                    Arguments.of("9Pi", new Hand(List.of(new Card(CardValue.NINE, CardColor.SPADE)))),
+                    Arguments.of("8Co", new Hand(List.of(new Card(CardValue.EIGHT, CardColor.HEART)))),
+                    Arguments.of("7Co", new Hand(List.of(new Card(CardValue.SEVEN, CardColor.HEART)))),
+                    Arguments.of("6Co", new Hand(List.of(new Card(CardValue.SIX, CardColor.HEART)))),
+                    Arguments.of("5Ca", new Hand(List.of(new Card(CardValue.FIVE, CardColor.DIAMOND)))),
+                    Arguments.of("4Ca", new Hand(List.of(new Card(CardValue.FOUR, CardColor.DIAMOND)))),
+                    Arguments.of("3Ca", new Hand(List.of(new Card(CardValue.THREE, CardColor.DIAMOND)))),
+                    Arguments.of("2Ca", new Hand(List.of(new Card(CardValue.TWO, CardColor.DIAMOND)))),
 
-                    Arguments.arguments("A K Q J 10", new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)))),
-                    Arguments.arguments("K Q J 10 9", new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB), new Card(CardValue.NINE, CardColor.CLUB)))),
-                    Arguments.arguments("Q J 10 9 8", new Hand(List.of(new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB), new Card(CardValue.NINE, CardColor.CLUB), new Card(CardValue.EIGHT, CardColor.CLUB)))),
-                    Arguments.arguments("J 10 9 8 7", new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB), new Card(CardValue.NINE, CardColor.CLUB), new Card(CardValue.EIGHT, CardColor.CLUB), new Card(CardValue.SEVEN, CardColor.CLUB)))),
-                    Arguments.arguments("10 9 8 7 6", new Hand(List.of(new Card(CardValue.TEN, CardColor.CLUB), new Card(CardValue.NINE, CardColor.CLUB), new Card(CardValue.EIGHT, CardColor.CLUB), new Card(CardValue.SEVEN, CardColor.CLUB), new Card(CardValue.SIX, CardColor.CLUB)))),
-                    Arguments.arguments("9 8 7 6 5", new Hand(List.of(new Card(CardValue.NINE, CardColor.CLUB), new Card(CardValue.EIGHT, CardColor.CLUB), new Card(CardValue.SEVEN, CardColor.CLUB), new Card(CardValue.SIX, CardColor.CLUB), new Card(CardValue.FIVE, CardColor.CLUB)))),
-                    Arguments.arguments("8 7 6 5 4", new Hand(List.of(new Card(CardValue.EIGHT, CardColor.CLUB), new Card(CardValue.SEVEN, CardColor.CLUB), new Card(CardValue.SIX, CardColor.CLUB), new Card(CardValue.FIVE, CardColor.CLUB), new Card(CardValue.FOUR, CardColor.CLUB)))),
-                    Arguments.arguments("7 6 5 4 3", new Hand(List.of(new Card(CardValue.SEVEN, CardColor.CLUB), new Card(CardValue.SIX, CardColor.CLUB), new Card(CardValue.FIVE, CardColor.CLUB), new Card(CardValue.FOUR, CardColor.CLUB), new Card(CardValue.THREE, CardColor.CLUB)))),
-                    Arguments.arguments("6 5 4 3 2", new Hand(List.of(new Card(CardValue.SIX, CardColor.CLUB), new Card(CardValue.FIVE, CardColor.CLUB), new Card(CardValue.FOUR, CardColor.CLUB), new Card(CardValue.THREE, CardColor.CLUB), new Card(CardValue.TWO, CardColor.CLUB))))
+                    Arguments.arguments("ATr KCa QPi JCo 10Tr", new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.DIAMOND), new Card(CardValue.QUEEN, CardColor.SPADE), new Card(CardValue.JACK, CardColor.HEART), new Card(CardValue.TEN, CardColor.CLUB)))),
+                    Arguments.arguments("KTr QCa JPi 10Co 9Tr", new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.DIAMOND), new Card(CardValue.JACK, CardColor.SPADE), new Card(CardValue.TEN, CardColor.HEART), new Card(CardValue.NINE, CardColor.CLUB)))),
+                    Arguments.arguments("QTr JCa 10Pi 9Co 8Tr", new Hand(List.of(new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.DIAMOND), new Card(CardValue.TEN, CardColor.SPADE), new Card(CardValue.NINE, CardColor.HEART), new Card(CardValue.EIGHT, CardColor.CLUB)))),
+                    Arguments.arguments("JTr 10Ca 9Pi 8Co 7Tr", new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.DIAMOND), new Card(CardValue.NINE, CardColor.SPADE), new Card(CardValue.EIGHT, CardColor.HEART), new Card(CardValue.SEVEN, CardColor.CLUB)))),
+                    Arguments.arguments("10Tr 9Ca 8Pi 7Co 6Tr", new Hand(List.of(new Card(CardValue.TEN, CardColor.CLUB), new Card(CardValue.NINE, CardColor.DIAMOND), new Card(CardValue.EIGHT, CardColor.SPADE), new Card(CardValue.SEVEN, CardColor.HEART), new Card(CardValue.SIX, CardColor.CLUB)))),
+                    Arguments.arguments("9Tr 8Ca 7Pi 6Co 5Tr", new Hand(List.of(new Card(CardValue.NINE, CardColor.CLUB), new Card(CardValue.EIGHT, CardColor.DIAMOND), new Card(CardValue.SEVEN, CardColor.SPADE), new Card(CardValue.SIX, CardColor.HEART), new Card(CardValue.FIVE, CardColor.CLUB)))),
+                    Arguments.arguments("8Tr 7Ca 6Pi 5Co 4Tr", new Hand(List.of(new Card(CardValue.EIGHT, CardColor.CLUB), new Card(CardValue.SEVEN, CardColor.DIAMOND), new Card(CardValue.SIX, CardColor.SPADE), new Card(CardValue.FIVE, CardColor.HEART), new Card(CardValue.FOUR, CardColor.CLUB)))),
+                    Arguments.arguments("7Tr 6Ca 5Pi 4Co 3Tr", new Hand(List.of(new Card(CardValue.SEVEN, CardColor.CLUB), new Card(CardValue.SIX, CardColor.DIAMOND), new Card(CardValue.FIVE, CardColor.SPADE), new Card(CardValue.FOUR, CardColor.HEART), new Card(CardValue.THREE, CardColor.CLUB)))),
+                    Arguments.arguments("6Tr 5Ca 4Pi 3Co 2Tr", new Hand(List.of(new Card(CardValue.SIX, CardColor.CLUB), new Card(CardValue.FIVE, CardColor.DIAMOND), new Card(CardValue.FOUR, CardColor.SPADE), new Card(CardValue.THREE, CardColor.HEART), new Card(CardValue.TWO, CardColor.CLUB))))
 
             );
         }
