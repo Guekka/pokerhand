@@ -53,7 +53,7 @@ public record Card(CardValue value, CardColor color) implements Comparable<Card>
      * @return the string representation of the card
      */
     public String toString() {
-        return value.toString() + color.toString();
+        return value.toString() + " " + color.toString();
     }
 
     @Override
