@@ -167,7 +167,7 @@ public class Hand {
         return cards.toString();
     }
 
-    public String getHandType() {
-        return calculateHandType().toString();
+    public HandType getHandType() {
+        return calculateHandType();
     }
 }
