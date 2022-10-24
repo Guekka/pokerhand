@@ -21,9 +21,7 @@ public class Hand {
      * @param value Expected format: "A 10 2"
      */
     public static Hand fromString(String value) {
-        var cards = Arrays.stream(value.split(" "))
-                .map(Card::fromString)
-                .toList();
+        var cards = Arrays.stream(value.split(" ")).map(Card::fromString).toList();
         return new Hand(cards);
     }
 
@@ -44,8 +42,7 @@ public class Hand {
      * Calculates the highest hand type of this hand
      */
     private HandType calculateHandType() {
-        if (isFlush())
-            return HandType.FLUSH;
+        if (isFlush()) return HandType.FLUSH;
 
         return HandType.HIGH_CARD;
     }
@@ -56,10 +53,7 @@ public class Hand {
      */
     private List<CardValue> calculateSecondary(HandType handType) {
         if (handType == HandType.HIGH_CARD) {
-            return cards.stream()
-                    .sorted(Collections.reverseOrder())
-                    .map(Card::value)
-                    .toList();
+            return cards.stream().sorted(Collections.reverseOrder()).map(Card::value).toList();
         }
         if (handType == HandType.FLUSH) {
             return cards.stream().sorted().map(Card::value).toList();
@@ -71,18 +65,7 @@ public class Hand {
 
     public boolean isFlush() {
         CardColor possibleColor = cards.get(0).color();
-        boolean sameColor = true;
-        for (Card c : cards
-        ) {
-            if (c.color() != possibleColor) {
-                sameColor = false;
-                break;
-
-            }
-
-
-        }
-        return sameColor;
+        return this.cards.stream().allMatch(card -> card.color() == possibleColor);
     }
 
 
