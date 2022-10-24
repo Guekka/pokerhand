@@ -56,7 +56,7 @@ public class Hand {
             return cards.stream().sorted(Collections.reverseOrder()).map(Card::value).toList();
         }
         if (handType == HandType.FLUSH) {
-            return cards.stream().sorted().map(Card::value).toList();
+            return cards.stream().sorted(Collections.reverseOrder()).map(Card::value).toList();
         }
 
         throw new UnsupportedOperationException("Not implemented yet");
