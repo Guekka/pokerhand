@@ -47,7 +47,7 @@ class PartyTest {
             }
 
             @Test
-            void testFlushHandType(){
+            void testFlushHandType() {
                 // flush, not straight
                 var flushHand = new Hand(List.of(new Card(CardValue.TWO, CardColor.CLUB), new Card(CardValue.THREE, CardColor.CLUB), new Card(CardValue.FOUR, CardColor.CLUB), new Card(CardValue.FIVE, CardColor.CLUB), new Card(CardValue.SEVEN, CardColor.CLUB)));
                 // best card
@@ -59,7 +59,7 @@ class PartyTest {
             }
 
             @Test
-            void testFlushSecondary(){
+            void testFlushSecondary() {
                 // flush, not straight
                 var flushHand = new Hand(List.of(new Card(CardValue.TWO, CardColor.CLUB), new Card(CardValue.FIVE, CardColor.CLUB), new Card(CardValue.SIX, CardColor.CLUB), new Card(CardValue.SEVEN, CardColor.CLUB), new Card(CardValue.NINE, CardColor.CLUB)));
                 // better flush, not straight
