@@ -3,6 +3,7 @@ package pokerhand.core;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 public class Party {
     private final ArrayList<Hand> hands;
@@ -13,9 +14,13 @@ public class Party {
         this.hands.add(hand2);
     }
 
-    public Hand getWinner() {
+    public Optional<Hand> getWinner() {
+        // if all hands are equals, return None
+        if (hands.stream().allMatch(hand -> hands.get(0).equals(hand)))
+            return Optional.empty();
+
         // get maximum element
-        return hands.stream().max(Comparator.comparing(Hand::getPower)).orElseThrow();
+        return hands.stream().max(Comparator.comparing(Hand::getPower));
     }
 
     public List<Hand> getHands() {
