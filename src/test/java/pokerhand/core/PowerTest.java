@@ -4,122 +4,107 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PowerTest {
     @Nested
-    @DisplayName("Test comparaison between two Power")
-    class TestComparisons {
-        @Nested
-        @DisplayName("Test the equals method")
-        class TestEquals {
-            @Test
-            void testEqualPower() {
-                Power power1 = new Power(HandType.HIGH_CARD, new ArrayList<>());
-                Power power2 = new Power(HandType.HIGH_CARD, new ArrayList<>());
-                assertEquals(power1, power2);
-            }
-
-            @Test
-            void testDifferentObjects() {
-                Power power1 = new Power(HandType.HIGH_CARD, new ArrayList<>());
-                assertNotEquals(power1, new Object());
-            }
-
-            @Test
-            void testDifferentPower() {
-                Power power1 = new Power(HandType.HIGH_CARD, new ArrayList<>());
-                Power power2 = new Power(HandType.HIGH_CARD, new ArrayList<>() {{
-                    add(CardValue.ACE);
-                }});
-                assertNotEquals(power1, power2);
-            }
+    @DisplayName("Test Power.equals")
+    class TestEquals {
+        @Test
+        void testEqualToSame() {
+            Power power1 = new Power(HandType.HIGH_CARD, List.of());
+            Power power2 = new Power(HandType.HIGH_CARD, List.of());
+            assertEquals(power1, power2);
         }
 
-        @Nested
-        @DisplayName("Test the hashcode method")
-        class TestHashCode {
-            @Test
-            void testEqualPower() {
-                Power power1 = new Power(HandType.HIGH_CARD, new ArrayList<>());
-                Power power2 = new Power(HandType.HIGH_CARD, new ArrayList<>());
-                assertEquals(power1.hashCode(), power2.hashCode());
-            }
-
-            @Test
-            void testDifferentPower() {
-                Power power1 = new Power(HandType.HIGH_CARD, new ArrayList<>());
-                Power power2 = new Power(HandType.HIGH_CARD, new ArrayList<>() {{
-                    add(CardValue.ACE);
-                }});
-                assertNotEquals(power1.hashCode(), power2.hashCode());
-            }
+        @Test
+        void testNotEqualToOtherType() {
+            Power power1 = new Power(HandType.HIGH_CARD, List.of());
+            assertNotEquals(power1, new Object());
         }
 
-        @Nested
-        @DisplayName("Test the compareTo method")
-        class TestCompareTo {
-            @Nested
-            @DisplayName("Test the primary values")
-            class TestPrimary {
-                @Test
-                void testEqualPower() {
-                    Power power1 = new Power(HandType.HIGH_CARD, new ArrayList<>());
-                    Power power2 = new Power(HandType.HIGH_CARD, new ArrayList<>());
-                    assertEquals(0, power1.compareTo(power2));
-                }
+        @Test
+        void testDifferentPower() {
+            Power base = new Power(HandType.HIGH_CARD, List.of());
+            Power differentSecondary = new Power(HandType.HIGH_CARD, List.of(CardValue.ACE));
+            assertNotEquals(base, differentSecondary);
 
-                @Test
-                void testBiggerPower() {
-                    Power power1 = new Power(HandType.HIGH_CARD, new ArrayList<>());
-                    Power power2 = new Power(HandType.FLUSH, new ArrayList<>());
-                    assertEquals(-1, power1.compareTo(power2));
-                }
-
-                @Test
-                void testSmallerPower() {
-                    Power power1 = new Power(HandType.FLUSH, new ArrayList<>());
-                    Power power2 = new Power(HandType.HIGH_CARD, new ArrayList<>());
-                    assertEquals(1, power1.compareTo(power2));
-                }
-            }
-
-            @Nested
-            @DisplayName("Test the secondary values")
-            class TestSecondary {
-                @Test
-                void testEqualPower() {
-                    Power power1 = new Power(HandType.HIGH_CARD, new ArrayList<>() {{
-                        add(CardValue.ACE);
-                    }});
-                    Power power2 = new Power(HandType.HIGH_CARD, new ArrayList<>() {{
-                        add(CardValue.ACE);
-                    }});
-                    assertEquals(0, power1.compareTo(power2));
-                }
-
-                @Test
-                void testBiggerPower() {
-                    Power power1 = new Power(HandType.HIGH_CARD, new ArrayList<>());
-                    Power power2 = new Power(HandType.HIGH_CARD, new ArrayList<>() {{
-                        add(CardValue.ACE);
-                    }});
-                    assertEquals(-1, power1.compareTo(power2));
-                }
-
-                @Test
-                void testSmallerPower() {
-                    Power power1 = new Power(HandType.HIGH_CARD, new ArrayList<>() {{
-                        add(CardValue.ACE);
-                    }});
-                    Power power2 = new Power(HandType.HIGH_CARD, new ArrayList<>());
-                    assertEquals(1, power1.compareTo(power2));
-                }
-            }
+            Power differentPrimary = new Power(HandType.FOUR_OF_A_KIND, List.of());
+            assertNotEquals(base, differentPrimary);
         }
     }
 
+    @Nested
+    @DisplayName("Test Power.hashCode")
+    class TestHashCode {
+        @Test
+        void testEqualPower() {
+            Power power1 = new Power(HandType.HIGH_CARD, List.of());
+            Power power2 = new Power(HandType.HIGH_CARD, List.of());
+            assertEquals(power1.hashCode(), power2.hashCode());
+        }
+
+        @Test
+        void testDifferentPower() {
+            Power power1 = new Power(HandType.HIGH_CARD, List.of());
+            Power power2 = new Power(HandType.HIGH_CARD, List.of(CardValue.ACE));
+            assertNotEquals(power1.hashCode(), power2.hashCode());
+        }
+    }
+
+    @Nested
+    @DisplayName("Test Power.compareTo")
+    class TestCompareTo {
+        @Nested
+        @DisplayName("Test the primary values")
+        class TestPrimary {
+            @Test
+            void testEqualPower() {
+                Power power1 = new Power(HandType.HIGH_CARD, List.of());
+                Power power2 = new Power(HandType.HIGH_CARD, List.of());
+                assertEquals(0, power1.compareTo(power2));
+            }
+
+            @Test
+            void testBiggerPower() {
+                Power power1 = new Power(HandType.HIGH_CARD, List.of());
+                Power power2 = new Power(HandType.FLUSH, List.of());
+                assertEquals(-1, power1.compareTo(power2));
+            }
+
+            @Test
+            void testSmallerPower() {
+                Power power1 = new Power(HandType.FLUSH, List.of());
+                Power power2 = new Power(HandType.HIGH_CARD, List.of());
+                assertEquals(1, power1.compareTo(power2));
+            }
+        }
+
+        @Nested
+        @DisplayName("Test the secondary values")
+        class TestSecondary {
+            @Test
+            void testEqualPower() {
+                Power power1 = new Power(HandType.HIGH_CARD, List.of(CardValue.ACE));
+                Power power2 = new Power(HandType.HIGH_CARD, List.of(CardValue.ACE));
+                assertEquals(0, power1.compareTo(power2));
+            }
+
+            @Test
+            void testBiggerPower() {
+                Power power1 = new Power(HandType.FOUR_OF_A_KIND, List.of(CardValue.ACE, CardValue.NINE));
+                Power power2 = new Power(HandType.FOUR_OF_A_KIND, List.of(CardValue.ACE, CardValue.QUEEN));
+                assertTrue(power1.compareTo(power2) < 0);
+            }
+
+            @Test
+            void testSmallerPower() {
+                Power power1 = new Power(HandType.FLUSH, List.of(CardValue.ACE, CardValue.JACK));
+                Power power2 = new Power(HandType.FLUSH, List.of());
+                assertTrue(power1.compareTo(power2) > 0);
+            }
+        }
+    }
 }
