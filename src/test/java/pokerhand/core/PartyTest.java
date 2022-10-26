@@ -33,32 +33,42 @@ class PartyTest {
         class TestDifferentHandType {
             @Test
             void testSmallerHandType() {
-                Party party1 = new Party(new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB))),
-                        new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB))));
-                assertThat(party1.getWinner()).hasValue(party1.getHands().get(0));
+                var oneCardHandLoser = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB)));
+                var oneCardHandWinner = new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB)));
 
-                Party party2 = new Party(new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB),
+                Party party1 = new Party(oneCardHandLoser, oneCardHandWinner);
+                assertThat(party1.getWinner()).hasValue(oneCardHandWinner);
+
+                var fiveCardsHandWinner = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB),
                         new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB),
-                        new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB))),
-                        new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING,
+                        new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
+                var fiveCardsHandLoser = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB),
+                        new Card(CardValue.KING,
                                 CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK,
-                                CardColor.CLUB), new Card(CardValue.NINE, CardColor.CLUB))));
-                assertThat(party2.getWinner()).hasValue(party2.getHands().get(0));
+                                CardColor.CLUB), new Card(CardValue.NINE, CardColor.CLUB)));
+
+                Party party2 = new Party(fiveCardsHandWinner, fiveCardsHandLoser);
+                assertThat(party2.getWinner()).hasValue(fiveCardsHandWinner);
             }
 
             @Test
             void testBiggerHandType() {
-                Party party1 = new Party(new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB))),
-                        new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB))));
-                assertThat(party1.getWinner()).hasValue(party1.getHands().get(1));
+                var oneCardHandWinner = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB)));
+                var oneCardHandLoser = new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB)));
 
-                Party party2 = new Party(new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB),
+                var party1 = new Party(oneCardHandLoser, oneCardHandWinner);
+                assertThat(party1.getWinner()).hasValue(oneCardHandWinner);
+
+                var fiveCardsHandWinner = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB),
                         new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB),
-                        new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.NINE, CardColor.CLUB))),
-                        new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING,
+                        new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
+                var fiveCardsHandLoser = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB),
+                        new Card(CardValue.KING,
                                 CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK,
-                                CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB))));
-                assertThat(party2.getWinner()).hasValue(party2.getHands().get(1));
+                                CardColor.CLUB), new Card(CardValue.NINE, CardColor.CLUB)));
+
+                Party party2 = new Party(fiveCardsHandWinner, fiveCardsHandLoser);
+                assertThat(party2.getWinner()).hasValue(fiveCardsHandWinner);
             }
 
             @Test
