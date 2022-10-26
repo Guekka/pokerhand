@@ -13,7 +13,6 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 class HandTest {
-
     @Test
     void test_toString_WhenGivenDifferentHands_ReturnsCorrectStringRepresentationOfTheHand() {
         assertEquals("[ACE CLUB]", new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB))).toString());

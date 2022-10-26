@@ -12,10 +12,8 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CardTest {
-
-
     @Test
-    void equals() {
+    void testEquals() {
         var card = new Card(CardValue.ACE, CardColor.DIAMOND);
         var expected = new Card(CardValue.ACE, CardColor.DIAMOND);
         assertEquals(card, expected);
@@ -29,11 +27,10 @@ class CardTest {
     void testToString() {
         var card = new Card(CardValue.ACE, CardColor.DIAMOND);
         assertEquals("ACE DIAMOND", card.toString());
-
     }
 
     @Nested
-    @DisplayName("Test from string method")
+    @DisplayName("Test fromString")
     class TestFromString {
         private static Stream<Arguments> provideValidCardStrings() {
             return Stream.of(
@@ -80,19 +77,6 @@ class CardTest {
             assertEquals(expectedCard, Card.fromString(cardString));
         }
 
-        @Test
-        @DisplayName("Test of Card comparison")
-        void testCompareTo() {
-            var card1 = new Card(CardValue.ACE, CardColor.CLUB);
-            var card2 = new Card(CardValue.KING, CardColor.CLUB);
-            var card3 = new Card(CardValue.ACE, CardColor.CLUB);
-            var card4 = new Card(CardValue.ACE, CardColor.DIAMOND);
-            assertTrue(card1.compareTo(card2) > 0);
-            assertTrue(card2.compareTo(card1) < 0);
-            assertEquals(0, card1.compareTo(card3));
-            assertTrue(card1.compareTo(card4) < 0);
-        }
-
         @ParameterizedTest
         @DisplayName("Test invalid card strings")
         @MethodSource("provideInvalidCardStrings")
@@ -101,4 +85,16 @@ class CardTest {
         }
     }
 
+    @Test
+    @DisplayName("Test Card.compareTo")
+    void testCompareTo() {
+        var card1 = new Card(CardValue.ACE, CardColor.CLUB);
+        var card2 = new Card(CardValue.KING, CardColor.CLUB);
+        var card3 = new Card(CardValue.ACE, CardColor.CLUB);
+        var card4 = new Card(CardValue.ACE, CardColor.DIAMOND);
+        assertTrue(card1.compareTo(card2) > 0);
+        assertTrue(card2.compareTo(card1) < 0);
+        assertEquals(0, card1.compareTo(card3));
+        assertTrue(card1.compareTo(card4) < 0);
+    }
 }
