@@ -42,7 +42,7 @@ public class Hand {
     /**
      * Calculates the highest hand type of this hand
      */
-    private HandType calculateHandType() {
+    public HandType calculateHandType() {
         if (isStraightFlush()) {
             return HandType.STRAIGHT_FLUSH;
         }
@@ -165,9 +165,5 @@ public class Hand {
     @Override
     public String toString() {
         return cards.toString();
-    }
-
-    public HandType getHandType() {
-        return calculateHandType();
     }
 }
