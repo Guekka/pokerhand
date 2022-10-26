@@ -27,6 +27,11 @@ public class Hand {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(cards);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -35,8 +40,13 @@ public class Hand {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(cards);
+    public String toString() {
+        return cards.toString();
+    }
+
+    public Power getPower() {
+        HandType handType = calculateHandType();
+        return new Power(handType, calculateSecondary(handType));
     }
 
     /**
@@ -70,8 +80,29 @@ public class Hand {
         return HandType.HIGH_CARD;
     }
 
+    /**
+     * Calculates the secondary power of a hand.
+     * For HIGH_CARD, this is done by reverse sorting the cards
+     */
+    private List<CardValue> calculateSecondary(HandType handType) {
+        return switch (handType) {
+            case HIGH_CARD, FLUSH -> this.cards.stream()
+                    .sorted(Collections.reverseOrder())
+                    .map(Card::value)
+                    .toList();
+
+            case PAIR -> sameCardHands(2);
+
+            case THREE_OF_A_KIND -> sameCardHands(3);
+
+            case FOUR_OF_A_KIND -> sameCardHands(4);
+
+            default -> throw new UnsupportedOperationException("Not implemented yet");
+        };
+    }
+
     private boolean isStraightFlush() {
-        return false;
+        return isStraight() && isFlush();
     }
 
     private boolean isFourOfAKind() {
@@ -82,7 +113,12 @@ public class Hand {
     }
 
     private boolean isFullHouse() {
-        return false;
+        return isThreeOfAKind() && isPair();
+    }
+
+    private boolean isFlush() {
+        CardColor possibleColor = cards.get(0).color();
+        return this.cards.stream().allMatch(card -> card.color() == possibleColor);
     }
 
     private boolean isStraight() {
@@ -128,42 +164,5 @@ public class Hand {
                 .toList();
         return Stream.concat(Stream.of(duplicate), rest.stream())
                 .toList();
-    }
-
-    /**
-     * Calculates the secondary power of a hand.
-     * For HIGH_CARD, this is done by reverse sorting the cards
-     */
-    private List<CardValue> calculateSecondary(HandType handType) {
-        return switch (handType) {
-            case HIGH_CARD, FLUSH -> this.cards.stream()
-                    .sorted(Collections.reverseOrder())
-                    .map(Card::value)
-                    .toList();
-
-            case PAIR -> sameCardHands(2);
-
-            case THREE_OF_A_KIND -> sameCardHands(3);
-
-            case FOUR_OF_A_KIND -> sameCardHands(4);
-
-            default -> throw new UnsupportedOperationException("Not implemented yet");
-        };
-    }
-
-    public boolean isFlush() {
-        CardColor possibleColor = cards.get(0).color();
-        return this.cards.stream().allMatch(card -> card.color() == possibleColor);
-    }
-
-
-    public Power getPower() {
-        HandType handType = calculateHandType();
-        return new Power(handType, calculateSecondary(handType));
-    }
-
-    @Override
-    public String toString() {
-        return cards.toString();
     }
 }
