@@ -17,9 +17,15 @@ public class ConsoleInterface {
         System.out.println("Please enter the second hand:");
         Hand hand2 = Hand.fromString(scanner.nextLine());
         Party party = new Party(hand1, hand2);
-        System.out.println("The winner is:");
-        System.out.println(party.getWinner());
-        System.out.println("with a  : " + party.getWinner().calculateHandType());
+
+        var winner = party.getWinner();
+        if (winner.isPresent()) {
+            System.out.println("The winner is:");
+            System.out.println(winner.get());
+            System.out.println("with a  : " + winner.get().calculateHandType());
+        } else {
+            System.out.println("That's a draw!");
+        }
     }
 
 }
