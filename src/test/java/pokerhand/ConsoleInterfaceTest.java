@@ -26,13 +26,16 @@ class ConsoleInterfaceTest {
             System.setOut(out);
             ConsoleInterface consoleInterface = new ConsoleInterface();
             ConsoleInterface.main(new String[]{}); // call the method under test
-            var splits = byteOut.toString().split("\n");
-            assertEquals("Welcome to PokerHand console interface!", splits[0].trim());
-            assertEquals("Please enter the first hand:", splits[1].trim());
-            assertEquals("Please enter the second hand:", splits[2].trim());
-            assertEquals("The winner is:", splits[3].trim());
-            assertEquals("[FIVE HEART]", splits[4].trim());
+            var expected = """
+                    Welcome to PokerHand console interface!
+                    Please enter the first hand:
+                    Please enter the second hand:
+                    The winner is:
+                    [FIVE HEART]
+                    with a  : FLUSH
+                    """;
 
+            assertEquals(expected, byteOut.toString());
 
             System.setIn(sysInBackup);
             System.setOut(sysOutBackup);
