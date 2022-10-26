@@ -61,7 +61,34 @@ class HandTest {
             assertEquals(-1, hand3.getPower().compareTo(hand4.getPower()));
         }
 
+        @Test
+        void testPair() {
+            var pair = new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.JACK, CardColor.SPADE), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.ACE, CardColor.DIAMOND)));
+            var expectedHandType = HandType.PAIR;
+            var expectedSecondary = List.of(CardValue.JACK, CardValue.ACE, CardValue.KING, CardValue.QUEEN);
 
+            assertEquals(new Power(expectedHandType, expectedSecondary), pair.getPower());
+        }
+
+        @Test
+        void testTOAK() {
+            var toak = new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.JACK, CardColor.SPADE), new Card(CardValue.KING, CardColor.HEART), new Card(CardValue.ACE, CardColor.SPADE)));
+
+            var expectedHandType = HandType.THREE_OF_A_KIND;
+            var expectedSecondary = List.of(CardValue.JACK, CardValue.ACE, CardValue.KING);
+
+            assertEquals(new Power(expectedHandType, expectedSecondary), toak.getPower());
+        }
+
+        @Test
+        void testFOAK() {
+            var foak = new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.JACK, CardColor.HEART), new Card(CardValue.ACE, CardColor.SPADE)));
+
+            var expectedHandType = HandType.FOUR_OF_A_KIND;
+            var expectedSecondary = List.of(CardValue.JACK, CardValue.ACE);
+
+            assertEquals(new Power(expectedHandType, expectedSecondary), foak.getPower());
+        }
     }
 
     @Nested

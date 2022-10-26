@@ -19,6 +19,7 @@ public class ConsoleInterface {
         Party party = new Party(hand1, hand2);
         System.out.println("The winner is:");
         System.out.println(party.getWinner());
+        System.out.println("with a  : " + party.getWinner().calculateHandType());
     }
 
 }
