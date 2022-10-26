@@ -121,11 +121,6 @@ public class Hand {
         return this.cards.stream().allMatch(card -> card.color() == possibleColor);
     }
 
-    public boolean isFlush() {
-        CardColor possibleColor = cards.get(0).color();
-        return this.cards.stream().allMatch(card -> card.color() == possibleColor);
-    }
-
     private boolean isStraight() {
         return false;
     }
