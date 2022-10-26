@@ -102,7 +102,7 @@ public class Hand {
     }
 
     private boolean isStraightFlush() {
-        return false;
+        return isStraight() && isFlush();
     }
 
     private boolean isFourOfAKind() {
@@ -113,7 +113,12 @@ public class Hand {
     }
 
     private boolean isFullHouse() {
-        return false;
+        return isThreeOfAKind() && isPair();
+    }
+
+    private boolean isFlush() {
+        CardColor possibleColor = cards.get(0).color();
+        return this.cards.stream().allMatch(card -> card.color() == possibleColor);
     }
 
     public boolean isFlush() {
