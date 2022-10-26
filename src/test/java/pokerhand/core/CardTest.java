@@ -31,6 +31,19 @@ class CardTest {
         assertEquals("ACE DIAMOND", card.toString());
     }
 
+    @Test
+    @DisplayName("Test Card.compareTo")
+    void testCompareTo() {
+        var card1 = new Card(CardValue.ACE, CardColor.CLUB);
+        var card2 = new Card(CardValue.KING, CardColor.CLUB);
+        var card3 = new Card(CardValue.ACE, CardColor.CLUB);
+        var card4 = new Card(CardValue.ACE, CardColor.DIAMOND);
+        assertTrue(card1.compareTo(card2) > 0);
+        assertTrue(card2.compareTo(card1) < 0);
+        assertEquals(0, card1.compareTo(card3));
+        assertTrue(card1.compareTo(card4) < 0);
+    }
+
     @Nested
     @DisplayName("Test fromString")
     class TestFromString {
@@ -85,18 +98,5 @@ class CardTest {
         void testInvalidCard(String cardString) {
             assertThrows(IllegalArgumentException.class, () -> Card.fromString(cardString));
         }
-    }
-
-    @Test
-    @DisplayName("Test Card.compareTo")
-    void testCompareTo() {
-        var card1 = new Card(CardValue.ACE, CardColor.CLUB);
-        var card2 = new Card(CardValue.KING, CardColor.CLUB);
-        var card3 = new Card(CardValue.ACE, CardColor.CLUB);
-        var card4 = new Card(CardValue.ACE, CardColor.DIAMOND);
-        assertTrue(card1.compareTo(card2) > 0);
-        assertTrue(card2.compareTo(card1) < 0);
-        assertEquals(0, card1.compareTo(card3));
-        assertTrue(card1.compareTo(card4) < 0);
     }
 }
