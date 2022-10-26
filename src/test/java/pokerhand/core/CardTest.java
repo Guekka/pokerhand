@@ -21,6 +21,8 @@ class CardTest {
         var notExpectedColor = new Card(CardValue.ACE, CardColor.HEART);
         assertNotEquals(notExpectedVal, card);
         assertNotEquals(notExpectedColor, card);
+
+        assertNotEquals(card, new Object());
     }
 
     @Test
