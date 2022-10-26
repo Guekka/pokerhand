@@ -13,37 +13,43 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CardTest {
 
+
     @Test
-    void value() {
-        var card = new Card(CardValue.ACE);
-        assertEquals(CardValue.ACE, card.value());
+    void equals() {
+        var card = new Card(CardValue.ACE, CardColor.DIAMOND);
+        var expected = new Card(CardValue.ACE, CardColor.DIAMOND);
+        assertEquals(card, expected);
+        var notExpectedVal = new Card(CardValue.JACK, CardColor.DIAMOND);
+        var notExpectedColor = new Card(CardValue.ACE, CardColor.HEART);
+        assertNotEquals(notExpectedVal, card);
+        assertNotEquals(notExpectedColor, card);
     }
 
     @Test
     void testToString() {
-        var card = new Card(CardValue.ACE);
-        assertEquals("ACE", card.toString());
+        var card = new Card(CardValue.ACE, CardColor.DIAMOND);
+        assertEquals("ACE DIAMOND", card.toString());
+
     }
 
     @Nested
     @DisplayName("Test from string method")
     class TestFromString {
-
         private static Stream<Arguments> provideValidCardStrings() {
             return Stream.of(
-                    Arguments.of("A", new Card(CardValue.ACE)),
-                    Arguments.of("K", new Card(CardValue.KING)),
-                    Arguments.of("Q", new Card(CardValue.QUEEN)),
-                    Arguments.of("J", new Card(CardValue.JACK)),
-                    Arguments.of("10", new Card(CardValue.TEN)),
-                    Arguments.of("9", new Card(CardValue.NINE)),
-                    Arguments.of("8", new Card(CardValue.EIGHT)),
-                    Arguments.of("7", new Card(CardValue.SEVEN)),
-                    Arguments.of("6", new Card(CardValue.SIX)),
-                    Arguments.of("5", new Card(CardValue.FIVE)),
-                    Arguments.of("4", new Card(CardValue.FOUR)),
-                    Arguments.of("3", new Card(CardValue.THREE)),
-                    Arguments.of("2", new Card(CardValue.TWO))
+                    Arguments.of("ATr", new Card(CardValue.ACE, CardColor.CLUB)),
+                    Arguments.of("KTr", new Card(CardValue.KING, CardColor.CLUB)),
+                    Arguments.of("QTr", new Card(CardValue.QUEEN, CardColor.CLUB)),
+                    Arguments.of("JCo", new Card(CardValue.JACK, CardColor.HEART)),
+                    Arguments.of("10Co", new Card(CardValue.TEN, CardColor.HEART)),
+                    Arguments.of("9Co", new Card(CardValue.NINE, CardColor.HEART)),
+                    Arguments.of("8Ca", new Card(CardValue.EIGHT, CardColor.DIAMOND)),
+                    Arguments.of("7Ca", new Card(CardValue.SEVEN, CardColor.DIAMOND)),
+                    Arguments.of("6Ca", new Card(CardValue.SIX, CardColor.DIAMOND)),
+                    Arguments.of("5Pi", new Card(CardValue.FIVE, CardColor.SPADE)),
+                    Arguments.of("4Pi", new Card(CardValue.FOUR, CardColor.SPADE)),
+                    Arguments.of("3Pi", new Card(CardValue.THREE, CardColor.SPADE)),
+                    Arguments.of("2Pi", new Card(CardValue.TWO, CardColor.SPADE))
             );
         }
 
@@ -61,7 +67,9 @@ class CardTest {
                     Arguments.of("1"),
                     Arguments.of("0"),
                     Arguments.of("13"),
-                    Arguments.of("Z")
+                    Arguments.of("Z"),
+                    Arguments.of("2"),
+                    Arguments.of("A")
             );
         }
 
@@ -75,12 +83,14 @@ class CardTest {
         @Test
         @DisplayName("Test of Card comparison")
         void testCompareTo() {
-            var card1 = new Card(CardValue.ACE);
-            var card2 = new Card(CardValue.KING);
-            var card3 = new Card(CardValue.ACE);
+            var card1 = new Card(CardValue.ACE, CardColor.CLUB);
+            var card2 = new Card(CardValue.KING, CardColor.CLUB);
+            var card3 = new Card(CardValue.ACE, CardColor.CLUB);
+            var card4 = new Card(CardValue.ACE, CardColor.DIAMOND);
             assertTrue(card1.compareTo(card2) > 0);
             assertTrue(card2.compareTo(card1) < 0);
-            assertTrue(card1.compareTo(card3) == 0);
+            assertEquals(0, card1.compareTo(card3));
+            assertTrue(card1.compareTo(card4) < 0);
         }
 
         @ParameterizedTest

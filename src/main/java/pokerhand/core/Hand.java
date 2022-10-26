@@ -21,9 +21,7 @@ public class Hand {
      * @param value Expected format: "A 10 2"
      */
     public static Hand fromString(String value) {
-        var cards = Arrays.stream(value.split(" "))
-                .map(Card::fromString)
-                .toList();
+        var cards = Arrays.stream(value.split(" ")).map(Card::fromString).toList();
         return new Hand(cards);
     }
 
@@ -44,6 +42,8 @@ public class Hand {
      * Calculates the highest hand type of this hand
      */
     private HandType calculateHandType() {
+        if (isFlush()) return HandType.FLUSH;
+
         return HandType.HIGH_CARD;
     }
 
@@ -53,13 +53,21 @@ public class Hand {
      */
     private List<CardValue> calculateSecondary(HandType handType) {
         if (handType == HandType.HIGH_CARD) {
-            return cards.stream()
-                    .sorted(Collections.reverseOrder())
-                    .map(Card::value)
-                    .toList();
+            return cards.stream().sorted(Collections.reverseOrder()).map(Card::value).toList();
         }
+        if (handType == HandType.FLUSH) {
+            return cards.stream().sorted(Collections.reverseOrder()).map(Card::value).toList();
+        }
+
         throw new UnsupportedOperationException("Not implemented yet");
+
     }
+
+    public boolean isFlush() {
+        CardColor possibleColor = cards.get(0).color();
+        return this.cards.stream().allMatch(card -> card.color() == possibleColor);
+    }
+
 
     public Power getPower() {
         HandType handType = calculateHandType();
