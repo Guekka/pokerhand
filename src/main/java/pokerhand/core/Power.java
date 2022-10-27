@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Objects;
 
 public record Power(HandType handType, List<CardValue> secondary) implements Comparable<Power> {
-
     @Override
     public int compareTo(Power other) {
         // if the handType is different, higher handType wins

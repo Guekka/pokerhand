@@ -11,7 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PartyTest {
-
     @Nested
     @DisplayName("Tests the winner for a party with two hands")
     class TestWinner {
@@ -22,7 +21,9 @@ class PartyTest {
             assertEquals(Optional.empty(), party1.getWinner());
 
             //same test with 5 cards per hand
-            var fiveCardsHand = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
+            var fiveCardsHand = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING,
+                    CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK,
+                    CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
             var party2 = new Party(fiveCardsHand, fiveCardsHand);
             assertEquals(Optional.empty(), party2.getWinner());
         }
@@ -32,46 +33,43 @@ class PartyTest {
         class TestDifferentHandType {
             @Test
             void testSmallerHandType() {
-                Party party1 = new Party(new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB))), new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB))));
-                assertThat(party1.getWinner()).hasValue(party1.getHands().get(0));
+                var oneCardHandWinner = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB)));
+                var oneCardHandLoser = new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB)));
 
-                Party party2 = new Party(new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB))), new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.NINE, CardColor.CLUB))));
-                assertThat(party2.getWinner()).hasValue(party2.getHands().get(0));
+                Party party1 = new Party(oneCardHandLoser, oneCardHandWinner);
+                assertThat(party1.getWinner()).hasValue(oneCardHandWinner);
+
+                var fiveCardsHandWinner = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB),
+                        new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB),
+                        new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
+                var fiveCardsHandLoser = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB),
+                        new Card(CardValue.KING,
+                                CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK,
+                                CardColor.CLUB), new Card(CardValue.NINE, CardColor.CLUB)));
+
+                Party party2 = new Party(fiveCardsHandWinner, fiveCardsHandLoser);
+                assertThat(party2.getWinner()).hasValue(fiveCardsHandWinner);
             }
 
             @Test
             void testBiggerHandType() {
-                Party party1 = new Party(new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB))), new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB))));
-                assertThat(party1.getWinner()).hasValue(party1.getHands().get(1));
+                var oneCardHandWinner = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB)));
+                var oneCardHandLoser = new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB)));
 
-                Party party2 = new Party(new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.NINE, CardColor.CLUB))), new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB))));
-                assertThat(party2.getWinner()).hasValue(party2.getHands().get(1));
-            }
+                var party1 = new Party(oneCardHandLoser, oneCardHandWinner);
+                assertThat(party1.getWinner()).hasValue(oneCardHandWinner);
 
-            @Test
-            void testFlushHandType() {
-                // flush, not straight
-                var flushHand = new Hand(List.of(new Card(CardValue.TWO, CardColor.CLUB), new Card(CardValue.THREE, CardColor.CLUB), new Card(CardValue.FOUR, CardColor.CLUB), new Card(CardValue.FIVE, CardColor.CLUB), new Card(CardValue.SEVEN, CardColor.CLUB)));
-                // best card
-                var bestCardHand = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.TWO, CardColor.SPADE), new Card(CardValue.THREE, CardColor.HEART), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.NINE, CardColor.CLUB)));
+                var fiveCardsHandWinner = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB),
+                        new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB),
+                        new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
+                var fiveCardsHandLoser = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB),
+                        new Card(CardValue.KING,
+                                CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK,
+                                CardColor.CLUB), new Card(CardValue.NINE, CardColor.CLUB)));
 
-                var party = new Party(flushHand, bestCardHand);
-                assertThat(party.getWinner()).hasValue(flushHand);
-
-            }
-
-            @Test
-            void testFlushSecondary() {
-                // flush, not straight
-                var flushHand = new Hand(List.of(new Card(CardValue.TWO, CardColor.CLUB), new Card(CardValue.FIVE, CardColor.CLUB), new Card(CardValue.SIX, CardColor.CLUB), new Card(CardValue.SEVEN, CardColor.CLUB), new Card(CardValue.NINE, CardColor.CLUB)));
-                // better flush, not straight
-                var betterFlushHand = new Hand(List.of(new Card(CardValue.TWO, CardColor.CLUB), new Card(CardValue.FOUR, CardColor.CLUB), new Card(CardValue.FIVE, CardColor.CLUB), new Card(CardValue.SIX, CardColor.CLUB), new Card(CardValue.ACE, CardColor.CLUB)));
-
-                var party2 = new Party(flushHand, betterFlushHand);
-                assertThat(party2.getWinner()).hasValue(betterFlushHand);
+                Party party2 = new Party(fiveCardsHandWinner, fiveCardsHandLoser);
+                assertThat(party2.getWinner()).hasValue(fiveCardsHandWinner);
             }
         }
-
     }
-
 }

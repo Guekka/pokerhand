@@ -13,7 +13,6 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 class HandTest {
-
     @Test
     void test_toString_WhenGivenDifferentHands_ReturnsCorrectStringRepresentationOfTheHand() {
         assertEquals("[ACE CLUB]", new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB))).toString());
@@ -22,48 +21,55 @@ class HandTest {
         assertEquals("[JACK CLUB]", new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB))).toString());
         assertEquals("[TEN HEART]", new Hand(List.of(new Card(CardValue.TEN, CardColor.HEART))).toString());
 
-        assertEquals("[ACE CLUB, KING CLUB, QUEEN CLUB, JACK CLUB, TEN CLUB]", new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB))).toString());
-        assertEquals("[TEN HEART, NINE DIAMOND, EIGHT HEART, SEVEN DIAMOND, SIX SPADE]", new Hand(List.of(new Card(CardValue.TEN, CardColor.HEART), new Card(CardValue.NINE, CardColor.DIAMOND), new Card(CardValue.EIGHT, CardColor.HEART), new Card(CardValue.SEVEN, CardColor.DIAMOND), new Card(CardValue.SIX, CardColor.SPADE))).toString());
-        assertEquals("[SIX HEART, FIVE SPADE, FOUR CLUB, THREE CLUB, TWO CLUB]", new Hand(List.of(new Card(CardValue.SIX, CardColor.HEART), new Card(CardValue.FIVE, CardColor.SPADE), new Card(CardValue.FOUR, CardColor.CLUB), new Card(CardValue.THREE, CardColor.CLUB), new Card(CardValue.TWO, CardColor.CLUB))).toString());
+        assertEquals("[ACE CLUB, KING CLUB, QUEEN CLUB, JACK CLUB, TEN CLUB]",
+                new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB),
+                        new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB),
+                        new Card(CardValue.TEN, CardColor.CLUB))).toString());
+        assertEquals("[TEN HEART, NINE DIAMOND, EIGHT HEART, SEVEN DIAMOND, SIX SPADE]",
+                new Hand(List.of(new Card(CardValue.TEN, CardColor.HEART), new Card(CardValue.NINE,
+                        CardColor.DIAMOND), new Card(CardValue.EIGHT, CardColor.HEART), new Card(CardValue.SEVEN,
+                        CardColor.DIAMOND), new Card(CardValue.SIX, CardColor.SPADE))).toString());
+        assertEquals("[SIX HEART, FIVE SPADE, FOUR CLUB, THREE CLUB, TWO CLUB]",
+                new Hand(List.of(new Card(CardValue.SIX, CardColor.HEART), new Card(CardValue.FIVE, CardColor.SPADE),
+                        new Card(CardValue.FOUR, CardColor.CLUB), new Card(CardValue.THREE, CardColor.CLUB),
+                        new Card(CardValue.TWO, CardColor.CLUB))).toString());
     }
 
     @Nested
-    @DisplayName("Tests if the power of a hand is calculated correctly")
+    @DisplayName("Test if the power of a hand is calculated correctly")
     class TestPower {
-        @Test
-        void test_getPower_FromTheSameHand_ReturnsEqualPower() {
-            Hand hand1 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB)));
-            assertEquals(hand1.getPower(), hand1.getPower());
 
-            Hand hand2 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
-            assertEquals(hand2.getPower(), hand2.getPower());
+        @Test
+        void testHighCard() {
+            var highCard = new Hand(List.of(new Card(CardValue.ACE, CardColor.SPADE), new Card(CardValue.NINE,
+                    CardColor.CLUB), new Card(CardValue.THREE, CardColor.DIAMOND), new Card(CardValue.JACK,
+                    CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
+
+            var expectedHandType = HandType.HIGH_CARD;
+            var expectedSecondary = List.of(CardValue.ACE, CardValue.JACK, CardValue.TEN, CardValue.NINE,
+                    CardValue.THREE);
+
+            assertEquals(new Power(expectedHandType, expectedSecondary), highCard.getPower());
         }
 
         @Test
-        void test_getPower_WhenTheFirstHandIsMorePowerfulThanTheSecondHand_ReturnsAHigherPowerForTheFirstHandThanTheSecondHand() {
-            Hand hand1 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB)));
-            Hand hand2 = new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB)));
-            assertEquals(1, hand1.getPower().compareTo(hand2.getPower()));
+        void testFlush() {
+            var flush = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.NINE,
+                    CardColor.CLUB), new Card(CardValue.THREE, CardColor.CLUB), new Card(CardValue.JACK,
+                    CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
 
-            Hand hand3 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
-            Hand hand4 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.NINE, CardColor.CLUB)));
-            assertEquals(1, hand3.getPower().compareTo(hand4.getPower()));
-        }
+            var expectedHandType = HandType.FLUSH;
+            var expectedSecondary = List.of(CardValue.ACE, CardValue.JACK, CardValue.TEN, CardValue.NINE,
+                    CardValue.THREE);
 
-        @Test
-        void test_getPower_WhenTheFirstHandIsLessPowerfulThanTheSecondHand_ReturnsALowerPowerForTheFirstHandThanTheSecondHand() {
-            Hand hand = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB)));
-            Hand hand2 = new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB)));
-            assertEquals(-1, hand2.getPower().compareTo(hand.getPower()));
-
-            Hand hand3 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.NINE, CardColor.CLUB)));
-            Hand hand4 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
-            assertEquals(-1, hand3.getPower().compareTo(hand4.getPower()));
+            assertEquals(new Power(expectedHandType, expectedSecondary), flush.getPower());
         }
 
         @Test
         void testPair() {
-            var pair = new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.JACK, CardColor.SPADE), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.ACE, CardColor.DIAMOND)));
+            var pair = new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.JACK,
+                    CardColor.SPADE), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.KING,
+                    CardColor.CLUB), new Card(CardValue.ACE, CardColor.DIAMOND)));
             var expectedHandType = HandType.PAIR;
             var expectedSecondary = List.of(CardValue.JACK, CardValue.ACE, CardValue.KING, CardValue.QUEEN);
 
@@ -72,7 +78,9 @@ class HandTest {
 
         @Test
         void testTOAK() {
-            var toak = new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.JACK, CardColor.SPADE), new Card(CardValue.KING, CardColor.HEART), new Card(CardValue.ACE, CardColor.SPADE)));
+            var toak = new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.JACK,
+                    CardColor.CLUB), new Card(CardValue.JACK, CardColor.SPADE), new Card(CardValue.KING,
+                    CardColor.HEART), new Card(CardValue.ACE, CardColor.SPADE)));
 
             var expectedHandType = HandType.THREE_OF_A_KIND;
             var expectedSecondary = List.of(CardValue.JACK, CardValue.ACE, CardValue.KING);
@@ -82,7 +90,9 @@ class HandTest {
 
         @Test
         void testFOAK() {
-            var foak = new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.JACK, CardColor.HEART), new Card(CardValue.ACE, CardColor.SPADE)));
+            var foak = new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.JACK,
+                    CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.JACK,
+                    CardColor.HEART), new Card(CardValue.ACE, CardColor.SPADE)));
 
             var expectedHandType = HandType.FOUR_OF_A_KIND;
             var expectedSecondary = List.of(CardValue.JACK, CardValue.ACE);
@@ -111,15 +121,42 @@ class HandTest {
                     Arguments.of("3Ca", new Hand(List.of(new Card(CardValue.THREE, CardColor.DIAMOND)))),
                     Arguments.of("2Ca", new Hand(List.of(new Card(CardValue.TWO, CardColor.DIAMOND)))),
 
-                    Arguments.arguments("ATr KCa QPi JCo 10Tr", new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.DIAMOND), new Card(CardValue.QUEEN, CardColor.SPADE), new Card(CardValue.JACK, CardColor.HEART), new Card(CardValue.TEN, CardColor.CLUB)))),
-                    Arguments.arguments("KTr QCa JPi 10Co 9Tr", new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.DIAMOND), new Card(CardValue.JACK, CardColor.SPADE), new Card(CardValue.TEN, CardColor.HEART), new Card(CardValue.NINE, CardColor.CLUB)))),
-                    Arguments.arguments("QTr JCa 10Pi 9Co 8Tr", new Hand(List.of(new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.DIAMOND), new Card(CardValue.TEN, CardColor.SPADE), new Card(CardValue.NINE, CardColor.HEART), new Card(CardValue.EIGHT, CardColor.CLUB)))),
-                    Arguments.arguments("JTr 10Ca 9Pi 8Co 7Tr", new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.DIAMOND), new Card(CardValue.NINE, CardColor.SPADE), new Card(CardValue.EIGHT, CardColor.HEART), new Card(CardValue.SEVEN, CardColor.CLUB)))),
-                    Arguments.arguments("10Tr 9Ca 8Pi 7Co 6Tr", new Hand(List.of(new Card(CardValue.TEN, CardColor.CLUB), new Card(CardValue.NINE, CardColor.DIAMOND), new Card(CardValue.EIGHT, CardColor.SPADE), new Card(CardValue.SEVEN, CardColor.HEART), new Card(CardValue.SIX, CardColor.CLUB)))),
-                    Arguments.arguments("9Tr 8Ca 7Pi 6Co 5Tr", new Hand(List.of(new Card(CardValue.NINE, CardColor.CLUB), new Card(CardValue.EIGHT, CardColor.DIAMOND), new Card(CardValue.SEVEN, CardColor.SPADE), new Card(CardValue.SIX, CardColor.HEART), new Card(CardValue.FIVE, CardColor.CLUB)))),
-                    Arguments.arguments("8Tr 7Ca 6Pi 5Co 4Tr", new Hand(List.of(new Card(CardValue.EIGHT, CardColor.CLUB), new Card(CardValue.SEVEN, CardColor.DIAMOND), new Card(CardValue.SIX, CardColor.SPADE), new Card(CardValue.FIVE, CardColor.HEART), new Card(CardValue.FOUR, CardColor.CLUB)))),
-                    Arguments.arguments("7Tr 6Ca 5Pi 4Co 3Tr", new Hand(List.of(new Card(CardValue.SEVEN, CardColor.CLUB), new Card(CardValue.SIX, CardColor.DIAMOND), new Card(CardValue.FIVE, CardColor.SPADE), new Card(CardValue.FOUR, CardColor.HEART), new Card(CardValue.THREE, CardColor.CLUB)))),
-                    Arguments.arguments("6Tr 5Ca 4Pi 3Co 2Tr", new Hand(List.of(new Card(CardValue.SIX, CardColor.CLUB), new Card(CardValue.FIVE, CardColor.DIAMOND), new Card(CardValue.FOUR, CardColor.SPADE), new Card(CardValue.THREE, CardColor.HEART), new Card(CardValue.TWO, CardColor.CLUB))))
+                    Arguments.arguments("ATr KCa QPi JCo 10Tr", new Hand(List.of(new Card(CardValue.ACE,
+                            CardColor.CLUB), new Card(CardValue.KING, CardColor.DIAMOND), new Card(CardValue.QUEEN,
+                            CardColor.SPADE), new Card(CardValue.JACK, CardColor.HEART), new Card(CardValue.TEN,
+                            CardColor.CLUB)))),
+                    Arguments.arguments("KTr QCa JPi 10Co 9Tr", new Hand(List.of(new Card(CardValue.KING,
+                            CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.DIAMOND), new Card(CardValue.JACK,
+                            CardColor.SPADE), new Card(CardValue.TEN, CardColor.HEART), new Card(CardValue.NINE,
+                            CardColor.CLUB)))),
+                    Arguments.arguments("QTr JCa 10Pi 9Co 8Tr", new Hand(List.of(new Card(CardValue.QUEEN,
+                            CardColor.CLUB), new Card(CardValue.JACK, CardColor.DIAMOND), new Card(CardValue.TEN,
+                            CardColor.SPADE), new Card(CardValue.NINE, CardColor.HEART), new Card(CardValue.EIGHT,
+                            CardColor.CLUB)))),
+                    Arguments.arguments("JTr 10Ca 9Pi 8Co 7Tr", new Hand(List.of(new Card(CardValue.JACK,
+                            CardColor.CLUB), new Card(CardValue.TEN, CardColor.DIAMOND), new Card(CardValue.NINE,
+                            CardColor.SPADE), new Card(CardValue.EIGHT, CardColor.HEART), new Card(CardValue.SEVEN,
+                            CardColor.CLUB)))),
+                    Arguments.arguments("10Tr 9Ca 8Pi 7Co 6Tr", new Hand(List.of(new Card(CardValue.TEN,
+                            CardColor.CLUB), new Card(CardValue.NINE, CardColor.DIAMOND), new Card(CardValue.EIGHT,
+                            CardColor.SPADE), new Card(CardValue.SEVEN, CardColor.HEART), new Card(CardValue.SIX,
+                            CardColor.CLUB)))),
+                    Arguments.arguments("9Tr 8Ca 7Pi 6Co 5Tr", new Hand(List.of(new Card(CardValue.NINE,
+                            CardColor.CLUB), new Card(CardValue.EIGHT, CardColor.DIAMOND), new Card(CardValue.SEVEN,
+                            CardColor.SPADE), new Card(CardValue.SIX, CardColor.HEART), new Card(CardValue.FIVE,
+                            CardColor.CLUB)))),
+                    Arguments.arguments("8Tr 7Ca 6Pi 5Co 4Tr", new Hand(List.of(new Card(CardValue.EIGHT,
+                            CardColor.CLUB), new Card(CardValue.SEVEN, CardColor.DIAMOND), new Card(CardValue.SIX,
+                            CardColor.SPADE), new Card(CardValue.FIVE, CardColor.HEART), new Card(CardValue.FOUR,
+                            CardColor.CLUB)))),
+                    Arguments.arguments("7Tr 6Ca 5Pi 4Co 3Tr", new Hand(List.of(new Card(CardValue.SEVEN,
+                            CardColor.CLUB), new Card(CardValue.SIX, CardColor.DIAMOND), new Card(CardValue.FIVE,
+                            CardColor.SPADE), new Card(CardValue.FOUR, CardColor.HEART), new Card(CardValue.THREE,
+                            CardColor.CLUB)))),
+                    Arguments.arguments("6Tr 5Ca 4Pi 3Co 2Tr", new Hand(List.of(new Card(CardValue.SIX,
+                            CardColor.CLUB), new Card(CardValue.FIVE, CardColor.DIAMOND), new Card(CardValue.FOUR,
+                            CardColor.SPADE), new Card(CardValue.THREE, CardColor.HEART), new Card(CardValue.TWO,
+                            CardColor.CLUB))))
 
             );
         }
@@ -163,7 +200,7 @@ class HandTest {
     }
 
     @Nested
-    @DisplayName("Test comparaison between two hands")
+    @DisplayName("Test comparison between two hands")
     class TestComparison {
         @Nested
         @DisplayName("Test the equals method")
@@ -174,8 +211,12 @@ class HandTest {
                 Hand hand2 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB)));
                 assertEquals(hand1, hand2);
 
-                Hand hand3 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
-                Hand hand4 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
+                Hand hand3 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING,
+                        CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK,
+                        CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
+                Hand hand4 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING,
+                        CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK,
+                        CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
                 assertEquals(hand3, hand4);
             }
 
@@ -191,8 +232,12 @@ class HandTest {
                 Hand hand2 = new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB)));
                 assertNotEquals(hand1, hand2);
 
-                Hand hand3 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
-                Hand hand4 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.NINE, CardColor.CLUB)));
+                Hand hand3 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING,
+                        CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK,
+                        CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
+                Hand hand4 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING,
+                        CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK,
+                        CardColor.CLUB), new Card(CardValue.NINE, CardColor.CLUB)));
                 assertNotEquals(hand3, hand4);
             }
         }
@@ -207,8 +252,12 @@ class HandTest {
                 Hand hand2 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB)));
                 assertEquals(hand1.hashCode(), hand2.hashCode());
 
-                Hand hand3 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
-                Hand hand4 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
+                Hand hand3 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING,
+                        CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK,
+                        CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
+                Hand hand4 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING,
+                        CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK,
+                        CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
                 assertEquals(hand3.hashCode(), hand4.hashCode());
             }
 
@@ -218,8 +267,12 @@ class HandTest {
                 Hand hand2 = new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB)));
                 assertNotEquals(hand1.hashCode(), hand2.hashCode());
 
-                Hand hand3 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
-                Hand hand4 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING, CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK, CardColor.CLUB), new Card(CardValue.NINE, CardColor.CLUB)));
+                Hand hand3 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING,
+                        CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK,
+                        CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
+                Hand hand4 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING,
+                        CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK,
+                        CardColor.CLUB), new Card(CardValue.NINE, CardColor.CLUB)));
                 assertNotEquals(hand3.hashCode(), hand4.hashCode());
             }
         }
