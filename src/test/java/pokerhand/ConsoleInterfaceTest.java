@@ -33,14 +33,14 @@ class ConsoleInterfaceTest {
             System.setIn(in);
             System.setOut(out);
             ConsoleInterface.main(new String[]{}); // call the method under test
-            var expected = """
-                    Welcome to PokerHand console interface!
-                    Please enter the first hand:
-                    Please enter the second hand:
-                    The winner is:
-                    [FIVE HEART]
-                    with a  : FLUSH
-                    """;
+            var expected = String.format(
+                    "Welcome to PokerHand console interface!%n" +
+                            "Please enter the first hand:%n" +
+                            "Please enter the second hand:%n" +
+                            "The winner is:%n" +
+                            "[FIVE HEART]%n" +
+                            "with a  : FLUSH%n"
+            );
 
             assertEquals(expected, byteOut.toString());
         }
