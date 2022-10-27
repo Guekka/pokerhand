@@ -1,15 +1,14 @@
 package pokerhand.core;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CardTest {
     @Test
@@ -61,8 +60,7 @@ class CardTest {
                     Arguments.of("5Pi", new Card(CardValue.FIVE, CardColor.SPADE)),
                     Arguments.of("4Pi", new Card(CardValue.FOUR, CardColor.SPADE)),
                     Arguments.of("3Pi", new Card(CardValue.THREE, CardColor.SPADE)),
-                    Arguments.of("2Pi", new Card(CardValue.TWO, CardColor.SPADE))
-            );
+                    Arguments.of("2Pi", new Card(CardValue.TWO, CardColor.SPADE)));
         }
 
         private static Stream<Arguments> provideInvalidCardStrings() {
@@ -81,8 +79,7 @@ class CardTest {
                     Arguments.of("13"),
                     Arguments.of("Z"),
                     Arguments.of("2"),
-                    Arguments.of("A")
-            );
+                    Arguments.of("A"));
         }
 
         @ParameterizedTest

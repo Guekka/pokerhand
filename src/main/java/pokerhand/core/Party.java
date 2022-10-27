@@ -16,8 +16,7 @@ public class Party {
 
     public Optional<Hand> getWinner() {
         // if all hands are equals, return None
-        if (hands.stream().allMatch(hand -> hands.get(0).equals(hand)))
-            return Optional.empty();
+        if (hands.stream().allMatch(hand -> hands.get(0).equals(hand))) return Optional.empty();
 
         // get maximum element
         return hands.stream().max(Comparator.comparing(Hand::getPower));

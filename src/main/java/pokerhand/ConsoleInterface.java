@@ -1,13 +1,10 @@
 package pokerhand;
 
+import java.util.Scanner;
 import pokerhand.core.Hand;
 import pokerhand.core.Party;
 
-import java.util.Scanner;
-
-/**
- * The ConsoleInterface class is used to interact with the user.
- */
+/** The ConsoleInterface class is used to interact with the user. */
 public class ConsoleInterface {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -27,5 +24,4 @@ public class ConsoleInterface {
             System.out.println("That's a draw!");
         }
     }
-
 }
