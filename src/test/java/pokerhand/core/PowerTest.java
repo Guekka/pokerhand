@@ -1,12 +1,11 @@
 package pokerhand.core;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class PowerTest {
     @Nested
@@ -94,8 +93,10 @@ class PowerTest {
 
             @Test
             void testBiggerPower() {
-                Power power1 = new Power(HandType.FOUR_OF_A_KIND, List.of(CardValue.ACE, CardValue.NINE));
-                Power power2 = new Power(HandType.FOUR_OF_A_KIND, List.of(CardValue.ACE, CardValue.QUEEN));
+                Power power1 =
+                        new Power(HandType.FOUR_OF_A_KIND, List.of(CardValue.ACE, CardValue.NINE));
+                Power power2 =
+                        new Power(HandType.FOUR_OF_A_KIND, List.of(CardValue.ACE, CardValue.QUEEN));
                 assertTrue(power1.compareTo(power2) < 0);
             }
 

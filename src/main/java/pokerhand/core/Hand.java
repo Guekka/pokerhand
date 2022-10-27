@@ -49,9 +49,7 @@ public class Hand {
         return new Power(handType, calculateSecondary(handType));
     }
 
-    /**
-     * Calculates the highest hand type of this hand
-     */
+    /** Calculates the highest hand type of this hand */
     public HandType calculateHandType() {
         if (isStraightFlush()) {
             return HandType.STRAIGHT_FLUSH;
@@ -81,8 +79,8 @@ public class Hand {
     }
 
     /**
-     * Calculates the secondary power of a hand.
-     * For HIGH_CARD, this is done by reverse sorting the cards
+     * Calculates the secondary power of a hand. For HIGH_CARD, this is done by reverse sorting the
+     * cards
      */
     private List<CardValue> calculateSecondary(HandType handType) {
         return switch (handType) {
@@ -106,10 +104,7 @@ public class Hand {
     }
 
     private boolean isFourOfAKind() {
-        return cards.stream()
-                .map(Card::value)
-                .distinct()
-                .count() == 2;
+        return cards.stream().map(Card::value).distinct().count() == 2;
     }
 
     private boolean isFullHouse() {
@@ -126,10 +121,7 @@ public class Hand {
     }
 
     private boolean isThreeOfAKind() {
-        return cards.stream()
-                .map(Card::value)
-                .distinct()
-                .count() == 3;
+        return cards.stream().map(Card::value).distinct().count() == 3;
     }
 
     private boolean isTwoPair() {
@@ -137,10 +129,7 @@ public class Hand {
     }
 
     private boolean isPair() {
-        return cards.stream()
-                .map(Card::value)
-                .distinct()
-                .count() == 4;
+        return cards.stream().map(Card::value).distinct().count() == 4;
     }
 
     /**
@@ -149,20 +138,24 @@ public class Hand {
      * @param numberOfCards the number of identical cards in the hand
      */
     private List<CardValue> sameCardHands(int numberOfCards) {
-        CardValue duplicate = this.cards.stream()
-                .map(Card::value)
-                .distinct()
-                .filter(value -> this.cards.stream()
-                        .filter(card -> card.value().equals(value))
-                        .count() == numberOfCards)
-                .findFirst()
-                .orElseThrow();
-        List<CardValue> rest = this.cards.stream()
-                .filter(card -> !card.value().equals(duplicate))
-                .sorted(Collections.reverseOrder())
-                .map(Card::value)
-                .toList();
-        return Stream.concat(Stream.of(duplicate), rest.stream())
-                .toList();
+        CardValue duplicate =
+                this.cards.stream()
+                        .map(Card::value)
+                        .distinct()
+                        .filter(
+                                value ->
+                                        this.cards.stream()
+                                                        .filter(card -> card.value().equals(value))
+                                                        .count()
+                                                == numberOfCards)
+                        .findFirst()
+                        .orElseThrow();
+        List<CardValue> rest =
+                this.cards.stream()
+                        .filter(card -> !card.value().equals(duplicate))
+                        .sorted(Collections.reverseOrder())
+                        .map(Card::value)
+                        .toList();
+        return Stream.concat(Stream.of(duplicate), rest.stream()).toList();
     }
 }
