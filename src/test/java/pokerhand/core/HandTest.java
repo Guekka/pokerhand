@@ -36,47 +36,33 @@ class HandTest {
     }
 
     @Nested
-    @DisplayName("Tests if the power of a hand is calculated correctly")
+    @DisplayName("Test if the power of a hand is calculated correctly")
     class TestPower {
-        @Test
-        void test_getPower_FromTheSameHand_ReturnsEqualPower() {
-            Hand hand1 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB)));
-            assertEquals(hand1.getPower(), hand1.getPower());
 
-            Hand hand2 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING,
-                    CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK,
+        @Test
+        void testHighCard() {
+            var highCard = new Hand(List.of(new Card(CardValue.ACE, CardColor.SPADE), new Card(CardValue.NINE,
+                    CardColor.CLUB), new Card(CardValue.THREE, CardColor.DIAMOND), new Card(CardValue.JACK,
                     CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
-            assertEquals(hand2.getPower(), hand2.getPower());
+
+            var expectedHandType = HandType.HIGH_CARD;
+            var expectedSecondary = List.of(CardValue.ACE, CardValue.JACK, CardValue.TEN, CardValue.NINE,
+                    CardValue.THREE);
+
+            assertEquals(new Power(expectedHandType, expectedSecondary), highCard.getPower());
         }
 
         @Test
-        void test_getPower_WhenTheFirstHandIsMorePowerfulThanTheSecondHand_ReturnsAHigherPowerForTheFirstHandThanTheSecondHand() {
-            Hand hand1 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB)));
-            Hand hand2 = new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB)));
-            assertEquals(1, hand1.getPower().compareTo(hand2.getPower()));
-
-            Hand hand3 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING,
-                    CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK,
+        void testFlush() {
+            var flush = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.NINE,
+                    CardColor.CLUB), new Card(CardValue.THREE, CardColor.CLUB), new Card(CardValue.JACK,
                     CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
-            Hand hand4 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING,
-                    CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK,
-                    CardColor.CLUB), new Card(CardValue.NINE, CardColor.CLUB)));
-            assertEquals(1, hand3.getPower().compareTo(hand4.getPower()));
-        }
 
-        @Test
-        void test_getPower_WhenTheFirstHandIsLessPowerfulThanTheSecondHand_ReturnsALowerPowerForTheFirstHandThanTheSecondHand() {
-            Hand hand = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB)));
-            Hand hand2 = new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB)));
-            assertEquals(-1, hand2.getPower().compareTo(hand.getPower()));
+            var expectedHandType = HandType.FLUSH;
+            var expectedSecondary = List.of(CardValue.ACE, CardValue.JACK, CardValue.TEN, CardValue.NINE,
+                    CardValue.THREE);
 
-            Hand hand3 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING,
-                    CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK,
-                    CardColor.CLUB), new Card(CardValue.NINE, CardColor.CLUB)));
-            Hand hand4 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB), new Card(CardValue.KING,
-                    CardColor.CLUB), new Card(CardValue.QUEEN, CardColor.CLUB), new Card(CardValue.JACK,
-                    CardColor.CLUB), new Card(CardValue.TEN, CardColor.CLUB)));
-            assertEquals(-1, hand3.getPower().compareTo(hand4.getPower()));
+            assertEquals(new Power(expectedHandType, expectedSecondary), flush.getPower());
         }
 
         @Test
@@ -214,7 +200,7 @@ class HandTest {
     }
 
     @Nested
-    @DisplayName("Test comparaison between two hands")
+    @DisplayName("Test comparison between two hands")
     class TestComparison {
         @Nested
         @DisplayName("Test the equals method")
