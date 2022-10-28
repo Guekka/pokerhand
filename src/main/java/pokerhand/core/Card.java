@@ -35,10 +35,10 @@ public record Card(CardValue value, CardColor color) implements Comparable<Card>
 
             CardColor cardColor =
                     switch (color) {
-                        case "tr" -> CardColor.CLUB;
-                        case "co" -> CardColor.HEART;
-                        case "ca" -> CardColor.DIAMOND;
-                        case "pi" -> CardColor.SPADE;
+                        case "tr", "trèfle", "trefle" -> CardColor.CLUB;
+                        case "co", "coeur" -> CardColor.HEART;
+                        case "ca", "carreau" -> CardColor.DIAMOND;
+                        case "pi", "pique" -> CardColor.SPADE;
                         default -> throw new IllegalArgumentException(
                                 "CardColor must be between Tr ,Co,Ca,Pi");
                     };
