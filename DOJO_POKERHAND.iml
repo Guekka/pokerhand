@@ -23,5 +23,19 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-params:5.8.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.assertj:assertj-core:3.23.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: net.bytebuddy:byte-buddy:1.12.10" level="project" />
+    <orderEntry type="library" name="Maven: com.diffplug.spotless:spotless-maven-plugin:2.27.2" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.diffplug.spotless:spotless-lib:2.30.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.diffplug.spotless:spotless-lib-extra:2.30.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.googlecode.concurrent-trees:concurrent-trees:2.6.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.codehaus.groovy:groovy-xml:3.0.10" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.codehaus.groovy:groovy:3.0.10" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.diffplug.durian:durian-core:1.2.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.diffplug.durian:durian-collect:1.2.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.codehaus.plexus:plexus-resources:1.2.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.codehaus.plexus:plexus-utils:3.4.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: javax.inject:javax.inject:1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.slf4j:slf4j-api:1.7.32" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.eclipse.jgit:org.eclipse.jgit:5.13.1.202206130422-r" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.googlecode.javaewah:JavaEWAH:1.1.13" level="project" />
   </component>
 </module>
