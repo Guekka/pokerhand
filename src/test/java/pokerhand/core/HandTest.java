@@ -162,6 +162,21 @@ class HandTest {
 
             assertEquals(new Power(expectedHandType, expectedSecondary), foak.getPower());
         }
+
+        @Test
+        void testStraight() {
+            var straight =
+                    new Hand(
+                            List.of(
+                                    new Card(CardValue.TEN, CardColor.CLUB),
+                                    new Card(CardValue.NINE, CardColor.CLUB),
+                                    new Card(CardValue.EIGHT, CardColor.DIAMOND),
+                                    new Card(CardValue.SEVEN, CardColor.SPADE),
+                                    new Card(CardValue.SIX, CardColor.HEART)));
+            var expectedHandType = HandType.STRAIGHT;
+            var expectedSecondary = List.of(CardValue.TEN);
+            assertEquals(new Power(expectedHandType, expectedSecondary), straight.getPower());
+        }
     }
 
     @Nested
