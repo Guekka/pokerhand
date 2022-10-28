@@ -14,38 +14,38 @@ public record Card(CardValue value, CardColor color) implements Comparable<Card>
      * @return the card represented by the string
      */
     public static Card fromString(String string) {
-        if (string.length() >= 3 && string.length() <= 4) {
-            String value = string.substring(0, string.length() - 2);
-            CardValue cardValue =
-                    switch (value) {
-                        case "J" -> CardValue.JACK;
-                        case "Q" -> CardValue.QUEEN;
-                        case "K" -> CardValue.KING;
-                        case "A" -> CardValue.ACE;
-                        default -> {
-                            if (value.matches("([2-9]|10)")) {
-                                yield (CardValue.values()[Integer.parseInt(value) - 2]);
-                            } else {
-                                throw new IllegalArgumentException(
-                                        "Card must be between 2 and 10, or J, Q, K, A");
-                            }
-                        }
-                    };
-            String color = string.substring(string.length() - 2).toLowerCase();
-
-            CardColor cardColor =
-                    switch (color) {
-                        case "tr", "trèfle", "trefle", "♣" -> CardColor.CLUB;
-                        case "co", "coeur", "♥" -> CardColor.HEART;
-                        case "ca", "carreau", "♦" -> CardColor.DIAMOND;
-                        case "pi", "pique", "♠" -> CardColor.SPADE;
-                        default -> throw new IllegalArgumentException(
-                                "CardColor must be between Tr ,Co,Ca,Pi");
-                    };
-            return new Card(cardValue, cardColor);
-        } else {
-            throw new IllegalArgumentException("Card must have 3 or 4 characters");
+        if (string.length() < 2) {
+            throw new IllegalArgumentException("Card string must be at least 2 characters long");
         }
+        int splitIndex = string.contains("10") ? 2 : 1;
+        String value = string.substring(0, splitIndex);
+        CardValue cardValue =
+                switch (value) {
+                    case "J" -> CardValue.JACK;
+                    case "Q" -> CardValue.QUEEN;
+                    case "K" -> CardValue.KING;
+                    case "A" -> CardValue.ACE;
+                    default -> {
+                        if (value.matches("([2-9]|10)")) {
+                            yield (CardValue.values()[Integer.parseInt(value) - 2]);
+                        } else {
+                            throw new IllegalArgumentException(
+                                    "Card must be between 2 and 10, or J, Q, K, A");
+                        }
+                    }
+                };
+        String color = string.substring(splitIndex).toLowerCase();
+
+        CardColor cardColor =
+                switch (color) {
+                    case "tr", "trèfle", "trefle", "♣" -> CardColor.CLUB;
+                    case "co", "coeur", "♥" -> CardColor.HEART;
+                    case "ca", "carreau", "♦" -> CardColor.DIAMOND;
+                    case "pi", "pique", "♠" -> CardColor.SPADE;
+                    default -> throw new IllegalArgumentException(
+                            "CardColor must be between ♣(Trèfle) ,♥(Coeur), ♦(Carreau), ♠(Pique)");
+                };
+        return new Card(cardValue, cardColor);
     }
 
     @Override
