@@ -4,5 +4,15 @@ public enum CardColor {
     CLUB,
     DIAMOND,
     HEART,
-    SPADE
+    SPADE;
+
+    @Override
+    public String toString() {
+        return switch (this) {
+            case CLUB -> "♣";
+            case DIAMOND -> "♦";
+            case HEART -> "♥";
+            case SPADE -> "♠";
+        };
+    }
 }
