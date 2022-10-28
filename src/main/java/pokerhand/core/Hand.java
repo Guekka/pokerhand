@@ -88,6 +88,8 @@ public class Hand {
                     .sorted(Collections.reverseOrder())
                     .map(Card::value)
                     .toList();
+            case STRAIGHT, STRAIGHT_FLUSH -> List.of(
+                    this.cards.stream().max(Card::compareTo).map(Card::value).orElseThrow());
 
             case PAIR -> sameCardHands(2);
 
@@ -117,7 +119,16 @@ public class Hand {
     }
 
     private boolean isStraight() {
-        return false;
+        List<Card> sortedCards = this.cards.stream().distinct().sorted().toList();
+        if (sortedCards.size() != 5) {
+            return false;
+        }
+        for (int i = 0; i < sortedCards.size() - 1; i++) {
+            if (!sortedCards.get(i).isPreviousTo(sortedCards.get(i + 1))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private boolean isThreeOfAKind() {

@@ -77,4 +77,8 @@ public record Card(CardValue value, CardColor color) implements Comparable<Card>
         }
         return false;
     }
+
+    public boolean isPreviousTo(Card other) {
+        return this.value().ordinal() == other.value().ordinal() - 1;
+    }
 }
