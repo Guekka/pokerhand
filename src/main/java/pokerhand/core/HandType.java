@@ -1,6 +1,8 @@
 package pokerhand.core;
 
-/** The HandType enum represents the type of hand in a poker hand. */
+/**
+ * The HandType enum represents the type of hand in a poker hand.
+ */
 public enum HandType {
     /**
      * The hand is a high card. A hand which has no pairs and is not a straight or a flush. The
@@ -55,5 +57,21 @@ public enum HandType {
      * sequential rank, all of the same suit, such as Q♣ J♣ 10♣ 9♣ 8♣ (a "queen-high straight
      * flush"). It ranks below a royal flush and above a flush.
      */
-    STRAIGHT_FLUSH
+    STRAIGHT_FLUSH;
+
+    @Override
+    public String toString() {
+        return switch (this) {
+            case HIGH_CARD -> "High Card";
+            case PAIR -> "Pair";
+            case TWO_PAIR -> "Two Pair";
+            case THREE_OF_A_KIND -> "Three of a Kind";
+            case STRAIGHT -> "Straight";
+            case FLUSH -> "Flush";
+            case FULL_HOUSE -> "Full House";
+            case FOUR_OF_A_KIND -> "Four of a Kind";
+            case STRAIGHT_FLUSH -> "Straight Flush";
+        };
+    }
+
 }

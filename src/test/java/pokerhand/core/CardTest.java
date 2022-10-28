@@ -27,7 +27,7 @@ class CardTest {
     @Test
     void testToString() {
         var card = new Card(CardValue.ACE, CardColor.DIAMOND);
-        assertEquals("ACE DIAMOND", card.toString());
+        assertEquals("A♦", card.toString());
     }
 
     @Test

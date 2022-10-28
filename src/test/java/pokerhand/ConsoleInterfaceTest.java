@@ -1,15 +1,16 @@
 package pokerhand;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ConsoleInterfaceTest {
     @Nested
@@ -32,13 +33,15 @@ class ConsoleInterfaceTest {
             PrintStream out = new PrintStream(byteOut);
             System.setIn(in);
             System.setOut(out);
-            ConsoleInterface.main(new String[] {}); // call the method under test
+            ConsoleInterface.main(new String[]{}); // call the method under test
             var expected =
                     String.format(
-                            "Welcome to PokerHand console interface!%nPlease enter the first"
-                                + " hand:%nPlease enter the second hand:%nThe winner is:%n[FOUR"
-                                + " HEART, FOUR SPADE, FOUR DIAMOND, TWO HEART, FOUR CLUB]%nwith a "
-                                + " : FOUR_OF_A_KIND%n");
+                            "Welcome to PokerHand console interface!%n"
+                                    + "Please enter the first hand:%n"
+                                    + "Please enter the second hand:%n"
+                                    + "The winner is:%n"
+                                    + "[4♥, 4♠, 4♦, 2♥, 4♣]%n"
+                                    + "with a  : Four of a Kind%n");
 
             assertEquals(expected, byteOut.toString());
         }
