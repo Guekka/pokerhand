@@ -26,7 +26,8 @@ class ConsoleInterfaceTest {
         @Test
         @DisplayName("Test the integration of the console interface")
         void test_main_WhenGivenTwoHandsWithOneCardBiggerThanTheOther_PrintsTheBiggerHand() {
-            ByteArrayInputStream in = new ByteArrayInputStream("4Co\n5Co".getBytes());
+            ByteArrayInputStream in =
+                    new ByteArrayInputStream("4Co 4Pi 4Ca 2Co 4Tr\n5Co 4Co 4Ca 4Tr 6Ca".getBytes());
             ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
             PrintStream out = new PrintStream(byteOut);
             System.setIn(in);
@@ -34,12 +35,10 @@ class ConsoleInterfaceTest {
             ConsoleInterface.main(new String[] {}); // call the method under test
             var expected =
                     String.format(
-                            "Welcome to PokerHand console interface!%n"
-                                    + "Please enter the first hand:%n"
-                                    + "Please enter the second hand:%n"
-                                    + "The winner is:%n"
-                                    + "[FIVE HEART]%n"
-                                    + "with a  : FLUSH%n");
+                            "Welcome to PokerHand console interface!%nPlease enter the first"
+                                + " hand:%nPlease enter the second hand:%nThe winner is:%n[FOUR"
+                                + " HEART, FOUR SPADE, FOUR DIAMOND, TWO HEART, FOUR CLUB]%nwith a "
+                                + " : FOUR_OF_A_KIND%n");
 
             assertEquals(expected, byteOut.toString());
         }

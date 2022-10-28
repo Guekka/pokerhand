@@ -1,19 +1,24 @@
 package pokerhand.core;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class Hand {
     private final List<Card> cards;
+    private final EnumMap<CardValue, Integer> valueCount = new EnumMap<>(CardValue.class);
 
     public Hand(List<Card> cards) {
         if (cards.isEmpty()) {
             throw new IllegalArgumentException("Hand must contain at least one card");
         }
         this.cards = cards;
+        this.calculateValueCount();
+    }
+
+    private void calculateValueCount() {
+        for (Card card : cards) {
+            valueCount.put(card.value(), valueCount.getOrDefault(card.value(), 0) + 1);
+        }
     }
 
     /**
@@ -106,7 +111,7 @@ public class Hand {
     }
 
     private boolean isFourOfAKind() {
-        return cards.stream().map(Card::value).distinct().count() == 2;
+        return valueCount.containsValue(4);
     }
 
     private boolean isFullHouse() {
@@ -132,7 +137,7 @@ public class Hand {
     }
 
     private boolean isThreeOfAKind() {
-        return cards.stream().map(Card::value).distinct().count() == 3;
+        return valueCount.containsValue(3);
     }
 
     private boolean isTwoPair() {
@@ -140,7 +145,7 @@ public class Hand {
     }
 
     private boolean isPair() {
-        return cards.stream().map(Card::value).distinct().count() == 4;
+        return valueCount.containsValue(2);
     }
 
     /**
