@@ -124,7 +124,7 @@ public class Hand {
             return false;
         }
         for (int i = 0; i < sortedCards.size() - 1; i++) {
-            if (!sortedCards.get(i).isNext(sortedCards.get(i + 1))) {
+            if (!sortedCards.get(i).isPreviousTo(sortedCards.get(i + 1))) {
                 return false;
             }
         }
