@@ -31,14 +31,14 @@ public record Card(CardValue value, CardColor color) implements Comparable<Card>
                             }
                         }
                     };
-            String color = string.substring(string.length() - 2);
+            String color = string.substring(string.length() - 2).toLowerCase();
 
             CardColor cardColor =
                     switch (color) {
-                        case "Tr" -> CardColor.CLUB;
-                        case "Co" -> CardColor.HEART;
-                        case "Ca" -> CardColor.DIAMOND;
-                        case "Pi" -> CardColor.SPADE;
+                        case "tr" -> CardColor.CLUB;
+                        case "co" -> CardColor.HEART;
+                        case "ca" -> CardColor.DIAMOND;
+                        case "pi" -> CardColor.SPADE;
                         default -> throw new IllegalArgumentException(
                                 "CardColor must be between Tr ,Co,Ca,Pi");
                     };
@@ -74,6 +74,7 @@ public record Card(CardValue value, CardColor color) implements Comparable<Card>
      *
      * @return the string representation of the card
      */
+
     public String toString() {
         return value.toString() + color.toString();
     }
