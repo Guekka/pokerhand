@@ -15,12 +15,6 @@ public class Hand {
         this.calculateValueCount();
     }
 
-    private void calculateValueCount() {
-        for (Card card : cards) {
-            valueCount.put(card.value(), valueCount.getOrDefault(card.value(), 0) + 1);
-        }
-    }
-
     /**
      * Creates a Hand from a string.
      *
@@ -29,6 +23,12 @@ public class Hand {
     public static Hand fromString(String value) {
         var cards = Arrays.stream(value.split(" ")).map(Card::fromString).toList();
         return new Hand(cards);
+    }
+
+    private void calculateValueCount() {
+        for (Card card : cards) {
+            valueCount.put(card.value(), valueCount.getOrDefault(card.value(), 0) + 1);
+        }
     }
 
     @Override
@@ -54,7 +54,9 @@ public class Hand {
         return new Power(handType, calculateSecondary(handType));
     }
 
-    /** Calculates the highest hand type of this hand */
+    /**
+     * Calculates the highest hand type of this hand
+     */
     public HandType calculateHandType() {
         if (isStraightFlush()) {
             return HandType.STRAIGHT_FLUSH;
@@ -97,7 +99,7 @@ public class Hand {
                     this.cards.stream().max(Card::compareTo).map(Card::value).orElseThrow());
 
             case PAIR -> sameCardHands(2);
-
+            case TWO_PAIR -> calculateSecondaryTwoPair();
             case THREE_OF_A_KIND -> sameCardHands(3);
 
             case FOUR_OF_A_KIND -> sameCardHands(4);
@@ -141,11 +143,39 @@ public class Hand {
     }
 
     private boolean isTwoPair() {
-        return false;
+        int numberOfPair = 0;
+        for (Integer i : valueCount.values()) {
+            if (i == 2) numberOfPair++;
+        }
+        return numberOfPair == 2;
     }
 
     private boolean isPair() {
         return valueCount.containsValue(2);
+    }
+
+    private List<CardValue> calculateSecondaryTwoPair() {
+        List<CardValue> res =
+                new ArrayList<>(
+                        this.cards.stream()
+                                .map(Card::value)
+                                .distinct()
+                                .filter(
+                                        value ->
+                                                this.cards.stream()
+                                                                .filter(
+                                                                        card ->
+                                                                                card.value()
+                                                                                        .equals(
+                                                                                                value))
+                                                                .count()
+                                                        == 2)
+                                .sorted(Collections.reverseOrder())
+                                .toList());
+        for (Card c : cards) {
+            if (!res.contains(c.value())) res.add(c.value());
+        }
+        return res;
     }
 
     /**
@@ -161,8 +191,8 @@ public class Hand {
                         .filter(
                                 value ->
                                         this.cards.stream()
-                                                        .filter(card -> card.value().equals(value))
-                                                        .count()
+                                                .filter(card -> card.value().equals(value))
+                                                .count()
                                                 == numberOfCards)
                         .findFirst()
                         .orElseThrow();
