@@ -163,6 +163,23 @@ class HandTest {
         }
 
         @Test
+        void testFullHouse() {
+            var fullLouse =
+                    new Hand(
+                            List.of(
+                                    new Card(CardValue.JACK, CardColor.CLUB),
+                                    new Card(CardValue.JACK, CardColor.CLUB),
+                                    new Card(CardValue.JACK, CardColor.SPADE),
+                                    new Card(CardValue.KING, CardColor.HEART),
+                                    new Card(CardValue.KING, CardColor.SPADE)));
+
+            var expectedHandType = HandType.FULL_HOUSE;
+            var expectedSecondary = List.of(CardValue.JACK, CardValue.KING);
+
+            assertEquals(new Power(expectedHandType, expectedSecondary), fullLouse.getPower());
+        }
+
+        @Test
         void testFOAK() {
             var foak =
                     new Hand(

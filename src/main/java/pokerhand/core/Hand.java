@@ -54,9 +54,7 @@ public class Hand {
         return new Power(handType, calculateSecondary(handType));
     }
 
-    /**
-     * Calculates the highest hand type of this hand
-     */
+    /** Calculates the highest hand type of this hand */
     public HandType calculateHandType() {
         if (isStraightFlush()) {
             return HandType.STRAIGHT_FLUSH;
@@ -100,6 +98,7 @@ public class Hand {
 
             case PAIR -> sameCardHands(2);
             case TWO_PAIR -> calculateSecondaryTwoPair();
+            case FULL_HOUSE -> sameCardHands(3).subList(0, 2);
             case THREE_OF_A_KIND -> sameCardHands(3);
 
             case FOUR_OF_A_KIND -> sameCardHands(4);
@@ -191,8 +190,8 @@ public class Hand {
                         .filter(
                                 value ->
                                         this.cards.stream()
-                                                .filter(card -> card.value().equals(value))
-                                                .count()
+                                                        .filter(card -> card.value().equals(value))
+                                                        .count()
                                                 == numberOfCards)
                         .findFirst()
                         .orElseThrow();
