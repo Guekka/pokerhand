@@ -1,6 +1,8 @@
 package pokerhand.core;
 
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Hand {
@@ -154,23 +156,17 @@ public class Hand {
     }
 
     private List<CardValue> calculateSecondaryTwoPair() {
-        List<CardValue> res =
-                new ArrayList<>(
-                        this.cards.stream()
-                                .map(Card::value)
-                                .distinct()
-                                .filter(
-                                        value ->
-                                                this.cards.stream()
-                                                                .filter(
-                                                                        card ->
-                                                                                card.value()
-                                                                                        .equals(
-                                                                                                value))
-                                                                .count()
-                                                        == 2)
-                                .sorted(Collections.reverseOrder())
-                                .toList());
+        Predicate<CardValue> appearsTwice =
+                value ->
+                        this.cards.stream().filter(card -> card.value().equals(value)).count() == 2;
+
+        ArrayList<CardValue> res =
+                this.cards.stream()
+                        .map(Card::value)
+                        .distinct()
+                        .filter(appearsTwice)
+                        .sorted(Collections.reverseOrder())
+                        .collect(Collectors.toCollection(ArrayList::new));
         for (Card c : cards) {
             if (!res.contains(c.value())) res.add(c.value());
         }
