@@ -1,6 +1,8 @@
 package pokerhand.core;
 
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Hand {
@@ -15,12 +17,6 @@ public class Hand {
         this.calculateValueCount();
     }
 
-    private void calculateValueCount() {
-        for (Card card : cards) {
-            valueCount.put(card.value(), valueCount.getOrDefault(card.value(), 0) + 1);
-        }
-    }
-
     /**
      * Creates a Hand from a string.
      *
@@ -29,6 +25,12 @@ public class Hand {
     public static Hand fromString(String value) {
         var cards = Arrays.stream(value.split(" ")).map(Card::fromString).toList();
         return new Hand(cards);
+    }
+
+    private void calculateValueCount() {
+        for (Card card : cards) {
+            valueCount.put(card.value(), valueCount.getOrDefault(card.value(), 0) + 1);
+        }
     }
 
     @Override
@@ -97,7 +99,8 @@ public class Hand {
                     this.cards.stream().max(Card::compareTo).map(Card::value).orElseThrow());
 
             case PAIR -> sameCardHands(2);
-
+            case TWO_PAIR -> calculateSecondaryTwoPair();
+            case FULL_HOUSE -> sameCardHands(3).subList(0, 2);
             case THREE_OF_A_KIND -> sameCardHands(3);
 
             case FOUR_OF_A_KIND -> sameCardHands(4);
@@ -141,11 +144,33 @@ public class Hand {
     }
 
     private boolean isTwoPair() {
-        return false;
+        int numberOfPair = 0;
+        for (Integer i : valueCount.values()) {
+            if (i == 2) numberOfPair++;
+        }
+        return numberOfPair == 2;
     }
 
     private boolean isPair() {
         return valueCount.containsValue(2);
+    }
+
+    private List<CardValue> calculateSecondaryTwoPair() {
+        Predicate<CardValue> appearsTwice =
+                value ->
+                        this.cards.stream().filter(card -> card.value().equals(value)).count() == 2;
+
+        ArrayList<CardValue> res =
+                this.cards.stream()
+                        .map(Card::value)
+                        .distinct()
+                        .filter(appearsTwice)
+                        .sorted(Collections.reverseOrder())
+                        .collect(Collectors.toCollection(ArrayList::new));
+        for (Card c : cards) {
+            if (!res.contains(c.value())) res.add(c.value());
+        }
+        return res;
     }
 
     /**

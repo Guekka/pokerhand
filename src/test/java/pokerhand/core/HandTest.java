@@ -130,6 +130,22 @@ class HandTest {
         }
 
         @Test
+        void testTwoPair() {
+            var twopair =
+                    new Hand(
+                            List.of(
+                                    new Card(CardValue.JACK, CardColor.CLUB),
+                                    new Card(CardValue.JACK, CardColor.SPADE),
+                                    new Card(CardValue.QUEEN, CardColor.CLUB),
+                                    new Card(CardValue.QUEEN, CardColor.CLUB),
+                                    new Card(CardValue.ACE, CardColor.DIAMOND)));
+            var expectedHandType = HandType.TWO_PAIR;
+            var expectedSecondary = List.of(CardValue.QUEEN, CardValue.JACK, CardValue.ACE);
+
+            assertEquals(new Power(expectedHandType, expectedSecondary), twopair.getPower());
+        }
+
+        @Test
         void testTOAK() {
             var toak =
                     new Hand(
@@ -144,6 +160,23 @@ class HandTest {
             var expectedSecondary = List.of(CardValue.JACK, CardValue.ACE, CardValue.KING);
 
             assertEquals(new Power(expectedHandType, expectedSecondary), toak.getPower());
+        }
+
+        @Test
+        void testFullHouse() {
+            var fullLouse =
+                    new Hand(
+                            List.of(
+                                    new Card(CardValue.JACK, CardColor.CLUB),
+                                    new Card(CardValue.JACK, CardColor.CLUB),
+                                    new Card(CardValue.JACK, CardColor.SPADE),
+                                    new Card(CardValue.KING, CardColor.HEART),
+                                    new Card(CardValue.KING, CardColor.SPADE)));
+
+            var expectedHandType = HandType.FULL_HOUSE;
+            var expectedSecondary = List.of(CardValue.JACK, CardValue.KING);
+
+            assertEquals(new Power(expectedHandType, expectedSecondary), fullLouse.getPower());
         }
 
         @Test
