@@ -92,7 +92,7 @@ public class GameTest {
         @Test
         void testPair() {
 
-            Hand pairWinner =
+            Hand pairLoser =
                     new Hand(
                             List.of(
                                     sevenOfDiamonds,
@@ -100,7 +100,7 @@ public class GameTest {
                                     aceOfDiamonds,
                                     jackOfClubs,
                                     queenOfHearts));
-            Hand pairLoser =
+            Hand pairWinner =
                     new Hand(
                             List.of(
                                     eightOfClubs,
