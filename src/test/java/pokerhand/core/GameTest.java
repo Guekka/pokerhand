@@ -90,6 +90,28 @@ public class GameTest {
         }
 
         @Test
+        void testHighCardWith4SameCards() {
+            Hand highCardLoser =
+                    new Hand(
+                            List.of(
+                                    sevenOfDiamonds,
+                                    twoOfDiamonds,
+                                    aceOfDiamonds,
+                                    jackOfClubs,
+                                    queenOfHearts));
+            Hand highCardWinner =
+                    new Hand(
+                            List.of(
+                                    sevenOfDiamonds,
+                                    threeOfHearts,
+                                    aceOfDiamonds,
+                                    jackOfClubs,
+                                    queenOfHearts));
+            Party newParty = new Party(highCardLoser, highCardWinner);
+            assertEquals(Optional.of(highCardWinner), newParty.getWinner());
+        }
+
+        @Test
         void testPair() {
 
             Hand pairLoser =
@@ -144,7 +166,6 @@ public class GameTest {
                                     sevenOfClubs,
                                     sevenOfHearts,
                                     aceOfDiamonds,
-                                    jackOfClubs,
                                     queenOfHearts));
             Hand toakWinner =
                     new Hand(
@@ -152,7 +173,6 @@ public class GameTest {
                                     eightOfClubs,
                                     eightOfSpades,
                                     eightOfDiamonds,
-                                    aceOfDiamonds,
                                     jackOfClubs,
                                     queenOfHearts));
             Party newParty = new Party(toakLoser, toakWinner);
@@ -168,9 +188,7 @@ public class GameTest {
                                     sevenOfClubs,
                                     sevenOfHearts,
                                     sevenOfSpades,
-                                    aceOfDiamonds,
-                                    jackOfClubs,
-                                    queenOfHearts));
+                                    jackOfClubs));
             Hand foakWinner =
                     new Hand(
                             List.of(
@@ -178,9 +196,7 @@ public class GameTest {
                                     eightOfSpades,
                                     eightOfDiamonds,
                                     eightOfHearts,
-                                    aceOfDiamonds,
-                                    jackOfClubs,
-                                    queenOfHearts));
+                                    aceOfDiamonds));
             Party newParty = new Party(foakLoser, foakWinner);
             assertEquals(Optional.of(foakWinner), newParty.getWinner());
         }
@@ -194,9 +210,7 @@ public class GameTest {
                                     sevenOfClubs,
                                     eightOfClubs,
                                     eightOfDiamonds,
-                                    aceOfDiamonds,
-                                    jackOfClubs,
-                                    queenOfHearts));
+                                    aceOfDiamonds));
             Hand twoPairWinner =
                     new Hand(
                             List.of(
@@ -204,9 +218,51 @@ public class GameTest {
                                     eightOfSpades,
                                     nineOfSpades,
                                     nineOfSpades,
-                                    aceOfDiamonds,
-                                    jackOfClubs,
-                                    queenOfHearts));
+                                    aceOfDiamonds));
+            Party newParty = new Party(twoPairLoser, twoPairWinner);
+            assertEquals(Optional.of(twoPairWinner), newParty.getWinner());
+        }
+
+        @Test
+        void testTwoPairWithSameHighestPair() {
+            Hand twoPairLoser =
+                    new Hand(
+                            List.of(
+                                    sevenOfDiamonds,
+                                    sevenOfClubs,
+                                    nineOfSpades,
+                                    nineOfClubs,
+                                    aceOfDiamonds));
+            Hand twoPairWinner =
+                    new Hand(
+                            List.of(
+                                    eightOfClubs,
+                                    eightOfSpades,
+                                    nineOfSpades,
+                                    nineOfSpades,
+                                    aceOfDiamonds));
+            Party newParty = new Party(twoPairLoser, twoPairWinner);
+            assertEquals(Optional.of(twoPairWinner), newParty.getWinner());
+        }
+
+        @Test
+        void testTwoPairWithSameTwoPair() {
+            Hand twoPairLoser =
+                    new Hand(
+                            List.of(
+                                    eightOfClubs,
+                                    eightOfSpades,
+                                    nineOfSpades,
+                                    nineOfClubs,
+                                    kingOfSpades));
+            Hand twoPairWinner =
+                    new Hand(
+                            List.of(
+                                    eightOfClubs,
+                                    eightOfSpades,
+                                    nineOfSpades,
+                                    nineOfSpades,
+                                    aceOfDiamonds));
             Party newParty = new Party(twoPairLoser, twoPairWinner);
             assertEquals(Optional.of(twoPairWinner), newParty.getWinner());
         }
@@ -220,17 +276,13 @@ public class GameTest {
                                     nineOfSpades,
                                     eightOfClubs,
                                     tenOfDiamonds,
-                                    kingOfSpades,
-                                    jackOfClubs,
-                                    queenOfHearts));
+                                    jackOfClubs));
             Hand straightWinner =
                     new Hand(
                             List.of(
                                     eightOfClubs,
-                                    aceOfDiamonds,
                                     nineOfSpades,
                                     tenOfDiamonds,
-                                    kingOfSpades,
                                     jackOfClubs,
                                     queenOfHearts));
             Party newParty = new Party(straightLoser, straightWinner);
@@ -305,5 +357,206 @@ public class GameTest {
     }
 
     @Nested
-    class TestGameWithDifferentHandType {}
+    class TestGameWithDifferentHandType {
+        @Test
+        void testHighCardVsPair() {
+            Hand highCard =
+                    new Hand(
+                            List.of(
+                                    twoOfSpades,
+                                    eightOfSpades,
+                                    aceOfDiamonds,
+                                    jackOfClubs,
+                                    queenOfHearts));
+            Hand pair =
+                    new Hand(
+                            List.of(
+                                    eightOfClubs,
+                                    eightOfSpades,
+                                    aceOfDiamonds,
+                                    jackOfClubs,
+                                    queenOfHearts));
+            Party newParty = new Party(highCard, pair);
+            assertEquals(Optional.of(pair), newParty.getWinner());
+        }
+
+        @Test
+        void testPairVsTwoPair() {
+            Hand pair =
+                    new Hand(
+                            List.of(
+                                    eightOfClubs,
+                                    eightOfSpades,
+                                    aceOfDiamonds,
+                                    jackOfClubs,
+                                    queenOfHearts));
+            Hand twoPair =
+                    new Hand(
+                            List.of(
+                                    eightOfClubs,
+                                    eightOfSpades,
+                                    nineOfSpades,
+                                    nineOfSpades,
+                                    aceOfDiamonds));
+            Party newParty = new Party(pair, twoPair);
+            assertEquals(Optional.of(twoPair), newParty.getWinner());
+        }
+
+        @Test
+        void testTwoPairVsTOAK() {
+            Hand toak =
+                    new Hand(
+                            List.of(
+                                    sevenOfDiamonds,
+                                    sevenOfClubs,
+                                    sevenOfHearts,
+                                    aceOfDiamonds,
+                                    jackOfClubs));
+            Hand twoPair =
+                    new Hand(
+                            List.of(
+                                    eightOfClubs,
+                                    eightOfSpades,
+                                    nineOfSpades,
+                                    nineOfSpades,
+                                    aceOfDiamonds));
+            Party newParty = new Party(toak, twoPair);
+            assertEquals(Optional.of(toak), newParty.getWinner());
+        }
+
+        @Test
+        void testTOAKVsStraight() {
+            Hand toak =
+                    new Hand(
+                            List.of(
+                                    sevenOfDiamonds,
+                                    sevenOfClubs,
+                                    sevenOfHearts,
+                                    aceOfDiamonds,
+                                    queenOfHearts));
+            Hand straight =
+                    new Hand(
+                            List.of(
+                                    sevenOfDiamonds,
+                                    nineOfSpades,
+                                    eightOfClubs,
+                                    tenOfDiamonds,
+                                    jackOfClubs));
+            Party newParty = new Party(toak, straight);
+            assertEquals(Optional.of(straight), newParty.getWinner());
+        }
+
+        @Test
+        void testStraightVsFlush() {
+            Hand flush =
+                    new Hand(
+                            List.of(
+                                    tenOfDiamonds,
+                                    eightOfDiamonds,
+                                    fiveOfDiamonds,
+                                    sevenOfDiamonds,
+                                    twoOfDiamonds));
+            Hand straight =
+                    new Hand(
+                            List.of(
+                                    sevenOfClubs,
+                                    eightOfSpades,
+                                    nineOfSpades,
+                                    tenOfSpades,
+                                    jackOfSpades));
+            Party newParty = new Party(flush, straight);
+            assertEquals(Optional.of(flush), newParty.getWinner());
+        }
+
+        @Test
+        void testFlushVsFullHouse() {
+            Hand flush =
+                    new Hand(
+                            List.of(
+                                    tenOfDiamonds,
+                                    eightOfDiamonds,
+                                    fiveOfDiamonds,
+                                    sevenOfDiamonds,
+                                    twoOfDiamonds));
+            Hand fullHouse =
+                    new Hand(
+                            List.of(
+                                    nineOfClubs,
+                                    nineOfHearts,
+                                    nineOfSpades,
+                                    twoOfSpades,
+                                    twoOfDiamonds));
+            Party newParty = new Party(flush, fullHouse);
+            assertEquals(Optional.of(fullHouse), newParty.getWinner());
+        }
+
+        @Test
+        void testFullHouseVsFOAK() {
+            Hand fullHouse =
+                    new Hand(
+                            List.of(
+                                    nineOfClubs,
+                                    nineOfHearts,
+                                    nineOfSpades,
+                                    twoOfSpades,
+                                    twoOfDiamonds));
+            Hand foak =
+                    new Hand(
+                            List.of(
+                                    sevenOfDiamonds,
+                                    sevenOfClubs,
+                                    sevenOfHearts,
+                                    sevenOfSpades,
+                                    jackOfClubs));
+            Party newParty = new Party(fullHouse, foak);
+            assertEquals(Optional.of(foak), newParty.getWinner());
+        }
+
+        @Test
+        void testFOAKVsStraightFlush() {
+            Hand foak =
+                    new Hand(
+                            List.of(
+                                    sevenOfDiamonds,
+                                    sevenOfClubs,
+                                    sevenOfHearts,
+                                    sevenOfSpades,
+                                    jackOfClubs));
+            Hand straightFlush =
+                    new Hand(
+                            List.of(
+                                    sevenOfSpades,
+                                    eightOfSpades,
+                                    nineOfSpades,
+                                    tenOfSpades,
+                                    jackOfSpades));
+            Party newParty = new Party(foak, straightFlush);
+            assertEquals(Optional.of(straightFlush), newParty.getWinner());
+        }
+
+        @Test
+        void testTOAKVsFOAK() {
+            Hand toak =
+                    new Hand(
+                            List.of(
+                                    sevenOfDiamonds,
+                                    sevenOfClubs,
+                                    sevenOfHearts,
+                                    aceOfDiamonds,
+                                    jackOfClubs,
+                                    queenOfHearts));
+            Hand foak =
+                    new Hand(
+                            List.of(
+                                    sevenOfDiamonds,
+                                    sevenOfClubs,
+                                    sevenOfHearts,
+                                    sevenOfSpades,
+                                    aceOfDiamonds,
+                                    jackOfClubs,
+                                    queenOfHearts));
+            Party newParty = new Party(toak, foak);
+            assertEquals(Optional.of(foak), newParty.getWinner());
+        }
+    }
 }
