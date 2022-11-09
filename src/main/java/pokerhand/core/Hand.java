@@ -101,6 +101,7 @@ public class Hand {
             case PAIR -> sameCardHands(2);
             case TWO_PAIR -> calculateSecondaryTwoPair();
             case FULL_HOUSE -> sameCardHands(3).subList(0, 2);
+
             case THREE_OF_A_KIND -> sameCardHands(3);
 
             case FOUR_OF_A_KIND -> sameCardHands(4);

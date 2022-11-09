@@ -140,6 +140,7 @@ class HandTest {
                                     new Card(CardValue.QUEEN, CardColor.CLUB),
                                     new Card(CardValue.ACE, CardColor.DIAMOND)));
             var expectedHandType = HandType.TWO_PAIR;
+
             var expectedSecondary = List.of(CardValue.QUEEN, CardValue.JACK, CardValue.ACE);
 
             assertEquals(new Power(expectedHandType, expectedSecondary), twopair.getPower());
