@@ -7,11 +7,18 @@ import java.util.Optional;
 
 public class Party {
     private final ArrayList<Hand> hands;
+    private final CardDeck deck;
 
     public Party(Hand hand1, Hand hand2) {
         this.hands = new ArrayList<>();
-        this.hands.add(hand1);
-        this.hands.add(hand2);
+        this.deck = new CardDeck();
+        addHand(hand1);
+        addHand(hand2);
+    }
+
+    public void addHand(Hand hand) {
+        this.deck.takeCards(hand.getCards());
+        this.hands.add(hand);
     }
 
     public Optional<Hand> getWinner() {
