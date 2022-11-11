@@ -1,13 +1,14 @@
 package pokerhand.core;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.List;
-import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PartyTest {
     @Nested
@@ -54,11 +55,11 @@ class PartyTest {
                 var fiveCardsHandLoser =
                         new Hand(
                                 List.of(
-                                        new Card(CardValue.ACE, CardColor.CLUB),
-                                        new Card(CardValue.KING, CardColor.CLUB),
-                                        new Card(CardValue.QUEEN, CardColor.CLUB),
-                                        new Card(CardValue.JACK, CardColor.CLUB),
-                                        new Card(CardValue.NINE, CardColor.CLUB)));
+                                        new Card(CardValue.ACE, CardColor.DIAMOND),
+                                        new Card(CardValue.KING, CardColor.DIAMOND),
+                                        new Card(CardValue.QUEEN, CardColor.DIAMOND),
+                                        new Card(CardValue.JACK, CardColor.DIAMOND),
+                                        new Card(CardValue.NINE, CardColor.DIAMOND)));
 
                 Party party2 = new Party(fiveCardsHandWinner, fiveCardsHandLoser);
                 assertThat(party2.getWinner()).hasValue(fiveCardsHandWinner);
@@ -83,11 +84,11 @@ class PartyTest {
                 var fiveCardsHandLoser =
                         new Hand(
                                 List.of(
-                                        new Card(CardValue.ACE, CardColor.CLUB),
-                                        new Card(CardValue.KING, CardColor.CLUB),
-                                        new Card(CardValue.QUEEN, CardColor.CLUB),
-                                        new Card(CardValue.JACK, CardColor.CLUB),
-                                        new Card(CardValue.NINE, CardColor.CLUB)));
+                                        new Card(CardValue.ACE, CardColor.DIAMOND),
+                                        new Card(CardValue.KING, CardColor.DIAMOND),
+                                        new Card(CardValue.QUEEN, CardColor.DIAMOND),
+                                        new Card(CardValue.JACK, CardColor.DIAMOND),
+                                        new Card(CardValue.NINE, CardColor.DIAMOND)));
 
                 Party party2 = new Party(fiveCardsHandWinner, fiveCardsHandLoser);
                 assertThat(party2.getWinner()).hasValue(fiveCardsHandWinner);
