@@ -199,4 +199,8 @@ public class Hand {
                         .toList();
         return Stream.concat(Stream.of(duplicate), rest.stream()).toList();
     }
+
+    public List<Card> getCards() {
+        return cards;
+    }
 }
