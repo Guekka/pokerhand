@@ -48,15 +48,6 @@ public record Card(CardValue value, CardColor color) implements Comparable<Card>
         }
     }
 
-    /**
-     * Representation of the card as a string.
-     *
-     * @return the string representation of the card
-     */
-    public String toString() {
-        return value.toString() + " " + color.toString();
-    }
-
     @Override
     public int compareTo(Card other) {
         if (value.compareTo(other.value()) > 0) {
@@ -76,6 +67,15 @@ public record Card(CardValue value, CardColor color) implements Comparable<Card>
             return this.value == card.value && this.color == card.color;
         }
         return false;
+    }
+
+    /**
+     * Representation of the card as a string.
+     *
+     * @return the string representation of the card
+     */
+    public String toString() {
+        return value.toString() + color.toString();
     }
 
     public boolean isPreviousTo(Card other) {

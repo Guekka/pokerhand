@@ -14,24 +14,18 @@ import org.junit.jupiter.params.provider.MethodSource;
 class HandTest {
     @Test
     void test_toString_WhenGivenDifferentHands_ReturnsCorrectStringRepresentationOfTheHand() {
+        assertEquals("[A♣]", new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB))).toString());
         assertEquals(
-                "[ACE CLUB]",
-                new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB))).toString());
+                "[K♣]", new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB))).toString());
         assertEquals(
-                "[KING CLUB]",
-                new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB))).toString());
+                "[Q♣]", new Hand(List.of(new Card(CardValue.QUEEN, CardColor.CLUB))).toString());
         assertEquals(
-                "[QUEEN CLUB]",
-                new Hand(List.of(new Card(CardValue.QUEEN, CardColor.CLUB))).toString());
+                "[J♣]", new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB))).toString());
         assertEquals(
-                "[JACK CLUB]",
-                new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB))).toString());
-        assertEquals(
-                "[TEN HEART]",
-                new Hand(List.of(new Card(CardValue.TEN, CardColor.HEART))).toString());
+                "[10♥]", new Hand(List.of(new Card(CardValue.TEN, CardColor.HEART))).toString());
 
         assertEquals(
-                "[ACE CLUB, KING CLUB, QUEEN CLUB, JACK CLUB, TEN CLUB]",
+                "[A♣, K♣, Q♣, J♣, 10♣]",
                 new Hand(
                                 List.of(
                                         new Card(CardValue.ACE, CardColor.CLUB),
@@ -41,7 +35,7 @@ class HandTest {
                                         new Card(CardValue.TEN, CardColor.CLUB)))
                         .toString());
         assertEquals(
-                "[TEN HEART, NINE DIAMOND, EIGHT HEART, SEVEN DIAMOND, SIX SPADE]",
+                "[10♥, 9♦, 8♥, 7♦, 6♠]",
                 new Hand(
                                 List.of(
                                         new Card(CardValue.TEN, CardColor.HEART),
@@ -51,7 +45,7 @@ class HandTest {
                                         new Card(CardValue.SIX, CardColor.SPADE)))
                         .toString());
         assertEquals(
-                "[SIX HEART, FIVE SPADE, FOUR CLUB, THREE CLUB, TWO CLUB]",
+                "[6♥, 5♠, 4♣, 3♣, 2♣]",
                 new Hand(
                                 List.of(
                                         new Card(CardValue.SIX, CardColor.HEART),
