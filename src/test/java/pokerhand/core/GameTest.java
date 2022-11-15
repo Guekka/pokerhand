@@ -4,65 +4,37 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 import java.util.Optional;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 public class GameTest {
-    private Card sevenOfClubs,
-            sevenOfHearts,
-            twoOfDiamonds,
-            fiveOfDiamonds,
-            threeOfHearts,
-            aceOfHearts,
-            nineOfHearts,
-            twoOfSpades,
-            sevenOfSpades,
-            sevenOfDiamonds,
-            eightOfHearts,
-            eightOfClubs,
-            eightOfSpades,
-            eightOfDiamonds,
-            nineOfSpades,
-            tenOfDiamonds,
-            jackOfClubs,
-            queenOfHearts,
-            nineOfClubs,
-            tenOfClubs,
-            tenOfSpades,
-            jackOfSpades,
-            kingOfSpades,
-            aceOfDiamonds,
-            queenOfClubs;
-
-    @BeforeEach
-    public void setUp() {
-        sevenOfClubs = new Card(CardValue.SEVEN, CardColor.CLUB);
-        sevenOfHearts = new Card(CardValue.SEVEN, CardColor.HEART);
-        sevenOfSpades = new Card(CardValue.SEVEN, CardColor.SPADE);
-        sevenOfDiamonds = new Card(CardValue.SEVEN, CardColor.DIAMOND);
-        eightOfHearts = new Card(CardValue.EIGHT, CardColor.HEART);
-        eightOfClubs = new Card(CardValue.EIGHT, CardColor.CLUB);
-        eightOfSpades = new Card(CardValue.EIGHT, CardColor.SPADE);
-        eightOfDiamonds = new Card(CardValue.EIGHT, CardColor.DIAMOND);
-        nineOfSpades = new Card(CardValue.NINE, CardColor.SPADE);
-        tenOfDiamonds = new Card(CardValue.TEN, CardColor.DIAMOND);
-        jackOfClubs = new Card(CardValue.JACK, CardColor.CLUB);
-        queenOfHearts = new Card(CardValue.QUEEN, CardColor.HEART);
-        kingOfSpades = new Card(CardValue.KING, CardColor.SPADE);
-        aceOfDiamonds = new Card(CardValue.ACE, CardColor.DIAMOND);
-        twoOfDiamonds = new Card(CardValue.TWO, CardColor.DIAMOND);
-        fiveOfDiamonds = new Card(CardValue.FIVE, CardColor.DIAMOND);
-        threeOfHearts = new Card(CardValue.THREE, CardColor.HEART);
-        aceOfHearts = new Card(CardValue.ACE, CardColor.HEART);
-        nineOfHearts = new Card(CardValue.NINE, CardColor.HEART);
-        twoOfSpades = new Card(CardValue.TWO, CardColor.SPADE);
-        nineOfClubs = new Card(CardValue.NINE, CardColor.CLUB);
-        tenOfClubs = new Card(CardValue.TEN, CardColor.CLUB);
-        tenOfSpades = new Card(CardValue.TEN, CardColor.SPADE);
-        jackOfSpades = new Card(CardValue.JACK, CardColor.SPADE);
-        queenOfClubs = new Card(CardValue.QUEEN, CardColor.CLUB);
-    }
+    private final Card sevenOfClubs = new Card(CardValue.SEVEN, CardColor.CLUB);
+    private final Card sevenOfHearts = new Card(CardValue.SEVEN, CardColor.HEART);
+    private final Card sevenOfSpades = new Card(CardValue.SEVEN, CardColor.SPADE);
+    private final Card sevenOfDiamonds = new Card(CardValue.SEVEN, CardColor.DIAMOND);
+    private final Card eightOfHearts = new Card(CardValue.EIGHT, CardColor.HEART);
+    private final Card eightOfClubs = new Card(CardValue.EIGHT, CardColor.CLUB);
+    private final Card eightOfSpades = new Card(CardValue.EIGHT, CardColor.SPADE);
+    private final Card eightOfDiamonds = new Card(CardValue.EIGHT, CardColor.DIAMOND);
+    private final Card nineOfSpades = new Card(CardValue.NINE, CardColor.SPADE);
+    private final Card tenOfDiamonds = new Card(CardValue.TEN, CardColor.DIAMOND);
+    private final Card jackOfClubs = new Card(CardValue.JACK, CardColor.CLUB);
+    private final Card queenOfHearts = new Card(CardValue.QUEEN, CardColor.HEART);
+    private final Card kingOfSpades = new Card(CardValue.KING, CardColor.SPADE);
+    private final Card aceOfDiamonds = new Card(CardValue.ACE, CardColor.DIAMOND);
+    private final Card twoOfDiamonds = new Card(CardValue.TWO, CardColor.DIAMOND);
+    private final Card nineOfDiamonds = new Card(CardValue.NINE, CardColor.DIAMOND);
+    private final Card fiveOfDiamonds = new Card(CardValue.FIVE, CardColor.DIAMOND);
+    private final Card threeOfHearts = new Card(CardValue.THREE, CardColor.HEART);
+    private final Card aceOfHearts = new Card(CardValue.ACE, CardColor.HEART);
+    private final Card nineOfHearts = new Card(CardValue.NINE, CardColor.HEART);
+    private final Card twoOfSpades = new Card(CardValue.TWO, CardColor.SPADE);
+    private final Card nineOfClubs = new Card(CardValue.NINE, CardColor.CLUB);
+    private final Card tenOfClubs = new Card(CardValue.TEN, CardColor.CLUB);
+    private final Card tenOfSpades = new Card(CardValue.TEN, CardColor.SPADE);
+    private final Card jackOfSpades = new Card(CardValue.JACK, CardColor.SPADE);
+    private final Card queenOfClubs = new Card(CardValue.QUEEN, CardColor.CLUB);
+    private final Card twoOfHearts = new Card(CardValue.TWO, CardColor.HEART);
 
     @Nested
     class TestGameWithSameHandType {
@@ -82,9 +54,9 @@ public class GameTest {
                             List.of(
                                     twoOfSpades,
                                     eightOfSpades,
-                                    aceOfDiamonds,
-                                    jackOfClubs,
-                                    queenOfHearts));
+                                    aceOfHearts,
+                                    jackOfSpades,
+                                    queenOfClubs));
             Party newParty = new Party(highCardLoser, highCardWinner);
             assertEquals(Optional.of(highCardWinner), newParty.getWinner());
         }
@@ -102,11 +74,11 @@ public class GameTest {
             Hand highCardWinner =
                     new Hand(
                             List.of(
-                                    sevenOfDiamonds,
+                                    sevenOfClubs,
                                     threeOfHearts,
-                                    aceOfDiamonds,
-                                    jackOfClubs,
-                                    queenOfHearts));
+                                    aceOfHearts,
+                                    jackOfSpades,
+                                    queenOfClubs));
             Party newParty = new Party(highCardLoser, highCardWinner);
             assertEquals(Optional.of(highCardWinner), newParty.getWinner());
         }
@@ -127,9 +99,9 @@ public class GameTest {
                             List.of(
                                     eightOfClubs,
                                     eightOfSpades,
-                                    aceOfDiamonds,
-                                    jackOfClubs,
-                                    queenOfHearts));
+                                    aceOfHearts,
+                                    jackOfSpades,
+                                    queenOfClubs));
             Party newParty = new Party(pairWinner, pairLoser);
             assertEquals(Optional.of(pairWinner), newParty.getWinner());
         }
@@ -149,10 +121,10 @@ public class GameTest {
                     new Hand(
                             List.of(
                                     sevenOfSpades,
-                                    sevenOfClubs,
+                                    sevenOfHearts,
                                     aceOfDiamonds,
-                                    jackOfClubs,
-                                    queenOfHearts));
+                                    jackOfSpades,
+                                    queenOfClubs));
             Party newParty = new Party(pairLoser, pairWinner);
             assertEquals(Optional.of(pairWinner), newParty.getWinner());
         }
@@ -174,7 +146,7 @@ public class GameTest {
                                     eightOfSpades,
                                     eightOfDiamonds,
                                     jackOfClubs,
-                                    queenOfHearts));
+                                    queenOfClubs));
             Party newParty = new Party(toakLoser, toakWinner);
             assertEquals(Optional.of(toakWinner), newParty.getWinner());
         }
@@ -214,11 +186,11 @@ public class GameTest {
             Hand twoPairWinner =
                     new Hand(
                             List.of(
-                                    eightOfClubs,
+                                    eightOfHearts,
                                     eightOfSpades,
                                     nineOfSpades,
-                                    nineOfSpades,
-                                    aceOfDiamonds));
+                                    nineOfHearts,
+                                    aceOfHearts));
             Party newParty = new Party(twoPairLoser, twoPairWinner);
             assertEquals(Optional.of(twoPairWinner), newParty.getWinner());
         }
@@ -238,9 +210,9 @@ public class GameTest {
                             List.of(
                                     eightOfClubs,
                                     eightOfSpades,
-                                    nineOfSpades,
-                                    nineOfSpades,
-                                    aceOfDiamonds));
+                                    nineOfHearts,
+                                    nineOfDiamonds,
+                                    aceOfHearts));
             Party newParty = new Party(twoPairLoser, twoPairWinner);
             assertEquals(Optional.of(twoPairWinner), newParty.getWinner());
         }
@@ -258,10 +230,10 @@ public class GameTest {
             Hand twoPairWinner =
                     new Hand(
                             List.of(
-                                    eightOfClubs,
-                                    eightOfSpades,
-                                    nineOfSpades,
-                                    nineOfSpades,
+                                    eightOfHearts,
+                                    eightOfDiamonds,
+                                    nineOfHearts,
+                                    nineOfDiamonds,
                                     aceOfDiamonds));
             Party newParty = new Party(twoPairLoser, twoPairWinner);
             assertEquals(Optional.of(twoPairWinner), newParty.getWinner());
@@ -280,10 +252,10 @@ public class GameTest {
             Hand straightWinner =
                     new Hand(
                             List.of(
-                                    eightOfClubs,
-                                    nineOfSpades,
-                                    tenOfDiamonds,
-                                    jackOfClubs,
+                                    eightOfDiamonds,
+                                    nineOfDiamonds,
+                                    tenOfClubs,
+                                    jackOfSpades,
                                     queenOfHearts));
             Party newParty = new Party(straightLoser, straightWinner);
             assertEquals(Optional.of(straightWinner), newParty.getWinner());
@@ -372,10 +344,10 @@ public class GameTest {
                     new Hand(
                             List.of(
                                     eightOfClubs,
-                                    eightOfSpades,
-                                    aceOfDiamonds,
-                                    jackOfClubs,
-                                    queenOfHearts));
+                                    eightOfDiamonds,
+                                    aceOfHearts,
+                                    jackOfSpades,
+                                    queenOfClubs));
             Party newParty = new Party(highCard, pair);
             assertEquals(Optional.of(pair), newParty.getWinner());
         }
@@ -418,8 +390,8 @@ public class GameTest {
                                     eightOfClubs,
                                     eightOfSpades,
                                     nineOfSpades,
-                                    nineOfSpades,
-                                    aceOfDiamonds));
+                                    nineOfClubs,
+                                    aceOfHearts));
             Party newParty = new Party(toak, twoPair);
             assertEquals(Optional.of(toak), newParty.getWinner());
         }
@@ -485,7 +457,7 @@ public class GameTest {
                                     nineOfHearts,
                                     nineOfSpades,
                                     twoOfSpades,
-                                    twoOfDiamonds));
+                                    twoOfHearts));
             Party newParty = new Party(flush, fullHouse);
             assertEquals(Optional.of(fullHouse), newParty.getWinner());
         }
@@ -547,11 +519,11 @@ public class GameTest {
             Hand foak =
                     new Hand(
                             List.of(
-                                    sevenOfDiamonds,
-                                    sevenOfClubs,
-                                    sevenOfHearts,
-                                    sevenOfSpades,
-                                    aceOfDiamonds));
+                                    eightOfDiamonds,
+                                    eightOfClubs,
+                                    eightOfHearts,
+                                    eightOfSpades,
+                                    aceOfHearts));
             Party newParty = new Party(toak, foak);
             assertEquals(Optional.of(foak), newParty.getWinner());
         }
@@ -595,9 +567,18 @@ public class GameTest {
                                     eightOfClubs,
                                     eightOfSpades,
                                     nineOfSpades,
-                                    nineOfSpades,
+                                    nineOfDiamonds,
                                     aceOfDiamonds));
-            Party newParty = new Party(twoPair, twoPair);
+            Hand otherTwoPair =
+                    new Hand(
+                            List.of(
+                                    eightOfSpades,
+                                    eightOfDiamonds,
+                                    nineOfClubs,
+                                    nineOfHearts,
+                                    aceOfHearts));
+
+            Party newParty = new Party(twoPair, otherTwoPair);
             assertEquals(Optional.empty(), newParty.getWinner());
         }
 
