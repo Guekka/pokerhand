@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 public class Hand {
     private final List<Card> cards;
     private final EnumMap<CardValue, Integer> valueCount = new EnumMap<>(CardValue.class);
+    private final Power power;
 
     public Hand(List<Card> cards) {
         if (cards.isEmpty()) {
@@ -15,6 +16,12 @@ public class Hand {
         }
         this.cards = cards;
         this.calculateValueCount();
+        this.power = this.calculatePower();
+    }
+
+    private Power calculatePower() {
+        HandType handType = calculateHandType();
+        return new Power(handType, calculateSecondary(handType));
     }
 
     /**
@@ -35,7 +42,7 @@ public class Hand {
 
     @Override
     public int hashCode() {
-        return Objects.hash(cards);
+        return Objects.hash(getPower());
     }
 
     @Override
@@ -43,7 +50,7 @@ public class Hand {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Hand hand = (Hand) o;
-        return Objects.equals(cards, hand.cards);
+        return Objects.equals(getPower(), hand.getPower());
     }
 
     @Override
@@ -52,8 +59,7 @@ public class Hand {
     }
 
     public Power getPower() {
-        HandType handType = calculateHandType();
-        return new Power(handType, calculateSecondary(handType));
+        return power;
     }
 
     /** Calculates the highest hand type of this hand */
