@@ -27,4 +27,13 @@ public class CardDeck {
     public List<Card> getCards() {
         return cards;
     }
+
+    public void reset() {
+        this.cards.clear();
+        for (CardValue value : CardValue.values()) {
+            for (CardColor color : CardColor.values()) {
+                this.cards.add(new Card(value, color));
+            }
+        }
+    }
 }
