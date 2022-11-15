@@ -1,8 +1,6 @@
 package pokerhand.core;
 
-/**
- * The HandType enum represents the type of hand in a poker hand.
- */
+/** The HandType enum represents the type of hand in a poker hand. */
 public enum HandType {
     /**
      * The hand is a high card. A hand which has no pairs and is not a straight or a flush. The
@@ -73,5 +71,4 @@ public enum HandType {
             case STRAIGHT_FLUSH -> "Straight Flush";
         };
     }
-
 }

@@ -16,7 +16,8 @@ class PartyTest {
         @Test
         void TestEqualHandType() {
             var oneCardHand = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB)));
-            var party1 = new Party(oneCardHand, oneCardHand);
+            var otherCardHand = new Hand(List.of(new Card(CardValue.ACE, CardColor.DIAMOND)));
+            var party1 = new Party(oneCardHand, otherCardHand);
             assertEquals(Optional.empty(), party1.getWinner());
 
             // same test with 5 cards per hand
@@ -28,7 +29,15 @@ class PartyTest {
                                     new Card(CardValue.QUEEN, CardColor.CLUB),
                                     new Card(CardValue.JACK, CardColor.CLUB),
                                     new Card(CardValue.TEN, CardColor.CLUB)));
-            var party2 = new Party(fiveCardsHand, fiveCardsHand);
+            var otherFiveCardsHand =
+                    new Hand(
+                            List.of(
+                                    new Card(CardValue.ACE, CardColor.DIAMOND),
+                                    new Card(CardValue.KING, CardColor.DIAMOND),
+                                    new Card(CardValue.QUEEN, CardColor.DIAMOND),
+                                    new Card(CardValue.JACK, CardColor.DIAMOND),
+                                    new Card(CardValue.TEN, CardColor.DIAMOND)));
+            var party2 = new Party(fiveCardsHand, otherFiveCardsHand);
             assertEquals(Optional.empty(), party2.getWinner());
         }
 
@@ -54,11 +63,11 @@ class PartyTest {
                 var fiveCardsHandLoser =
                         new Hand(
                                 List.of(
-                                        new Card(CardValue.ACE, CardColor.CLUB),
-                                        new Card(CardValue.KING, CardColor.CLUB),
-                                        new Card(CardValue.QUEEN, CardColor.CLUB),
-                                        new Card(CardValue.JACK, CardColor.CLUB),
-                                        new Card(CardValue.NINE, CardColor.CLUB)));
+                                        new Card(CardValue.ACE, CardColor.DIAMOND),
+                                        new Card(CardValue.KING, CardColor.DIAMOND),
+                                        new Card(CardValue.QUEEN, CardColor.DIAMOND),
+                                        new Card(CardValue.JACK, CardColor.DIAMOND),
+                                        new Card(CardValue.NINE, CardColor.DIAMOND)));
 
                 Party party2 = new Party(fiveCardsHandWinner, fiveCardsHandLoser);
                 assertThat(party2.getWinner()).hasValue(fiveCardsHandWinner);
@@ -83,11 +92,11 @@ class PartyTest {
                 var fiveCardsHandLoser =
                         new Hand(
                                 List.of(
-                                        new Card(CardValue.ACE, CardColor.CLUB),
-                                        new Card(CardValue.KING, CardColor.CLUB),
-                                        new Card(CardValue.QUEEN, CardColor.CLUB),
-                                        new Card(CardValue.JACK, CardColor.CLUB),
-                                        new Card(CardValue.NINE, CardColor.CLUB)));
+                                        new Card(CardValue.ACE, CardColor.DIAMOND),
+                                        new Card(CardValue.KING, CardColor.DIAMOND),
+                                        new Card(CardValue.QUEEN, CardColor.DIAMOND),
+                                        new Card(CardValue.JACK, CardColor.DIAMOND),
+                                        new Card(CardValue.NINE, CardColor.DIAMOND)));
 
                 Party party2 = new Party(fiveCardsHandWinner, fiveCardsHandLoser);
                 assertThat(party2.getWinner()).hasValue(fiveCardsHandWinner);
