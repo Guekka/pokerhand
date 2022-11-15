@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-public class GameTest {
+public class HandComparaisonsTest {
     private final Card sevenOfClubs = new Card(CardValue.SEVEN, CardColor.CLUB);
     private final Card sevenOfHearts = new Card(CardValue.SEVEN, CardColor.HEART);
     private final Card sevenOfSpades = new Card(CardValue.SEVEN, CardColor.SPADE);
