@@ -24,11 +24,21 @@ public class Party {
         Collections.addAll(this.hands, hands);
     }
 
+    /**
+     * Add a hand to the party
+     *
+     * @param hand the hand to add
+     */
     public void addHand(Hand hand) {
         this.deck.takeCards(hand.getCards());
         this.hands.add(hand);
     }
 
+    /**
+     * Finds the winner of the party
+     *
+     * @return the Power of the winning hand
+     */
     public Optional<Hand> getWinner() {
         // if all hands are equals, return None
         if (hands.stream().allMatch(hand -> hands.get(0).equals(hand))) return Optional.empty();
@@ -41,6 +51,11 @@ public class Party {
         return this.hands;
     }
 
+    /**
+     * Start the game
+     *
+     * <p>Displays a welcome message
+     */
     private void setUp() {
         this.ui.display("Welcome to the Poker Hand Game!");
     }
