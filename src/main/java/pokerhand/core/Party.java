@@ -45,8 +45,12 @@ public class Party {
         this.ui.display("Welcome to the Poker Hand Game!");
     }
 
-    private void tearDown() {
-        this.ui.display("Thanks for playing!");
+    /**
+     * Reset the party
+     *
+     * <p>This method will reset the deck and the hands
+     */
+    private void reset() {
         this.deck.reset();
         this.hands.clear();
     }
@@ -81,6 +85,7 @@ public class Party {
     public void run() {
         setUp();
         gameLoop();
+        reset();
         tearDown();
     }
 }
