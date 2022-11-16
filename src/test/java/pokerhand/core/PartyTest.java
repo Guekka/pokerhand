@@ -1,18 +1,17 @@
 package pokerhand.core;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-import pokerhand.ui.ConsoleUserInterface;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import pokerhand.ui.ConsoleUserInterface;
 
 class PartyTest {
     @Nested
@@ -139,7 +138,6 @@ class PartyTest {
             @DisplayName("Test the run method with correct input")
             class TestRunWithCorrectInput {
 
-
                 @Test
                 void test_run_WithEqualHands() {
                     var input =
@@ -167,7 +165,10 @@ class PartyTest {
                             () ->
                                     party.addHand(
                                             new Hand(
-                                                    List.of(new Card(CardValue.TWO, CardColor.CLUB)))));
+                                                    List.of(
+                                                            new Card(
+                                                                    CardValue.TWO,
+                                                                    CardColor.CLUB)))));
                 }
 
                 @Test
@@ -192,22 +193,36 @@ class PartyTest {
                                     party.addHand(
                                             new Hand(
                                                     List.of(
-                                                            new Card(CardValue.FOUR, CardColor.HEART),
-                                                            new Card(CardValue.FOUR, CardColor.SPADE),
                                                             new Card(
-                                                                    CardValue.SEVEN, CardColor.DIAMOND),
-                                                            new Card(CardValue.TWO, CardColor.HEART),
+                                                                    CardValue.FOUR,
+                                                                    CardColor.HEART),
                                                             new Card(
-                                                                    CardValue.FIVE, CardColor.CLUB)))));
+                                                                    CardValue.FOUR,
+                                                                    CardColor.SPADE),
+                                                            new Card(
+                                                                    CardValue.SEVEN,
+                                                                    CardColor.DIAMOND),
+                                                            new Card(
+                                                                    CardValue.TWO, CardColor.HEART),
+                                                            new Card(
+                                                                    CardValue.FIVE,
+                                                                    CardColor.CLUB)))));
                     assertDoesNotThrow(
                             () ->
                                     party.addHand(
                                             new Hand(
                                                     List.of(
-                                                            new Card(CardValue.FIVE, CardColor.HEART),
-                                                            new Card(CardValue.FIVE, CardColor.DIAMOND),
-                                                            new Card(CardValue.FOUR, CardColor.DIAMOND),
-                                                            new Card(CardValue.FOUR, CardColor.CLUB),
+                                                            new Card(
+                                                                    CardValue.FIVE,
+                                                                    CardColor.HEART),
+                                                            new Card(
+                                                                    CardValue.FIVE,
+                                                                    CardColor.DIAMOND),
+                                                            new Card(
+                                                                    CardValue.FOUR,
+                                                                    CardColor.DIAMOND),
+                                                            new Card(
+                                                                    CardValue.FOUR, CardColor.CLUB),
                                                             new Card(
                                                                     CardValue.SIX,
                                                                     CardColor.DIAMOND)))));
