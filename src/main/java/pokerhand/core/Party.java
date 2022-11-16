@@ -1,9 +1,6 @@
 package pokerhand.core;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import pokerhand.ui.ConsoleUserInterface;
 import pokerhand.ui.UserInterface;
 
@@ -22,10 +19,9 @@ public class Party {
         this(new ConsoleUserInterface());
     }
 
-    public Party(Hand hand1, Hand hand2) {
+    public Party(Hand... hands) {
         this();
-        addHand(hand1);
-        addHand(hand2);
+        Collections.addAll(this.hands, hands);
     }
 
     public void addHand(Hand hand) {
@@ -55,6 +51,12 @@ public class Party {
         this.hands.clear();
     }
 
+    /** Tears down the party and displays a message */
+    private void tearDown() {
+        this.ui.display("Thanks for playing!");
+    }
+
+    /** Play a round of the game */
     private void gameLoop() {
         while (this.hands.size() < 2) {
             this.ui.display("Enter a hand:");
@@ -62,14 +64,15 @@ public class Party {
             try {
                 hand = this.ui.getHand();
                 this.addHand(hand);
-            } catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException | IllegalStateException e) {
                 this.ui.displayError(e.getMessage());
             }
         }
         Optional<Hand> winner = getWinner();
         if (winner.isPresent()) {
-            this.ui.display("The winner is:");
+            this.ui.display("The winner is Player " + (this.hands.indexOf(winner.get()) + 1));
             this.ui.displayHand(winner.get());
+            this.ui.display("With a " + winner.get().getPower().handType());
         } else {
             this.ui.display("It's a tie!");
         }
@@ -79,10 +82,5 @@ public class Party {
         setUp();
         gameLoop();
         tearDown();
-    }
-
-    public static void main(String[] args) {
-        Party party = new Party();
-        party.run();
     }
 }

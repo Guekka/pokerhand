@@ -1,13 +1,17 @@
 package pokerhand.core;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import pokerhand.ui.ConsoleUserInterface;
 
 class PartyTest {
     @Nested
@@ -100,6 +104,118 @@ class PartyTest {
 
                 Party party2 = new Party(fiveCardsHandWinner, fiveCardsHandLoser);
                 assertThat(party2.getWinner()).hasValue(fiveCardsHandWinner);
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("Tests the game logic for a party")
+    class TestGameLogic {
+        @Test
+        void testAddHand() {
+            var party = new Party();
+            var hand = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB)));
+            party.addHand(hand);
+            assertThat(party.getHands()).containsExactly(hand);
+            assertThrows(IllegalArgumentException.class, () -> party.addHand(hand));
+        }
+
+        @Test
+        void testAddTwoHands() {
+            var party = new Party();
+            var hand1 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB)));
+            var hand2 = new Hand(List.of(new Card(CardValue.ACE, CardColor.DIAMOND)));
+            party.addHand(hand1);
+            party.addHand(hand2);
+            assertThat(party.getHands()).containsExactly(hand1, hand2);
+        }
+
+        @Nested
+        @DisplayName("Test the run method")
+        class TestRun {
+            @Test
+            void test_run_WithEqualHands() {
+                var input = new ByteArrayInputStream("2Tr\n2Ca".getBytes());
+                var output = new ByteArrayOutputStream();
+                var error = new ByteArrayOutputStream();
+                var consoleInterface =
+                        new ConsoleUserInterface(
+                                input, new PrintStream(output), new PrintStream(error));
+                var party = new Party(consoleInterface);
+                party.run();
+                assertThat(output.toString()).contains("It's a tie!");
+                // Check the reset method
+                assertThat(party.getHands()).isEmpty();
+                assertDoesNotThrow(
+                        () ->
+                                party.addHand(
+                                        new Hand(
+                                                List.of(
+                                                        new Card(
+                                                                CardValue.TWO,
+                                                                CardColor.DIAMOND)))));
+                assertDoesNotThrow(
+                        () ->
+                                party.addHand(
+                                        new Hand(
+                                                List.of(new Card(CardValue.TWO, CardColor.CLUB)))));
+            }
+
+            @Test
+            void test_run_WithDifferentHands() {
+                var input =
+                        new ByteArrayInputStream(
+                                "4Co 4Pi 7Ca 2Co 5Tr\n5Co 5Ca 4Ca 4Tr 6Ca".getBytes());
+                var output = new ByteArrayOutputStream();
+                var error = new ByteArrayOutputStream();
+                var consoleInterface =
+                        new ConsoleUserInterface(
+                                input, new PrintStream(output), new PrintStream(error));
+                var party = new Party(consoleInterface);
+                party.run();
+                assertThat(output.toString()).contains("[5♥, 5♦, 4♦, 4♣, 6♦]");
+                assertThat(output.toString()).contains("Two Pair");
+                assertThat(output.toString()).contains("Player 2");
+                // Check the reset method
+                assertThat(party.getHands()).isEmpty();
+                assertDoesNotThrow(
+                        () ->
+                                party.addHand(
+                                        new Hand(
+                                                List.of(
+                                                        new Card(CardValue.FOUR, CardColor.HEART),
+                                                        new Card(CardValue.FOUR, CardColor.SPADE),
+                                                        new Card(
+                                                                CardValue.SEVEN, CardColor.DIAMOND),
+                                                        new Card(CardValue.TWO, CardColor.HEART),
+                                                        new Card(
+                                                                CardValue.FIVE, CardColor.CLUB)))));
+                assertDoesNotThrow(
+                        () ->
+                                party.addHand(
+                                        new Hand(
+                                                List.of(
+                                                        new Card(CardValue.FIVE, CardColor.HEART),
+                                                        new Card(CardValue.FIVE, CardColor.DIAMOND),
+                                                        new Card(CardValue.FOUR, CardColor.DIAMOND),
+                                                        new Card(CardValue.FOUR, CardColor.CLUB),
+                                                        new Card(
+                                                                CardValue.SIX,
+                                                                CardColor.DIAMOND)))));
+            }
+
+            @Test
+            @DisplayName("Test the run method with a wrong input")
+            void test_run_WithWrongInput() {
+                var input = new ByteArrayInputStream("0Tr\n2Tr\n2Ca".getBytes());
+                var output = new ByteArrayOutputStream();
+                var error = new ByteArrayOutputStream();
+                var consoleInterface =
+                        new ConsoleUserInterface(
+                                input, new PrintStream(output), new PrintStream(error));
+                var party = new Party(consoleInterface);
+                party.run();
+                assertThat(error.toString()).isNotEmpty();
             }
         }
     }
