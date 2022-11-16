@@ -26,11 +26,11 @@ class ConsoleUserInterfaceTest {
 
     @BeforeEach
     void setUp() {
-        consoleUserInterface = new ConsoleUserInterface();
         testOut = new ByteArrayOutputStream();
         System.setOut(new PrintStream(testOut));
         testErr = new ByteArrayOutputStream();
         System.setErr(new PrintStream(testErr));
+        consoleUserInterface = new ConsoleUserInterface();
     }
 
     @AfterEach
@@ -63,7 +63,7 @@ class ConsoleUserInterfaceTest {
                                 new Card(CardValue.JACK, CardColor.CLUB),
                                 new Card(CardValue.TEN, CardColor.CLUB)));
         consoleUserInterface.displayHand(hand);
-        assertEquals(hand.toString() + System.lineSeparator(), testOut.toString());
+        assertEquals(hand + System.lineSeparator(), testOut.toString());
     }
 
     @Test
