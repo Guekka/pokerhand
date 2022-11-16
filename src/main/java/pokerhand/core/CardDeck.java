@@ -9,11 +9,7 @@ public class CardDeck {
 
     public CardDeck() {
         this.cards = new ArrayList<>();
-        for (CardValue value : CardValue.values()) {
-            for (CardColor color : CardColor.values()) {
-                this.cards.add(new Card(value, color));
-            }
-        }
+        this.cards.addAll(generateCards());
     }
 
     public void takeCards(List<Card> cards) {
@@ -28,12 +24,18 @@ public class CardDeck {
         return cards;
     }
 
-    public void reset() {
-        this.cards.clear();
+    private ArrayList<Card> generateCards() {
+        ArrayList<Card> cardArrayList = new ArrayList<>();
         for (CardValue value : CardValue.values()) {
             for (CardColor color : CardColor.values()) {
-                this.cards.add(new Card(value, color));
+                cardArrayList.add(new Card(value, color));
             }
         }
+        return cardArrayList;
+    }
+
+    public void reset() {
+        this.cards.clear();
+        this.cards.addAll(generateCards());
     }
 }
