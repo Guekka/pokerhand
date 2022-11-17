@@ -3,6 +3,14 @@ package pokerhand.ui.core;
 import java.util.List;
 import pokerhand.core.Hand;
 
+/**
+ * User interface
+ *
+ * <p>This interface is used to interact with the user It is used to display messages and get user
+ * input
+ *
+ * <p>
+ */
 public interface UserInterface {
     /**
      * Display a message to the user
