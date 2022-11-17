@@ -82,6 +82,9 @@ public class Party {
             Hand hand;
             try {
                 hand = this.ui.getHand();
+                if (hand.getCards().size() != 5) {
+                    throw new IllegalArgumentException("A hand must have 5 cards");
+                }
                 this.addHand(hand);
             } catch (IllegalArgumentException | IllegalStateException e) {
                 this.ui.displayError(e.getMessage());
