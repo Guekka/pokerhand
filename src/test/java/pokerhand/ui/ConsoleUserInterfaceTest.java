@@ -1,5 +1,13 @@
 package pokerhand.ui;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.util.List;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,15 +17,8 @@ import pokerhand.core.Card;
 import pokerhand.core.CardColor;
 import pokerhand.core.CardValue;
 import pokerhand.core.Hand;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import pokerhand.ui.core.ConsoleUserInterface;
+import pokerhand.ui.exceptions.UiException;
 
 class ConsoleUserInterfaceTest {
     ConsoleUserInterface consoleUserInterface;
@@ -102,19 +103,13 @@ class ConsoleUserInterfaceTest {
                         new ConsoleUserInterface(
                                 in, new PrintStream(testOut), new PrintStream(testErr));
                 System.setOut(new PrintStream(testOut));
-                String choice =
-                        consoleUserInterface.getChoice(
-                                "test", testChoices);
+                String choice = consoleUserInterface.getChoice("test", testChoices);
                 assertEquals("choice1", choice);
 
-                choice =
-                        consoleUserInterface.getChoice(
-                                "test", testChoices);
+                choice = consoleUserInterface.getChoice("test", testChoices);
                 assertEquals("choice2", choice);
 
-                choice =
-                        consoleUserInterface.getChoice(
-                                "test", testChoices);
+                choice = consoleUserInterface.getChoice("test", testChoices);
 
                 assertEquals("choice3", choice);
             }
@@ -132,28 +127,19 @@ class ConsoleUserInterfaceTest {
                         new ConsoleUserInterface(
                                 in, new PrintStream(testOut), new PrintStream(testErr));
 
-
                 // check for thrown exception
                 assertThrows(
-                        IllegalArgumentException.class,
-                        () ->
-                                consoleUserInterface.getChoice(
-                                        "test", testChoices));
+                        UiException.class,
+                        () -> consoleUserInterface.getChoice("test", testChoices));
 
                 assertThrows(
-                        IllegalArgumentException.class,
-                        () ->
-                                consoleUserInterface.getChoice(
-                                        "test", testChoices));
+                        UiException.class,
+                        () -> consoleUserInterface.getChoice("test", testChoices));
 
                 assertThrows(
-                        IllegalArgumentException.class,
-                        () ->
-                                consoleUserInterface.getChoice(
-                                        "test", testChoices));
-                String choice =
-                        consoleUserInterface.getChoice(
-                                "test", testChoices);
+                        UiException.class,
+                        () -> consoleUserInterface.getChoice("test", testChoices));
+                String choice = consoleUserInterface.getChoice("test", testChoices);
                 assertEquals("choice2", choice);
             }
         }
