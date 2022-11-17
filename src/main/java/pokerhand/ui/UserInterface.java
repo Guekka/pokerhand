@@ -10,4 +10,13 @@ public interface UserInterface {
     Hand getHand();
 
     void displayHand(Hand hand);
+
+    /**
+     * Gets a choice from the user
+     *
+     * @param message the message to display
+     * @param choices the choices to display
+     * @return the choice entered by the user
+     */
+    String getChoice(String message, List<String> choices);
 }
