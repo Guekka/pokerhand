@@ -1,10 +1,11 @@
-package pokerhand.ui;
+package pokerhand.ui.core;
 
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Scanner;
 import pokerhand.core.Hand;
+import pokerhand.ui.exceptions.UiException;
 
 public class ConsoleUserInterface implements UserInterface {
     InputStream in;
@@ -43,10 +44,16 @@ public class ConsoleUserInterface implements UserInterface {
         }
         display("Enter your choice:");
 
-        String choice = scanner.nextLine();
-        int choiceIndex = Integer.parseInt(choice) - 1;
+        int choiceIndex = 0;
+        try {
+            String choice = scanner.nextLine();
+            choiceIndex = Integer.parseInt(choice) - 1;
+        } catch (NumberFormatException e) {
+            throw new UiException("Invalid choice, please enter a number");
+        }
         if (choiceIndex < 0 || choiceIndex >= choices.size()) {
-            throw new IllegalArgumentException("Invalid choice");
+            throw new UiException(
+                    "Invalid choice, please enter a number between 1 and " + choices.size());
         }
         return choices.get(choiceIndex);
     }

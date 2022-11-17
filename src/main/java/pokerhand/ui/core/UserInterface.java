@@ -1,4 +1,4 @@
-package pokerhand.ui;
+package pokerhand.ui.core;
 
 import java.util.List;
 import pokerhand.core.Hand;
