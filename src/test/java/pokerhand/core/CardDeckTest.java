@@ -1,7 +1,6 @@
 package pokerhand.core;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +34,19 @@ class CardDeckTest {
                     new ArrayList<>(List.of(new Card(CardValue.ACE, CardColor.HEART)));
             deck.takeCards(cards);
             assertThrows(IllegalArgumentException.class, () -> deck.takeCards(cards));
+        }
+    }
+
+    @Nested
+    @DisplayName("Test reset")
+    class Reset {
+        @Test
+        @DisplayName("Test that reset restores the deck to its initial state")
+        void test_reset_WhenCalled_RestoresTheDeckToItsInitialState() {
+            deck.takeCards(List.of(new Card(CardValue.ACE, CardColor.HEART)));
+            deck.reset();
+            assertFalse(deck.getCards().isEmpty());
+            assertEquals(52, deck.getCards().size());
         }
     }
 }
