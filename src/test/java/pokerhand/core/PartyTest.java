@@ -11,7 +11,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import pokerhand.ui.ConsoleUserInterface;
+import pokerhand.ui.core.ConsoleUserInterface;
 
 class PartyTest {
     @Nested
@@ -135,7 +135,7 @@ class PartyTest {
         class TestRun {
             @Test
             void test_run_WithEqualHands() {
-                var input = new ByteArrayInputStream("2Tr\n2Ca".getBytes());
+                var input = new ByteArrayInputStream("2Tr\n2Ca\n2".getBytes());
                 var output = new ByteArrayOutputStream();
                 var error = new ByteArrayOutputStream();
                 var consoleInterface =
@@ -165,7 +165,7 @@ class PartyTest {
             void test_run_WithDifferentHands() {
                 var input =
                         new ByteArrayInputStream(
-                                "4Co 4Pi 7Ca 2Co 5Tr\n5Co 5Ca 4Ca 4Tr 6Ca".getBytes());
+                                "4Co 4Pi 7Ca 2Co 5Tr\n5Co 5Ca 4Ca 4Tr 6Ca\n2".getBytes());
                 var output = new ByteArrayOutputStream();
                 var error = new ByteArrayOutputStream();
                 var consoleInterface =
@@ -207,7 +207,7 @@ class PartyTest {
             @Test
             @DisplayName("Test the run method with a wrong input")
             void test_run_WithWrongInput() {
-                var input = new ByteArrayInputStream("0Tr\n2Tr\n2Ca".getBytes());
+                var input = new ByteArrayInputStream("0Tr\n2Tr\n2Ca\n2".getBytes());
                 var output = new ByteArrayOutputStream();
                 var error = new ByteArrayOutputStream();
                 var consoleInterface =
