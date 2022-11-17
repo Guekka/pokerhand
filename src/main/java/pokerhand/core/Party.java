@@ -78,7 +78,7 @@ public class Party {
     /** Play a round of the game */
     private void gameLoop() {
         while (this.hands.size() < 2) {
-            this.ui.display("Enter a hand:");
+            this.ui.display("Enter hand " + (this.hands.size() + 1) + ":");
             Hand hand;
             try {
                 hand = this.ui.getHand();
