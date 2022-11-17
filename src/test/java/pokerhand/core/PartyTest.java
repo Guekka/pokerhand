@@ -11,7 +11,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import pokerhand.ui.ConsoleUserInterface;
+import pokerhand.ui.core.ConsoleUserInterface;
 
 class PartyTest {
     @Nested
@@ -149,7 +149,7 @@ class PartyTest {
                             new ConsoleUserInterface(
                                     input, new PrintStream(output), new PrintStream(error));
                     var party = new Party(consoleInterface);
-                    party.run();
+                    party.run(true);
                     assertThat(output.toString()).contains("It's a tie!");
                     // Check the reset method
                     assertThat(party.getHands()).isEmpty();
@@ -182,7 +182,7 @@ class PartyTest {
                             new ConsoleUserInterface(
                                     input, new PrintStream(output), new PrintStream(error));
                     var party = new Party(consoleInterface);
-                    party.run();
+                    party.run(true);
                     assertThat(output.toString()).contains("[5♥, 5♦, 4♦, 4♣, 6♦]");
                     assertThat(output.toString()).contains("Two Pair");
                     assertThat(output.toString()).contains("Player 2");
@@ -246,7 +246,7 @@ class PartyTest {
                             new ConsoleUserInterface(
                                     input, new PrintStream(output), new PrintStream(error));
                     var party = new Party(consoleInterface);
-                    party.run();
+                    party.run(true);
                     assertThat(error.toString()).isNotEmpty();
                 }
 
@@ -255,14 +255,15 @@ class PartyTest {
                 void test_run_WithWrongNumberOfCards() {
                     var input =
                             new ByteArrayInputStream(
-                                    "4Co 4Pi 7Ca 2Co 5Tr\n5Co 5Ca 4Ca 4Tr 6Ca 6Ca\n5Co 5Ca 4Ca 4Tr 6Ca".getBytes());
+                                    "4Co 4Pi 7Ca 2Co 5Tr\n5Co 5Ca 4Ca 4Tr 6Ca 6Ca\n5Co 5Ca 4Ca 4Tr 6Ca"
+                                            .getBytes());
                     var output = new ByteArrayOutputStream();
                     var error = new ByteArrayOutputStream();
                     var consoleInterface =
                             new ConsoleUserInterface(
                                     input, new PrintStream(output), new PrintStream(error));
                     var party = new Party(consoleInterface);
-                    party.run();
+                    party.run(true);
                     assertThat(error.toString()).isNotEmpty();
                 }
             }

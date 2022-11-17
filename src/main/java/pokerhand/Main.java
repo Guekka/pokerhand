@@ -5,6 +5,6 @@ import pokerhand.core.Party;
 public class Main {
     public static void main(String[] args) {
         Party party = new Party();
-        party.run();
+        party.run(false);
     }
 }
