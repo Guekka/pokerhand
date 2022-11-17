@@ -1,5 +1,6 @@
 package pokerhand.ui;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -9,10 +10,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.List;
 import jdk.jfr.Description;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import pokerhand.core.Card;
 import pokerhand.core.CardColor;
 import pokerhand.core.CardValue;
@@ -104,6 +102,13 @@ class ConsoleUserInterfaceTest {
                                 in, new PrintStream(testOut), new PrintStream(testErr));
                 System.setOut(new PrintStream(testOut));
                 String choice = consoleUserInterface.getChoice("test", testChoices);
+
+                assertThat(testOut.toString())
+                        .contains("test")
+                        .contains("1 - choice1")
+                        .contains("2 - choice2")
+                        .contains("3 - choice3");
+
                 assertEquals("choice1", choice);
 
                 choice = consoleUserInterface.getChoice("test", testChoices);
@@ -119,28 +124,36 @@ class ConsoleUserInterfaceTest {
         @Description("Test getChoice with invalid input")
         class InvalidInput {
             @Test
-            void getChoice() {
+            @DisplayName("Test getChoice with incorrect type")
+            void getChoice_WithIncorrectType_ThrowsException() {
                 ByteArrayInputStream in =
-                        new ByteArrayInputStream(
-                                ("abc \n12\n-10\n2" + System.lineSeparator()).getBytes());
+                        new ByteArrayInputStream(("test" + System.lineSeparator()).getBytes());
                 consoleUserInterface =
                         new ConsoleUserInterface(
                                 in, new PrintStream(testOut), new PrintStream(testErr));
+                System.setOut(new PrintStream(testOut));
+                UiException exception =
+                        assertThrows(
+                                UiException.class,
+                                () -> consoleUserInterface.getChoice("test", testChoices));
 
-                // check for thrown exception
-                assertThrows(
-                        UiException.class,
-                        () -> consoleUserInterface.getChoice("test", testChoices));
+                assertThat(exception.getMessage()).contains("Invalid input");
+            }
 
-                assertThrows(
-                        UiException.class,
-                        () -> consoleUserInterface.getChoice("test", testChoices));
-
-                assertThrows(
-                        UiException.class,
-                        () -> consoleUserInterface.getChoice("test", testChoices));
-                String choice = consoleUserInterface.getChoice("test", testChoices);
-                assertEquals("choice2", choice);
+            @Test
+            @DisplayName("Test getChoice with out of range")
+            void getChoice_WithOutOfRange_ThrowsException() {
+                ByteArrayInputStream in =
+                        new ByteArrayInputStream(("4" + System.lineSeparator()).getBytes());
+                consoleUserInterface =
+                        new ConsoleUserInterface(
+                                in, new PrintStream(testOut), new PrintStream(testErr));
+                System.setOut(new PrintStream(testOut));
+                UiException exception =
+                        assertThrows(
+                                UiException.class,
+                                () -> consoleUserInterface.getChoice("test", testChoices));
+                assertThat(exception.getMessage()).contains("Invalid choice");
             }
         }
     }
