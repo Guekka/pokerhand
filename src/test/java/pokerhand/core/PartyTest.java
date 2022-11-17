@@ -1,17 +1,18 @@
 package pokerhand.core;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import pokerhand.ui.ConsoleUserInterface;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Optional;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-import pokerhand.ui.ConsoleUserInterface;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PartyTest {
     @Nested
@@ -255,7 +256,7 @@ class PartyTest {
                 void test_run_WithWrongNumberOfCards() {
                     var input =
                             new ByteArrayInputStream(
-                                    "4Co 4Pi 7Ca 2Co 5Tr\n5Co 5Ca 4Ca 4Tr 6Ca 6Ca".getBytes());
+                                    "4Co 4Pi 7Ca 2Co 5Tr\n5Co 5Ca 4Ca 4Tr 6Ca 6Ca\n5Co 5Ca 4Ca 4Tr 6Ca".getBytes());
                     var output = new ByteArrayOutputStream();
                     var error = new ByteArrayOutputStream();
                     var consoleInterface =
