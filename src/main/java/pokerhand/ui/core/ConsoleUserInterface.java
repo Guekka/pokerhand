@@ -44,12 +44,12 @@ public class ConsoleUserInterface implements UserInterface {
         }
         display("Enter your choice:");
 
-        int choiceIndex = 0;
+        int choiceIndex;
         try {
             String choice = scanner.nextLine();
             choiceIndex = Integer.parseInt(choice) - 1;
         } catch (NumberFormatException e) {
-            throw new UiException("Invalid choice, please enter a number");
+            throw new UiException("Invalid input, please enter a number");
         }
         if (choiceIndex < 0 || choiceIndex >= choices.size()) {
             throw new UiException(
