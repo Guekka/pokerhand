@@ -1,8 +1,8 @@
 package pokerhand.core;
 
 import java.util.*;
-import pokerhand.ui.ConsoleUserInterface;
-import pokerhand.ui.UserInterface;
+import pokerhand.ui.core.ConsoleUserInterface;
+import pokerhand.ui.core.UserInterface;
 
 public class Party {
     private final ArrayList<Hand> hands;
@@ -78,7 +78,7 @@ public class Party {
     /** Play a round of the game */
     private void gameLoop() {
         while (this.hands.size() < 2) {
-            this.ui.display("Enter a hand:");
+            this.ui.display("Enter hand " + (this.hands.size() + 1) + ":");
             Hand hand;
             try {
                 hand = this.ui.getHand();
@@ -100,10 +100,31 @@ public class Party {
         }
     }
 
-    public void run() {
+    public void run(boolean runOnce) {
+        boolean running = true;
         setUp();
-        gameLoop();
-        reset();
+        while (running) {
+            gameLoop();
+            reset();
+            running = !runOnce && this.askToPlayAgain();
+        }
         tearDown();
+    }
+
+    private boolean askToPlayAgain() {
+        while (true) {
+            try {
+                String choice =
+                        this.ui.getChoice("Do you want to play again?", Arrays.asList("Yes", "No"));
+                if (choice.equals("No")) {
+                    return false;
+                }
+
+                break;
+            } catch (Exception e) {
+                this.ui.displayError(e.getMessage());
+            }
+        }
+        return true;
     }
 }
