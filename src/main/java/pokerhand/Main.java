@@ -1,17 +1,17 @@
 package pokerhand;
 
-import pokerhand.core.Party;
+import pokerhand.core.Game;
 
 /**
  * Main class
  *
- * <p>This class is used to start the game It creates a new party and starts it
+ * <p>This class is used to start the game It creates a new game and starts it
  *
  * <p>
  */
 public final class Main {
     public static void main(String[] args) {
-        Party party = new Party();
-        party.run(false);
+        Game game = new Game();
+        game.run(false);
     }
 }

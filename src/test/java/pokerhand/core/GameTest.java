@@ -13,16 +13,16 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import pokerhand.ui.core.ConsoleUserInterface;
 
-class PartyTest {
+class GameTest {
     @Nested
-    @DisplayName("Tests the winner for a party with two hands")
+    @DisplayName("Tests the winner for a game with two hands")
     class TestWinner {
         @Test
         void TestEqualHandType() {
             var oneCardHand = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB)));
             var otherCardHand = new Hand(List.of(new Card(CardValue.ACE, CardColor.DIAMOND)));
-            var party1 = new Party(oneCardHand, otherCardHand);
-            assertEquals(Optional.empty(), party1.getWinner());
+            var game1 = new Game(oneCardHand, otherCardHand);
+            assertEquals(Optional.empty(), game1.getWinner());
 
             // same test with 5 cards per hand
             var fiveCardsHand =
@@ -41,20 +41,20 @@ class PartyTest {
                                     new Card(CardValue.QUEEN, CardColor.DIAMOND),
                                     new Card(CardValue.JACK, CardColor.DIAMOND),
                                     new Card(CardValue.TEN, CardColor.DIAMOND)));
-            var party2 = new Party(fiveCardsHand, otherFiveCardsHand);
-            assertEquals(Optional.empty(), party2.getWinner());
+            var game2 = new Game(fiveCardsHand, otherFiveCardsHand);
+            assertEquals(Optional.empty(), game2.getWinner());
         }
 
         @Nested
-        @DisplayName("Tests the winner for a party with two hands")
+        @DisplayName("Tests the winner for a game with two hands")
         class TestDifferentHandType {
             @Test
             void testSmallerHandType() {
                 var oneCardHandWinner = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB)));
                 var oneCardHandLoser = new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB)));
 
-                Party party1 = new Party(oneCardHandLoser, oneCardHandWinner);
-                assertThat(party1.getWinner()).hasValue(oneCardHandWinner);
+                Game game1 = new Game(oneCardHandLoser, oneCardHandWinner);
+                assertThat(game1.getWinner()).hasValue(oneCardHandWinner);
 
                 var fiveCardsHandWinner =
                         new Hand(
@@ -73,8 +73,8 @@ class PartyTest {
                                         new Card(CardValue.JACK, CardColor.DIAMOND),
                                         new Card(CardValue.NINE, CardColor.DIAMOND)));
 
-                Party party2 = new Party(fiveCardsHandWinner, fiveCardsHandLoser);
-                assertThat(party2.getWinner()).hasValue(fiveCardsHandWinner);
+                Game game2 = new Game(fiveCardsHandWinner, fiveCardsHandLoser);
+                assertThat(game2.getWinner()).hasValue(fiveCardsHandWinner);
             }
 
             @Test
@@ -82,8 +82,8 @@ class PartyTest {
                 var oneCardHandWinner = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB)));
                 var oneCardHandLoser = new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB)));
 
-                var party1 = new Party(oneCardHandLoser, oneCardHandWinner);
-                assertThat(party1.getWinner()).hasValue(oneCardHandWinner);
+                var game1 = new Game(oneCardHandLoser, oneCardHandWinner);
+                assertThat(game1.getWinner()).hasValue(oneCardHandWinner);
 
                 var fiveCardsHandWinner =
                         new Hand(
@@ -102,32 +102,32 @@ class PartyTest {
                                         new Card(CardValue.JACK, CardColor.DIAMOND),
                                         new Card(CardValue.NINE, CardColor.DIAMOND)));
 
-                Party party2 = new Party(fiveCardsHandWinner, fiveCardsHandLoser);
-                assertThat(party2.getWinner()).hasValue(fiveCardsHandWinner);
+                Game game2 = new Game(fiveCardsHandWinner, fiveCardsHandLoser);
+                assertThat(game2.getWinner()).hasValue(fiveCardsHandWinner);
             }
         }
     }
 
     @Nested
-    @DisplayName("Tests the game logic for a party")
+    @DisplayName("Tests the game logic for a game")
     class TestGameLogic {
         @Test
         void testAddHand() {
-            var party = new Party();
+            var game = new Game();
             var hand = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB)));
-            party.addHand(hand);
-            assertThat(party.getHands()).containsExactly(hand);
-            assertThrows(IllegalArgumentException.class, () -> party.addHand(hand));
+            game.addHand(hand);
+            assertThat(game.getHands()).containsExactly(hand);
+            assertThrows(IllegalArgumentException.class, () -> game.addHand(hand));
         }
 
         @Test
         void testAddTwoHands() {
-            var party = new Party();
+            var game = new Game();
             var hand1 = new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB)));
             var hand2 = new Hand(List.of(new Card(CardValue.ACE, CardColor.DIAMOND)));
-            party.addHand(hand1);
-            party.addHand(hand2);
-            assertThat(party.getHands()).containsExactly(hand1, hand2);
+            game.addHand(hand1);
+            game.addHand(hand2);
+            assertThat(game.getHands()).containsExactly(hand1, hand2);
         }
 
         @Nested
@@ -148,14 +148,14 @@ class PartyTest {
                     var consoleInterface =
                             new ConsoleUserInterface(
                                     input, new PrintStream(output), new PrintStream(error));
-                    var party = new Party(consoleInterface);
-                    party.run(true);
+                    var game = new Game(consoleInterface);
+                    game.run(true);
                     assertThat(output.toString()).contains("It's a tie!");
                     // Check the reset method
-                    assertThat(party.getHands()).isEmpty();
+                    assertThat(game.getHands()).isEmpty();
                     assertDoesNotThrow(
                             () ->
-                                    party.addHand(
+                                    game.addHand(
                                             new Hand(
                                                     List.of(
                                                             new Card(
@@ -163,7 +163,7 @@ class PartyTest {
                                                                     CardColor.DIAMOND)))));
                     assertDoesNotThrow(
                             () ->
-                                    party.addHand(
+                                    game.addHand(
                                             new Hand(
                                                     List.of(
                                                             new Card(
@@ -181,16 +181,16 @@ class PartyTest {
                     var consoleInterface =
                             new ConsoleUserInterface(
                                     input, new PrintStream(output), new PrintStream(error));
-                    var party = new Party(consoleInterface);
-                    party.run(true);
+                    var game = new Game(consoleInterface);
+                    game.run(true);
                     assertThat(output.toString()).contains("[5♥, 5♦, 4♦, 4♣, 6♦]");
                     assertThat(output.toString()).contains("Two Pair");
                     assertThat(output.toString()).contains("Player 2");
                     // Check the reset method
-                    assertThat(party.getHands()).isEmpty();
+                    assertThat(game.getHands()).isEmpty();
                     assertDoesNotThrow(
                             () ->
-                                    party.addHand(
+                                    game.addHand(
                                             new Hand(
                                                     List.of(
                                                             new Card(
@@ -209,7 +209,7 @@ class PartyTest {
                                                                     CardColor.CLUB)))));
                     assertDoesNotThrow(
                             () ->
-                                    party.addHand(
+                                    game.addHand(
                                             new Hand(
                                                     List.of(
                                                             new Card(
@@ -245,8 +245,8 @@ class PartyTest {
                     var consoleInterface =
                             new ConsoleUserInterface(
                                     input, new PrintStream(output), new PrintStream(error));
-                    var party = new Party(consoleInterface);
-                    party.run(true);
+                    var game = new Game(consoleInterface);
+                    game.run(true);
                     assertThat(error.toString()).isNotEmpty();
                 }
 
@@ -262,8 +262,8 @@ class PartyTest {
                     var consoleInterface =
                             new ConsoleUserInterface(
                                     input, new PrintStream(output), new PrintStream(error));
-                    var party = new Party(consoleInterface);
-                    party.run(true);
+                    var game = new Game(consoleInterface);
+                    game.run(true);
                     assertThat(error.toString()).isNotEmpty();
                 }
             }
