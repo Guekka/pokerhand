@@ -64,8 +64,8 @@ public class HandComparisonsTest {
                                     aceOfHearts,
                                     jackOfSpades,
                                     queenOfClubs));
-            Party newParty = new Party(highCardLoser, highCardWinner);
-            assertEquals(Optional.of(highCardWinner), newParty.getWinner());
+            Game newGame = new Game(highCardLoser, highCardWinner);
+            assertEquals(Optional.of(highCardWinner), newGame.getWinner());
         }
 
         @Test
@@ -86,8 +86,8 @@ public class HandComparisonsTest {
                                     aceOfHearts,
                                     jackOfSpades,
                                     queenOfClubs));
-            Party newParty = new Party(highCardLoser, highCardWinner);
-            assertEquals(Optional.of(highCardWinner), newParty.getWinner());
+            Game newGame = new Game(highCardLoser, highCardWinner);
+            assertEquals(Optional.of(highCardWinner), newGame.getWinner());
         }
 
         @Test
@@ -109,8 +109,8 @@ public class HandComparisonsTest {
                                     aceOfHearts,
                                     jackOfSpades,
                                     queenOfClubs));
-            Party newParty = new Party(pairWinner, pairLoser);
-            assertEquals(Optional.of(pairWinner), newParty.getWinner());
+            Game newGame = new Game(pairWinner, pairLoser);
+            assertEquals(Optional.of(pairWinner), newGame.getWinner());
         }
 
         @Test
@@ -132,8 +132,8 @@ public class HandComparisonsTest {
                                     aceOfDiamonds,
                                     jackOfSpades,
                                     queenOfClubs));
-            Party newParty = new Party(pairLoser, pairWinner);
-            assertEquals(Optional.of(pairWinner), newParty.getWinner());
+            Game newGame = new Game(pairLoser, pairWinner);
+            assertEquals(Optional.of(pairWinner), newGame.getWinner());
         }
 
         @Test
@@ -154,8 +154,8 @@ public class HandComparisonsTest {
                                     eightOfDiamonds,
                                     jackOfClubs,
                                     queenOfClubs));
-            Party newParty = new Party(toakLoser, toakWinner);
-            assertEquals(Optional.of(toakWinner), newParty.getWinner());
+            Game newGame = new Game(toakLoser, toakWinner);
+            assertEquals(Optional.of(toakWinner), newGame.getWinner());
         }
 
         @Test
@@ -176,8 +176,8 @@ public class HandComparisonsTest {
                                     eightOfDiamonds,
                                     eightOfHearts,
                                     aceOfDiamonds));
-            Party newParty = new Party(foakLoser, foakWinner);
-            assertEquals(Optional.of(foakWinner), newParty.getWinner());
+            Game newGame = new Game(foakLoser, foakWinner);
+            assertEquals(Optional.of(foakWinner), newGame.getWinner());
         }
 
         @Test
@@ -198,8 +198,8 @@ public class HandComparisonsTest {
                                     nineOfSpades,
                                     nineOfHearts,
                                     aceOfHearts));
-            Party newParty = new Party(twoPairLoser, twoPairWinner);
-            assertEquals(Optional.of(twoPairWinner), newParty.getWinner());
+            Game newGame = new Game(twoPairLoser, twoPairWinner);
+            assertEquals(Optional.of(twoPairWinner), newGame.getWinner());
         }
 
         @Test
@@ -220,8 +220,8 @@ public class HandComparisonsTest {
                                     nineOfHearts,
                                     nineOfDiamonds,
                                     aceOfHearts));
-            Party newParty = new Party(twoPairLoser, twoPairWinner);
-            assertEquals(Optional.of(twoPairWinner), newParty.getWinner());
+            Game newGame = new Game(twoPairLoser, twoPairWinner);
+            assertEquals(Optional.of(twoPairWinner), newGame.getWinner());
         }
 
         @Test
@@ -242,8 +242,8 @@ public class HandComparisonsTest {
                                     nineOfHearts,
                                     nineOfDiamonds,
                                     aceOfDiamonds));
-            Party newParty = new Party(twoPairLoser, twoPairWinner);
-            assertEquals(Optional.of(twoPairWinner), newParty.getWinner());
+            Game newGame = new Game(twoPairLoser, twoPairWinner);
+            assertEquals(Optional.of(twoPairWinner), newGame.getWinner());
         }
 
         @Test
@@ -264,8 +264,8 @@ public class HandComparisonsTest {
                                     tenOfClubs,
                                     jackOfSpades,
                                     queenOfHearts));
-            Party newParty = new Party(straightLoser, straightWinner);
-            assertEquals(Optional.of(straightWinner), newParty.getWinner());
+            Game newGame = new Game(straightLoser, straightWinner);
+            assertEquals(Optional.of(straightWinner), newGame.getWinner());
         }
 
         @Test
@@ -286,8 +286,8 @@ public class HandComparisonsTest {
                                     eightOfHearts,
                                     queenOfHearts,
                                     sevenOfHearts));
-            Party newParty = new Party(flushLoser, flushWinner);
-            assertEquals(Optional.of(flushWinner), newParty.getWinner());
+            Game newGame = new Game(flushLoser, flushWinner);
+            assertEquals(Optional.of(flushWinner), newGame.getWinner());
         }
 
         @Test
@@ -308,8 +308,8 @@ public class HandComparisonsTest {
                                     tenOfClubs,
                                     jackOfClubs,
                                     queenOfClubs));
-            Party newParty = new Party(straightFlushLoser, straightFlushWinner);
-            assertEquals(Optional.of(straightFlushWinner), newParty.getWinner());
+            Game newGame = new Game(straightFlushLoser, straightFlushWinner);
+            assertEquals(Optional.of(straightFlushWinner), newGame.getWinner());
         }
 
         @Test
@@ -330,8 +330,8 @@ public class HandComparisonsTest {
                                     tenOfClubs,
                                     jackOfClubs,
                                     jackOfSpades));
-            Party newParty = new Party(fullHouseLoser, fullHouseWinner);
-            assertEquals(Optional.of(fullHouseWinner), newParty.getWinner());
+            Game newGame = new Game(fullHouseLoser, fullHouseWinner);
+            assertEquals(Optional.of(fullHouseWinner), newGame.getWinner());
         }
     }
 
@@ -355,8 +355,8 @@ public class HandComparisonsTest {
                                     aceOfHearts,
                                     jackOfSpades,
                                     queenOfClubs));
-            Party newParty = new Party(highCard, pair);
-            assertEquals(Optional.of(pair), newParty.getWinner());
+            Game newGame = new Game(highCard, pair);
+            assertEquals(Optional.of(pair), newGame.getWinner());
         }
 
         @Test
@@ -377,8 +377,8 @@ public class HandComparisonsTest {
                                     nineOfSpades,
                                     nineOfSpades,
                                     aceOfHearts));
-            Party newParty = new Party(pair, twoPair);
-            assertEquals(Optional.of(twoPair), newParty.getWinner());
+            Game newGame = new Game(pair, twoPair);
+            assertEquals(Optional.of(twoPair), newGame.getWinner());
         }
 
         @Test
@@ -399,8 +399,8 @@ public class HandComparisonsTest {
                                     nineOfSpades,
                                     nineOfClubs,
                                     aceOfHearts));
-            Party newParty = new Party(toak, twoPair);
-            assertEquals(Optional.of(toak), newParty.getWinner());
+            Game newGame = new Game(toak, twoPair);
+            assertEquals(Optional.of(toak), newGame.getWinner());
         }
 
         @Test
@@ -421,8 +421,8 @@ public class HandComparisonsTest {
                                     eightOfSpades,
                                     tenOfDiamonds,
                                     jackOfClubs));
-            Party newParty = new Party(toak, straight);
-            assertEquals(Optional.of(straight), newParty.getWinner());
+            Game newGame = new Game(toak, straight);
+            assertEquals(Optional.of(straight), newGame.getWinner());
         }
 
         @Test
@@ -443,8 +443,8 @@ public class HandComparisonsTest {
                                     nineOfSpades,
                                     tenOfSpades,
                                     jackOfSpades));
-            Party newParty = new Party(flush, straight);
-            assertEquals(Optional.of(flush), newParty.getWinner());
+            Game newGame = new Game(flush, straight);
+            assertEquals(Optional.of(flush), newGame.getWinner());
         }
 
         @Test
@@ -465,8 +465,8 @@ public class HandComparisonsTest {
                                     nineOfSpades,
                                     twoOfSpades,
                                     twoOfHearts));
-            Party newParty = new Party(flush, fullHouse);
-            assertEquals(Optional.of(fullHouse), newParty.getWinner());
+            Game newGame = new Game(flush, fullHouse);
+            assertEquals(Optional.of(fullHouse), newGame.getWinner());
         }
 
         @Test
@@ -487,8 +487,8 @@ public class HandComparisonsTest {
                                     sevenOfHearts,
                                     sevenOfSpades,
                                     jackOfClubs));
-            Party newParty = new Party(fullHouse, foak);
-            assertEquals(Optional.of(foak), newParty.getWinner());
+            Game newGame = new Game(fullHouse, foak);
+            assertEquals(Optional.of(foak), newGame.getWinner());
         }
 
         @Test
@@ -509,8 +509,8 @@ public class HandComparisonsTest {
                                     tenOfSpades,
                                     jackOfSpades,
                                     queenOfSpades));
-            Party newParty = new Party(foak, straightFlush);
-            assertEquals(Optional.of(straightFlush), newParty.getWinner());
+            Game newGame = new Game(foak, straightFlush);
+            assertEquals(Optional.of(straightFlush), newGame.getWinner());
         }
 
         @Test
@@ -531,8 +531,8 @@ public class HandComparisonsTest {
                                     eightOfHearts,
                                     eightOfSpades,
                                     aceOfHearts));
-            Party newParty = new Party(toak, foak);
-            assertEquals(Optional.of(foak), newParty.getWinner());
+            Game newGame = new Game(toak, foak);
+            assertEquals(Optional.of(foak), newGame.getWinner());
         }
     }
 
@@ -557,8 +557,8 @@ public class HandComparisonsTest {
                                     aceOfHearts,
                                     jackOfSpades,
                                     queenOfClubs));
-            Party newParty = new Party(highCard, otherHighCard);
-            assertEquals(Optional.empty(), newParty.getWinner());
+            Game newGame = new Game(highCard, otherHighCard);
+            assertEquals(Optional.empty(), newGame.getWinner());
         }
 
         @Test
@@ -580,8 +580,8 @@ public class HandComparisonsTest {
                                     aceOfSpades,
                                     jackOfSpades,
                                     queenOfSpades));
-            Party newParty = new Party(pair, otherPair);
-            assertEquals(Optional.empty(), newParty.getWinner());
+            Game newGame = new Game(pair, otherPair);
+            assertEquals(Optional.empty(), newGame.getWinner());
         }
 
         @Test
@@ -603,8 +603,8 @@ public class HandComparisonsTest {
                                     nineOfHearts,
                                     aceOfHearts));
 
-            Party newParty = new Party(twoPair, otherTwoPair);
-            assertEquals(Optional.empty(), newParty.getWinner());
+            Game newGame = new Game(twoPair, otherTwoPair);
+            assertEquals(Optional.empty(), newGame.getWinner());
         }
 
         @Test
@@ -626,8 +626,8 @@ public class HandComparisonsTest {
                                     tenOfSpades,
                                     jackOfSpades));
 
-            Party newParty = new Party(straight, otherStraight);
-            assertEquals(Optional.empty(), newParty.getWinner());
+            Game newGame = new Game(straight, otherStraight);
+            assertEquals(Optional.empty(), newGame.getWinner());
         }
 
         @Test
@@ -648,8 +648,8 @@ public class HandComparisonsTest {
                                     fiveOfSpades,
                                     sevenOfSpades,
                                     twoOfSpades));
-            Party newParty = new Party(flush, otherFlush);
-            assertEquals(Optional.empty(), newParty.getWinner());
+            Game newGame = new Game(flush, otherFlush);
+            assertEquals(Optional.empty(), newGame.getWinner());
         }
 
         @Test
@@ -671,8 +671,8 @@ public class HandComparisonsTest {
                                     nineOfHearts,
                                     tenOfHearts,
                                     jackOfHearts));
-            Party newParty = new Party(straightFlush, otherStraightFlush);
-            assertEquals(Optional.empty(), newParty.getWinner());
+            Game newGame = new Game(straightFlush, otherStraightFlush);
+            assertEquals(Optional.empty(), newGame.getWinner());
         }
     }
 }
