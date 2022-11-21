@@ -95,6 +95,7 @@ public class Game {
             this.ui.display("The winner is Player " + (this.hands.indexOf(winner.get()) + 1));
             this.ui.displayHand(winner.get());
             this.ui.display("With a " + winner.get().getPower().handType());
+            this.ui.display("Winning card(s): " + winner.get().winningCard());
         } else {
             this.ui.display("It's a tie!");
         }
