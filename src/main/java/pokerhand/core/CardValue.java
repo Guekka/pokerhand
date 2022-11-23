@@ -1,6 +1,8 @@
 package pokerhand.core;
 
-/** The CardValue enum represents the value of a card in a poker hand. */
+/**
+ * The CardValue enum represents the value of a card in a poker hand.
+ */
 public enum CardValue {
     TWO,
     THREE,
@@ -28,9 +30,9 @@ public enum CardValue {
             case EIGHT -> "8";
             case NINE -> "9";
             case TEN -> "10";
-            case JACK -> "J";
-            case QUEEN -> "Q";
-            case KING -> "K";
+            case JACK -> "V";
+            case QUEEN -> "D";
+            case KING -> "R";
             case ACE -> "A";
         };
     }
