@@ -1,15 +1,14 @@
 package pokerhand.core;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CardTest {
     @Test
@@ -50,22 +49,18 @@ class CardTest {
         private static Stream<Arguments> provideValidCardStrings() {
             return Stream.of(
                     Arguments.of("ATr", new Card(CardValue.ACE, CardColor.CLUB)),
-                    Arguments.of("Ktrèfle", new Card(CardValue.KING, CardColor.CLUB)),
+                    Arguments.of("Rtrèfle", new Card(CardValue.KING, CardColor.CLUB)),
                     Arguments.of("10TREFLE", new Card(CardValue.TEN, CardColor.CLUB)),
                     Arguments.of("9♣", new Card(CardValue.NINE, CardColor.CLUB)),
-
                     Arguments.of("10Co", new Card(CardValue.TEN, CardColor.HEART)),
-                    Arguments.of("QcOEur", new Card(CardValue.QUEEN, CardColor.HEART)),
-                    Arguments.of("J♥", new Card(CardValue.JACK, CardColor.HEART)),
-
+                    Arguments.of("DcOEur", new Card(CardValue.QUEEN, CardColor.HEART)),
+                    Arguments.of("V♥", new Card(CardValue.JACK, CardColor.HEART)),
                     Arguments.of("8CA", new Card(CardValue.EIGHT, CardColor.DIAMOND)),
                     Arguments.of("7caRReau", new Card(CardValue.SEVEN, CardColor.DIAMOND)),
                     Arguments.of("6♦", new Card(CardValue.SIX, CardColor.DIAMOND)),
-
                     Arguments.of("5PI", new Card(CardValue.FIVE, CardColor.SPADE)),
                     Arguments.of("4pique", new Card(CardValue.FOUR, CardColor.SPADE)),
-                    Arguments.of("3♠", new Card(CardValue.THREE, CardColor.SPADE))
-            );
+                    Arguments.of("3♠", new Card(CardValue.THREE, CardColor.SPADE)));
         }
 
         private static Stream<Arguments> provideInvalidCardStrings() {
@@ -86,8 +81,7 @@ class CardTest {
                     Arguments.of("2"),
                     Arguments.of("A"),
                     Arguments.of("10J♣"),
-                    Arguments.of("♣100")
-            );
+                    Arguments.of("♣100"));
         }
 
         @ParameterizedTest
