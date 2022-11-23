@@ -57,8 +57,6 @@ class CardTest {
 
                     Arguments.of("DcOEur", new Card(CardValue.QUEEN, CardColor.HEART)),
                     Arguments.of("V♥", new Card(CardValue.JACK, CardColor.HEART)),
-
-
                     Arguments.of("8CA", new Card(CardValue.EIGHT, CardColor.DIAMOND)),
                     Arguments.of("7caRReau", new Card(CardValue.SEVEN, CardColor.DIAMOND)),
                     Arguments.of("6♦", new Card(CardValue.SIX, CardColor.DIAMOND)),

@@ -1,16 +1,15 @@
 package pokerhand.core;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.List;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.List;
-import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class HandTest {
     @Test
@@ -28,32 +27,32 @@ class HandTest {
         assertEquals(
                 "[A♣, R♣, D♣, V♣, 10♣]",
                 new Hand(
-                        List.of(
-                                new Card(CardValue.ACE, CardColor.CLUB),
-                                new Card(CardValue.KING, CardColor.CLUB),
-                                new Card(CardValue.QUEEN, CardColor.CLUB),
-                                new Card(CardValue.JACK, CardColor.CLUB),
-                                new Card(CardValue.TEN, CardColor.CLUB)))
+                                List.of(
+                                        new Card(CardValue.ACE, CardColor.CLUB),
+                                        new Card(CardValue.KING, CardColor.CLUB),
+                                        new Card(CardValue.QUEEN, CardColor.CLUB),
+                                        new Card(CardValue.JACK, CardColor.CLUB),
+                                        new Card(CardValue.TEN, CardColor.CLUB)))
                         .toString());
         assertEquals(
                 "[10♥, 9♦, 8♥, 7♦, 6♠]",
                 new Hand(
-                        List.of(
-                                new Card(CardValue.TEN, CardColor.HEART),
-                                new Card(CardValue.NINE, CardColor.DIAMOND),
-                                new Card(CardValue.EIGHT, CardColor.HEART),
-                                new Card(CardValue.SEVEN, CardColor.DIAMOND),
-                                new Card(CardValue.SIX, CardColor.SPADE)))
+                                List.of(
+                                        new Card(CardValue.TEN, CardColor.HEART),
+                                        new Card(CardValue.NINE, CardColor.DIAMOND),
+                                        new Card(CardValue.EIGHT, CardColor.HEART),
+                                        new Card(CardValue.SEVEN, CardColor.DIAMOND),
+                                        new Card(CardValue.SIX, CardColor.SPADE)))
                         .toString());
         assertEquals(
                 "[6♥, 5♠, 4♣, 3♣, 2♣]",
                 new Hand(
-                        List.of(
-                                new Card(CardValue.SIX, CardColor.HEART),
-                                new Card(CardValue.FIVE, CardColor.SPADE),
-                                new Card(CardValue.FOUR, CardColor.CLUB),
-                                new Card(CardValue.THREE, CardColor.CLUB),
-                                new Card(CardValue.TWO, CardColor.CLUB)))
+                                List.of(
+                                        new Card(CardValue.SIX, CardColor.HEART),
+                                        new Card(CardValue.FIVE, CardColor.SPADE),
+                                        new Card(CardValue.FOUR, CardColor.CLUB),
+                                        new Card(CardValue.THREE, CardColor.CLUB),
+                                        new Card(CardValue.TWO, CardColor.CLUB)))
                         .toString());
     }
 

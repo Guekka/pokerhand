@@ -1,8 +1,6 @@
 package pokerhand.core;
 
-/**
- * The CardValue enum represents the value of a card in a poker hand.
- */
+/** The CardValue enum represents the value of a card in a poker hand. */
 public enum CardValue {
     TWO,
     THREE,
