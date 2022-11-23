@@ -1,9 +1,7 @@
 package pokerhand.core;
 
 import java.util.*;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Hand {
     private final List<Card> cards;
@@ -104,8 +102,7 @@ public class Hand {
             case STRAIGHT, STRAIGHT_FLUSH -> List.of(
                     this.cards.stream().max(Card::compareTo).map(Card::value).orElseThrow());
 
-            case PAIR -> sameCardHands(2);
-            case TWO_PAIR -> calculateSecondaryTwoPair();
+            case PAIR, TWO_PAIR -> sameCardHands(2);
             case FULL_HOUSE -> sameCardHands(3).subList(0, 2);
 
             case THREE_OF_A_KIND -> sameCardHands(3);
@@ -162,49 +159,29 @@ public class Hand {
         return valueCount.containsValue(2);
     }
 
-    private List<CardValue> calculateSecondaryTwoPair() {
-        Predicate<CardValue> appearsTwice =
-                value ->
-                        this.cards.stream().filter(card -> card.value().equals(value)).count() == 2;
-
-        ArrayList<CardValue> res =
-                this.cards.stream()
-                        .map(Card::value)
-                        .distinct()
-                        .filter(appearsTwice)
-                        .sorted(Collections.reverseOrder())
-                        .collect(Collectors.toCollection(ArrayList::new));
-        for (Card c : cards) {
-            if (!res.contains(c.value())) res.add(c.value());
-        }
-        return res;
-    }
-
     /**
      * method to get the duplicate cards in the Hand, then the other values sorted
      *
      * @param numberOfCards the number of identical cards in the hand
      */
     private List<CardValue> sameCardHands(int numberOfCards) {
-        CardValue duplicate =
-                this.cards.stream()
-                        .map(Card::value)
-                        .distinct()
-                        .filter(
-                                value ->
-                                        this.cards.stream()
-                                                        .filter(card -> card.value().equals(value))
-                                                        .count()
-                                                == numberOfCards)
-                        .findFirst()
-                        .orElseThrow();
-        List<CardValue> rest =
-                this.cards.stream()
-                        .filter(card -> !card.value().equals(duplicate))
+        LinkedHashSet<CardValue> values =
+                valueCount.entrySet().stream()
+                        .filter(entry -> entry.getValue() == numberOfCards)
+                        .map(Map.Entry::getKey)
                         .sorted(Collections.reverseOrder())
+                        .collect(Collectors.toCollection(LinkedHashSet::new));
+
+        // Add missing cards
+        var missingCards =
+                this.cards.stream()
                         .map(Card::value)
+                        .filter(value -> !values.contains(value))
+                        .sorted(Collections.reverseOrder())
                         .toList();
-        return Stream.concat(Stream.of(duplicate), rest.stream()).toList();
+
+        values.addAll(missingCards);
+        return List.copyOf(values);
     }
 
     public List<Card> getCards() {

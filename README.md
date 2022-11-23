@@ -1,14 +1,3 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
-<a name="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
-
-
 
 <!-- PROJECT SHIELDS -->
 <!--
@@ -59,29 +48,49 @@ strong and display this result.
 </div>
 
 
+[//]: # (<!-- TABLE OF CONTENTS -->)
 
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-  </ol>
-</details>
+[//]: # (<details>)
+
+[//]: # (  <summary>Table of Contents</summary>)
+
+[//]: # (  <ol>)
+
+[//]: # (    <li>)
+
+[//]: # (      <a href="#about-the-project">About The Project</a>)
+
+[//]: # (      <ul>)
+
+[//]: # (        <li><a href="#built-with">Built With</a></li>)
+
+[//]: # (      </ul>)
+
+[//]: # (    </li>)
+
+[//]: # (    <li>)
+
+[//]: # (      <a href="#getting-started">Getting Started</a>)
+
+[//]: # (      <ul>)
+
+[//]: # (        <li><a href="#prerequisites">Prerequisites</a></li>)
+
+[//]: # (        <li><a href="#installation">Installation</a></li>)
+
+[//]: # (      </ul>)
+
+[//]: # (    </li>)
+
+[//]: # (    <li><a href="#usage">Usage</a></li>)
+
+[//]: # (    <li><a href="#contributing">Contributing</a></li>)
+
+[//]: # (    <li><a href="#license">License</a></li>)
+
+[//]: # (  </ol>)
+
+[//]: # (</details>)
 
 
 
@@ -99,6 +108,17 @@ for example the ace of diamonds is not beaten by the ace of spades, they are
 equal. The values are ordered as defined previously, the 2 being the smallest value
 and ace the biggest
 
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+## Current features
+
+* Compare two poker hands
+* Calculate the winner
+* Display the winning hand and how it was won
+* Validate inputs
+* Play again
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -121,28 +141,36 @@ and ace the biggest
 * Maven
 * Java 17
 * Git
-* IDE (IntelliJ, Eclipse, VSCode, ...)
-* JUnit 5
-* [Optional] SonarLint
 
 ### Installation
 
 1. Clone the repo
    ```sh
    git clone https://github.com/pns-si3-projects/dojo-poker-22-23-ps5-22-23-poker-f
-    ```
+   ```
 2. Build the project
    ```sh
    mvn clean install
    ```
 3. Run the project
    ```sh
-    mvn exec:java
+   mvn exec:java
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+### Run tests
 
+1. Run tests
+   ```sh
+   mvn test
+   ```
+2. Generate reports
+   ```sh
+   mvn site
+   ```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 
@@ -152,25 +180,36 @@ and ace the biggest
 * The program will display the winner
 
 ```sh
-Welcome to PokerHand console interface!
-Please enter the first hand:
-5
-Please enter the second hand:
-7
-The winner is:
-[SEVEN]
+Welcome to the Poker Hand Game!
+Enter hand 1:
+4Co 4Pi 7Ca 2Co 5Tr
+Enter hand 2:
+5Co 5Ca 4Ca 4Tr 6Ca
+The winner is Player 2
+[5♥, 5♦, 4♦, 4♣, 6♦]
+With a Two Pair
+Do you want to play again?
+1 - Yes
+2 - No
+Enter your choice:
+2
+Thanks for playing!
+
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 [//]: # ()
+
 [//]: # (<!-- ROADMAP -->)
 
 [//]: # ()
+
 [//]: # (## Roadmap)
 
 [//]: # ()
+
 [//]: # (- [ ] Feature 1)
 
 [//]: # (- [ ] Feature 2)
@@ -180,6 +219,7 @@ The winner is:
 [//]: # (    - [ ] Nested Feature)
 
 [//]: # ()
+
 [//]: # (See the [open issues]&#40;https://github.com/pns-si3-projects/dojo-poker-22-23-ps5-22-23-poker-f/issues&#41; for a full list of)
 
 [//]: # (proposed features &#40;and)
@@ -187,6 +227,7 @@ The winner is:
 [//]: # (known issues&#41;.)
 
 [//]: # ()
+
 [//]: # (<p align="right">&#40;<a href="#readme-top">back to top</a>&#41;</p>)
 
 [//]: # ()
@@ -195,14 +236,17 @@ The winner is:
 [//]: # (<!-- CONTRIBUTING -->)
 
 [//]: # ()
+
 [//]: # (## Contributing)
 
 [//]: # ()
+
 [//]: # (Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any)
 
 [//]: # (contributions you make are **greatly appreciated**.)
 
 [//]: # ()
+
 [//]: # (If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also)
 
 [//]: # (simply open an issue with the tag "enhancement".)
@@ -210,6 +254,7 @@ The winner is:
 [//]: # (Don't forget to give the project a star! Thanks again!)
 
 [//]: # ()
+
 [//]: # (1. Fork the Project)
 
 [//]: # (2. Create your Feature Branch &#40;`git checkout -b feature/AmazingFeature`&#41;)
@@ -221,6 +266,7 @@ The winner is:
 [//]: # (5. Open a Pull Request)
 
 [//]: # ()
+
 [//]: # (<p align="right">&#40;<a href="#readme-top">back to top</a>&#41;</p>)
 
 [//]: # ()
@@ -241,25 +287,33 @@ Distributed under the Mozilla Public License Version 2.0. See `LICENSE` for more
 [//]: # (## Contact)
 
 [//]: # ()
+
 [//]: # (Your Name - [@twitter_handle]&#40;https://twitter.com/twitter_handle&#41; - email@email_client.com)
 
 [//]: # ()
+
 [//]: # (Project)
 
 [//]: # (Link: [https://github.com/pns-si3-projects/dojo-poker-22-23-ps5-22-23-poker-f]&#40;https://github.com/pns-si3-projects/dojo-poker-22-23-ps5-22-23-poker-f&#41;)
 
 [//]: # ()
+
 [//]: # (<p align="right">&#40;<a href="#readme-top">back to top</a>&#41;</p>)
 
 [//]: # ()
+
 [//]: # ()
+
 [//]: # ()
+
 [//]: # (<!-- ACKNOWLEDGMENTS -->)
 
 [//]: # ()
+
 [//]: # (## Acknowledgments)
 
 [//]: # ()
+
 [//]: # (* []&#40;&#41;)
 
 [//]: # (* []&#40;&#41;)
@@ -267,6 +321,7 @@ Distributed under the Mozilla Public License Version 2.0. See `LICENSE` for more
 [//]: # (* []&#40;&#41;)
 
 [//]: # ()
+
 [//]: # (<p align="right">&#40;<a href="#readme-top">back to top</a>&#41;</p>)
 
 [//]: # ()

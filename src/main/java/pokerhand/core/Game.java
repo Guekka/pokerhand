@@ -4,28 +4,28 @@ import java.util.*;
 import pokerhand.ui.core.ConsoleUserInterface;
 import pokerhand.ui.core.UserInterface;
 
-public class Party {
+public class Game {
     private final ArrayList<Hand> hands;
     private final CardDeck deck;
     private final UserInterface ui;
 
-    public Party(UserInterface ui) {
+    public Game(UserInterface ui) {
         this.ui = ui;
         this.deck = new CardDeck();
         this.hands = new ArrayList<>();
     }
 
-    public Party() {
+    public Game() {
         this(new ConsoleUserInterface());
     }
 
-    public Party(Hand... hands) {
+    public Game(Hand... hands) {
         this();
         Collections.addAll(this.hands, hands);
     }
 
     /**
-     * Add a hand to the party
+     * Add a hand to the game
      *
      * @param hand the hand to add
      */
@@ -35,7 +35,7 @@ public class Party {
     }
 
     /**
-     * Finds the winner of the party
+     * Finds the winner of the game
      *
      * @return the Power of the winning hand
      */
@@ -61,7 +61,7 @@ public class Party {
     }
 
     /**
-     * Reset the party
+     * Reset the game
      *
      * <p>This method will reset the deck and the hands
      */
@@ -70,7 +70,7 @@ public class Party {
         this.hands.clear();
     }
 
-    /** Tears down the party and displays a message */
+    /** Tears down the game and displays a message */
     private void tearDown() {
         this.ui.display("Thanks for playing!");
     }
