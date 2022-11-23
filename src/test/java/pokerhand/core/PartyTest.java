@@ -1,17 +1,18 @@
 package pokerhand.core;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import pokerhand.ui.core.ConsoleUserInterface;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Optional;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-import pokerhand.ui.core.ConsoleUserInterface;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PartyTest {
     @Nested
@@ -142,7 +143,7 @@ class PartyTest {
                 void test_run_WithEqualHands() {
                     var input =
                             new ByteArrayInputStream(
-                                    "2Pi 8Pi ACa JTr QCo\n2Co 8Ca ACo JPi QTr".getBytes());
+                                    "2Pi 8Pi ACa VTr DCo\n2Co 8Ca ACo VPi DTr".getBytes());
                     var output = new ByteArrayOutputStream();
                     var error = new ByteArrayOutputStream();
                     var consoleInterface =

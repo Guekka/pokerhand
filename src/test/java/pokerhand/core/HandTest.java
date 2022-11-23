@@ -1,9 +1,5 @@
 package pokerhand.core;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.List;
-import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -11,48 +7,53 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.List;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 class HandTest {
     @Test
     void test_toString_WhenGivenDifferentHands_ReturnsCorrectStringRepresentationOfTheHand() {
         assertEquals("[A♣]", new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB))).toString());
         assertEquals(
-                "[K♣]", new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB))).toString());
+                "[R♣]", new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB))).toString());
         assertEquals(
-                "[Q♣]", new Hand(List.of(new Card(CardValue.QUEEN, CardColor.CLUB))).toString());
+                "[D♣]", new Hand(List.of(new Card(CardValue.QUEEN, CardColor.CLUB))).toString());
         assertEquals(
-                "[J♣]", new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB))).toString());
+                "[V♣]", new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB))).toString());
         assertEquals(
                 "[10♥]", new Hand(List.of(new Card(CardValue.TEN, CardColor.HEART))).toString());
 
         assertEquals(
-                "[A♣, K♣, Q♣, J♣, 10♣]",
+                "[A♣, R♣, D♣, V♣, 10♣]",
                 new Hand(
-                                List.of(
-                                        new Card(CardValue.ACE, CardColor.CLUB),
-                                        new Card(CardValue.KING, CardColor.CLUB),
-                                        new Card(CardValue.QUEEN, CardColor.CLUB),
-                                        new Card(CardValue.JACK, CardColor.CLUB),
-                                        new Card(CardValue.TEN, CardColor.CLUB)))
+                        List.of(
+                                new Card(CardValue.ACE, CardColor.CLUB),
+                                new Card(CardValue.KING, CardColor.CLUB),
+                                new Card(CardValue.QUEEN, CardColor.CLUB),
+                                new Card(CardValue.JACK, CardColor.CLUB),
+                                new Card(CardValue.TEN, CardColor.CLUB)))
                         .toString());
         assertEquals(
                 "[10♥, 9♦, 8♥, 7♦, 6♠]",
                 new Hand(
-                                List.of(
-                                        new Card(CardValue.TEN, CardColor.HEART),
-                                        new Card(CardValue.NINE, CardColor.DIAMOND),
-                                        new Card(CardValue.EIGHT, CardColor.HEART),
-                                        new Card(CardValue.SEVEN, CardColor.DIAMOND),
-                                        new Card(CardValue.SIX, CardColor.SPADE)))
+                        List.of(
+                                new Card(CardValue.TEN, CardColor.HEART),
+                                new Card(CardValue.NINE, CardColor.DIAMOND),
+                                new Card(CardValue.EIGHT, CardColor.HEART),
+                                new Card(CardValue.SEVEN, CardColor.DIAMOND),
+                                new Card(CardValue.SIX, CardColor.SPADE)))
                         .toString());
         assertEquals(
                 "[6♥, 5♠, 4♣, 3♣, 2♣]",
                 new Hand(
-                                List.of(
-                                        new Card(CardValue.SIX, CardColor.HEART),
-                                        new Card(CardValue.FIVE, CardColor.SPADE),
-                                        new Card(CardValue.FOUR, CardColor.CLUB),
-                                        new Card(CardValue.THREE, CardColor.CLUB),
-                                        new Card(CardValue.TWO, CardColor.CLUB)))
+                        List.of(
+                                new Card(CardValue.SIX, CardColor.HEART),
+                                new Card(CardValue.FIVE, CardColor.SPADE),
+                                new Card(CardValue.FOUR, CardColor.CLUB),
+                                new Card(CardValue.THREE, CardColor.CLUB),
+                                new Card(CardValue.TWO, CardColor.CLUB)))
                         .toString());
     }
 
@@ -64,11 +65,11 @@ class HandTest {
             return Stream.of(
                     Arguments.of("ATr", new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB)))),
                     Arguments.of(
-                            "KTr", new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB)))),
+                            "RTr", new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB)))),
                     Arguments.of(
-                            "QTr", new Hand(List.of(new Card(CardValue.QUEEN, CardColor.CLUB)))),
+                            "DTr", new Hand(List.of(new Card(CardValue.QUEEN, CardColor.CLUB)))),
                     Arguments.of(
-                            "JPi", new Hand(List.of(new Card(CardValue.JACK, CardColor.SPADE)))),
+                            "VPi", new Hand(List.of(new Card(CardValue.JACK, CardColor.SPADE)))),
                     Arguments.of(
                             "10Pi", new Hand(List.of(new Card(CardValue.TEN, CardColor.SPADE)))),
                     Arguments.of(
@@ -88,7 +89,7 @@ class HandTest {
                     Arguments.of(
                             "2Ca", new Hand(List.of(new Card(CardValue.TWO, CardColor.DIAMOND)))),
                     Arguments.arguments(
-                            "ATr KCa QPi JCo 10Tr",
+                            "ATr RCa DPi VCo 10Tr",
                             new Hand(
                                     List.of(
                                             new Card(CardValue.ACE, CardColor.CLUB),
@@ -97,7 +98,7 @@ class HandTest {
                                             new Card(CardValue.JACK, CardColor.HEART),
                                             new Card(CardValue.TEN, CardColor.CLUB)))),
                     Arguments.arguments(
-                            "KTr QCa JPi 10Co 9Tr",
+                            "RTr DCa VPi 10Co 9Tr",
                             new Hand(
                                     List.of(
                                             new Card(CardValue.KING, CardColor.CLUB),
@@ -106,7 +107,7 @@ class HandTest {
                                             new Card(CardValue.TEN, CardColor.HEART),
                                             new Card(CardValue.NINE, CardColor.CLUB)))),
                     Arguments.arguments(
-                            "QTr JCa 10Pi 9Co 8Tr",
+                            "DTr VCa 10Pi 9Co 8Tr",
                             new Hand(
                                     List.of(
                                             new Card(CardValue.QUEEN, CardColor.CLUB),
@@ -115,7 +116,7 @@ class HandTest {
                                             new Card(CardValue.NINE, CardColor.HEART),
                                             new Card(CardValue.EIGHT, CardColor.CLUB)))),
                     Arguments.arguments(
-                            "JTr 10Ca 9Pi 8Co 7Tr",
+                            "VTr 10Ca 9Pi 8Co 7Tr",
                             new Hand(
                                     List.of(
                                             new Card(CardValue.JACK, CardColor.CLUB),
