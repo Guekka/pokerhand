@@ -100,8 +100,8 @@ strong and display this result.
 
 A poker hand consists of 5 cards drawn from a single deck of 52 cards.
 
-Each card has a color, Clubs, Diamonds, Hearts, Spades (denoted Tr, Ca, Co, Pi) and one of 2, 3, 4, 5, 6, 7, 8, 9, 10,
-jack, queen, king, ace (denoted 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, R, A).
+Each card has a color, Clubs, Diamonds, Hearts, Spades (denoted Tr, Ca, Co, Pi) and a value, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+jack, queen, king, ace (denoted 2, 3, 4, 5, 6, 7, 8, 9, 10, V, D, R, A).
 
 For the calculation of the score, all the colors have the same level,
 for example the ace of diamonds is not beaten by the ace of spades, they are
@@ -180,21 +180,14 @@ and ace the biggest
 * The program will display the winner
 
 ```sh
-Welcome to the Poker Hand Game!
-Enter hand 1:
-4Co 4Pi 7Ca 2Co 5Tr
-Enter hand 2:
-5Co 5Ca 4Ca 4Tr 6Ca
-The winner is Player 2
-[5♥, 5♦, 4♦, 4♣, 6♦]
-With a Two Pair
-Do you want to play again?
-1 - Yes
-2 - No
-Enter your choice:
+Main 1:  2Tr 6Ca 7Ca 8Tr APi
+Main 2:  3Tr 5Ca 9Ca DCo RCo
+La main 1 gagne avec carte la plus élevée : As
+Voulez-vous jouer à nouveau ?
+1 - Oui
+2 - Non
+Saisissez votre choix : 
 2
-Thanks for playing!
-
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
