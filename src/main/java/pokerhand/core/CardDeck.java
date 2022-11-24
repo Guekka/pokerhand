@@ -15,7 +15,7 @@ public class CardDeck {
     public void takeCards(List<Card> cards) {
         // check if all cards are in the deck
         if (!this.cards.containsAll(cards)) {
-            throw new IllegalArgumentException("One or more cards are not in the deck");
+            throw new IllegalArgumentException("Une ou plusieurs cartes ne sont pas dans le jeu");
         }
         this.cards.removeAll(cards);
     }

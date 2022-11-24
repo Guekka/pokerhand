@@ -14,18 +14,19 @@ import org.junit.jupiter.params.provider.MethodSource;
 class HandTest {
     @Test
     void test_toString_WhenGivenDifferentHands_ReturnsCorrectStringRepresentationOfTheHand() {
-        assertEquals("[A♣]", new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB))).toString());
         assertEquals(
-                "[R♣]", new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB))).toString());
+                "[As♣]", new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB))).toString());
         assertEquals(
-                "[D♣]", new Hand(List.of(new Card(CardValue.QUEEN, CardColor.CLUB))).toString());
+                "[Roi♣]", new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB))).toString());
         assertEquals(
-                "[V♣]", new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB))).toString());
+                "[Dame♣]", new Hand(List.of(new Card(CardValue.QUEEN, CardColor.CLUB))).toString());
+        assertEquals(
+                "[Valet♣]", new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB))).toString());
         assertEquals(
                 "[10♥]", new Hand(List.of(new Card(CardValue.TEN, CardColor.HEART))).toString());
 
         assertEquals(
-                "[A♣, R♣, D♣, V♣, 10♣]",
+                "[As♣, Roi♣, Dame♣, Valet♣, 10♣]",
                 new Hand(
                                 List.of(
                                         new Card(CardValue.ACE, CardColor.CLUB),

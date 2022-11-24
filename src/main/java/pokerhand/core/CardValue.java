@@ -28,10 +28,10 @@ public enum CardValue {
             case EIGHT -> "8";
             case NINE -> "9";
             case TEN -> "10";
-            case JACK -> "V";
-            case QUEEN -> "D";
-            case KING -> "R";
-            case ACE -> "A";
+            case JACK -> "Valet";
+            case QUEEN -> "Dame";
+            case KING -> "Roi";
+            case ACE -> "As";
         };
     }
 }
