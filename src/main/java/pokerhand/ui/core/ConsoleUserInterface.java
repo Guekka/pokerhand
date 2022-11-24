@@ -1,12 +1,11 @@
 package pokerhand.ui.core;
 
-import pokerhand.core.Hand;
-import pokerhand.ui.exceptions.UiException;
-
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Scanner;
+import pokerhand.core.Hand;
+import pokerhand.ui.exceptions.UiException;
 
 /**
  * Console user interface
@@ -26,7 +25,7 @@ public class ConsoleUserInterface implements UserInterface {
     /**
      * Create a new ConsoleUserInterface with the given streams
      *
-     * @param in  the input stream
+     * @param in the input stream
      * @param out the output stream
      * @param err the error stream
      */
@@ -37,9 +36,7 @@ public class ConsoleUserInterface implements UserInterface {
         this.scanner = new Scanner(in);
     }
 
-    /**
-     * Create a new ConsoleUserInterface with default streams
-     */
+    /** Create a new ConsoleUserInterface with default streams */
     public ConsoleUserInterface() {
         this(System.in, System.out, System.err);
     }
@@ -52,7 +49,6 @@ public class ConsoleUserInterface implements UserInterface {
     public void display(String message) {
         out.print(message);
     }
-
 
     /**
      * Display a message to the error stream
@@ -83,7 +79,7 @@ public class ConsoleUserInterface implements UserInterface {
     public String getChoice(String message, List<String> choices) {
         display(message);
         for (int i = 0; i < choices.size(); i++) {
-            display((i + 1) + " - " + choices.get(i));
+            display((i + 1) + " - " + choices.get(i) + "\n");
         }
         display("Saisissez votre choix : \n");
 
@@ -96,7 +92,9 @@ public class ConsoleUserInterface implements UserInterface {
         }
         if (choiceIndex < 0 || choiceIndex >= choices.size()) {
             throw new UiException(
-                    "Choix invalide, veuillez entrer un nombre entre 1 et " + choices.size() + "\n");
+                    "Choix invalide, veuillez entrer un nombre entre 1 et "
+                            + choices.size()
+                            + "\n");
         }
         return choices.get(choiceIndex);
     }
