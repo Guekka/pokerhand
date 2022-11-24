@@ -184,7 +184,7 @@ class GameTest {
                     var game = new Game(consoleInterface);
                     game.run(true);
                     assertThat(output.toString()).contains("[5♥, 5♦, 4♦, 4♣, 6♦]");
-                    assertThat(output.toString()).contains("Two Pair");
+                    assertThat(output.toString()).contains("Deux paires");
                     assertThat(output.toString()).contains("Player 2");
                     // Check the reset method
                     assertThat(game.getHands()).isEmpty();
