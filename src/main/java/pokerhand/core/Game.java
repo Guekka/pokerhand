@@ -103,13 +103,11 @@ public class Game {
 
     public void run(boolean runOnce) {
         boolean running = true;
-        //        setUp();
         while (running) {
             gameLoop();
             reset();
             running = !runOnce && this.askToPlayAgain();
         }
-        //        tearDown();
     }
 
     private boolean askToPlayAgain() {
