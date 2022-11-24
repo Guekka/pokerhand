@@ -96,7 +96,7 @@ public class Game {
             this.ui.display(
                     "La main "
                             + (this.hands.indexOf(winner.get()) + 1)
-                            + " gagne avec "
+                            + " "
                             + winner.get().getPower().winMessage()
                             + "\n");
 
