@@ -49,12 +49,12 @@ class CardTest {
         private static Stream<Arguments> provideValidCardStrings() {
             return Stream.of(
                     Arguments.of("ATr", new Card(CardValue.ACE, CardColor.CLUB)),
-                    Arguments.of("Ktrèfle", new Card(CardValue.KING, CardColor.CLUB)),
+                    Arguments.of("Rtrèfle", new Card(CardValue.KING, CardColor.CLUB)),
                     Arguments.of("10TREFLE", new Card(CardValue.TEN, CardColor.CLUB)),
                     Arguments.of("9♣", new Card(CardValue.NINE, CardColor.CLUB)),
                     Arguments.of("10Co", new Card(CardValue.TEN, CardColor.HEART)),
-                    Arguments.of("QcOEur", new Card(CardValue.QUEEN, CardColor.HEART)),
-                    Arguments.of("J♥", new Card(CardValue.JACK, CardColor.HEART)),
+                    Arguments.of("DcOEur", new Card(CardValue.QUEEN, CardColor.HEART)),
+                    Arguments.of("V♥", new Card(CardValue.JACK, CardColor.HEART)),
                     Arguments.of("8CA", new Card(CardValue.EIGHT, CardColor.DIAMOND)),
                     Arguments.of("7caRReau", new Card(CardValue.SEVEN, CardColor.DIAMOND)),
                     Arguments.of("6♦", new Card(CardValue.SIX, CardColor.DIAMOND)),

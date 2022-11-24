@@ -21,16 +21,16 @@ public record Card(CardValue value, CardColor color) implements Comparable<Card>
         String value = string.substring(0, splitIndex);
         CardValue cardValue =
                 switch (value) {
-                    case "J" -> CardValue.JACK;
-                    case "Q" -> CardValue.QUEEN;
-                    case "K" -> CardValue.KING;
+                    case "V" -> CardValue.JACK;
+                    case "D" -> CardValue.QUEEN;
+                    case "R" -> CardValue.KING;
                     case "A" -> CardValue.ACE;
                     default -> {
                         if (value.matches("([2-9]|10)")) {
                             yield (CardValue.values()[Integer.parseInt(value) - 2]);
                         } else {
                             throw new IllegalArgumentException(
-                                    "Card must be between 2 and 10, or J, Q, K, A");
+                                    "Card must be between 2 and 10, or V, D, R, A");
                         }
                     }
                 };
