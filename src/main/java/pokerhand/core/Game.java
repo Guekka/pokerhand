@@ -78,12 +78,12 @@ public class Game {
     /** Play a round of the game */
     private void gameLoop() {
         while (this.hands.size() < 2) {
-            this.ui.display("Enter hand " + (this.hands.size() + 1) + ":");
+            this.ui.display("Main " + (this.hands.size() + 1) + ":");
             Hand hand;
             try {
                 hand = this.ui.getHand();
                 if (hand.getCards().size() != 5) {
-                    throw new IllegalArgumentException("A hand must have 5 cards");
+                    throw new IllegalArgumentException("Une main doit avoir 5 cartes");
                 }
                 this.addHand(hand);
             } catch (IllegalArgumentException | IllegalStateException e) {
@@ -102,20 +102,20 @@ public class Game {
 
     public void run(boolean runOnce) {
         boolean running = true;
-        setUp();
+//        setUp();
         while (running) {
             gameLoop();
             reset();
             running = !runOnce && this.askToPlayAgain();
         }
-        tearDown();
+//        tearDown();
     }
 
     private boolean askToPlayAgain() {
         while (true) {
             try {
                 String choice =
-                        this.ui.getChoice("Do you want to play again?", Arrays.asList("Yes", "No"));
+                        this.ui.getChoice("Voulez-vous jouer à nouveau ?", Arrays.asList("Oui", "Non"));
                 if (choice.equals("No")) {
                     return false;
                 }

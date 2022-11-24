@@ -1,11 +1,12 @@
 package pokerhand.ui.core;
 
+import pokerhand.core.Hand;
+import pokerhand.ui.exceptions.UiException;
+
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Scanner;
-import pokerhand.core.Hand;
-import pokerhand.ui.exceptions.UiException;
 
 /**
  * Console user interface
@@ -25,7 +26,7 @@ public class ConsoleUserInterface implements UserInterface {
     /**
      * Create a new ConsoleUserInterface with the given streams
      *
-     * @param in the input stream
+     * @param in  the input stream
      * @param out the output stream
      * @param err the error stream
      */
@@ -36,7 +37,9 @@ public class ConsoleUserInterface implements UserInterface {
         this.scanner = new Scanner(in);
     }
 
-    /** Create a new ConsoleUserInterface with default streams */
+    /**
+     * Create a new ConsoleUserInterface with default streams
+     */
     public ConsoleUserInterface() {
         this(System.in, System.out, System.err);
     }
@@ -47,8 +50,9 @@ public class ConsoleUserInterface implements UserInterface {
      * @param message the message to display to the output stream
      */
     public void display(String message) {
-        out.println(message);
+        out.print(message);
     }
+
 
     /**
      * Display a message to the error stream
@@ -81,18 +85,18 @@ public class ConsoleUserInterface implements UserInterface {
         for (int i = 0; i < choices.size(); i++) {
             display((i + 1) + " - " + choices.get(i));
         }
-        display("Enter your choice:");
+        display("Saisissez votre choix : \n");
 
         int choiceIndex;
         try {
             String choice = scanner.nextLine();
             choiceIndex = Integer.parseInt(choice) - 1;
         } catch (NumberFormatException e) {
-            throw new UiException("Invalid input, please enter a number");
+            throw new UiException("Entrée invalide, veuillez entrer un numéro\n");
         }
         if (choiceIndex < 0 || choiceIndex >= choices.size()) {
             throw new UiException(
-                    "Invalid choice, please enter a number between 1 and " + choices.size());
+                    "Choix invalide, veuillez entrer un nombre entre 1 et " + choices.size() + "\n");
         }
         return choices.get(choiceIndex);
     }
