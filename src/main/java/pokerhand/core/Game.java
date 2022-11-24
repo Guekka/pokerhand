@@ -120,7 +120,7 @@ public class Game {
                 String choice =
                         this.ui.getChoice(
                                 "Voulez-vous jouer à nouveau ?\n", Arrays.asList("Oui", "Non"));
-                if (choice.equals("No")) {
+                if (choice.equals("Non")) {
                     return false;
                 }
 
