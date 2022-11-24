@@ -97,9 +97,11 @@ public class Game {
                     "La main "
                             + (this.hands.indexOf(winner.get()) + 1)
                             + " gagne avec "
-                            + winner.get().getPower().winMessage());
+                            + winner.get().getPower().winMessage()
+                            + "\n");
+
         } else {
-            this.ui.display("Egalité");
+            this.ui.display("Egalité\n");
         }
     }
 
@@ -118,7 +120,7 @@ public class Game {
                 String choice =
                         this.ui.getChoice(
                                 "Voulez-vous jouer à nouveau ?\n", Arrays.asList("Oui", "Non"));
-                if (choice.equals("No")) {
+                if (choice.equals("Non")) {
                     return false;
                 }
 
