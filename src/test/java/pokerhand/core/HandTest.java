@@ -14,18 +14,19 @@ import org.junit.jupiter.params.provider.MethodSource;
 class HandTest {
     @Test
     void test_toString_WhenGivenDifferentHands_ReturnsCorrectStringRepresentationOfTheHand() {
-        assertEquals("[A♣]", new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB))).toString());
         assertEquals(
-                "[K♣]", new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB))).toString());
+                "[As♣]", new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB))).toString());
         assertEquals(
-                "[Q♣]", new Hand(List.of(new Card(CardValue.QUEEN, CardColor.CLUB))).toString());
+                "[Roi♣]", new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB))).toString());
         assertEquals(
-                "[J♣]", new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB))).toString());
+                "[Dame♣]", new Hand(List.of(new Card(CardValue.QUEEN, CardColor.CLUB))).toString());
+        assertEquals(
+                "[Valet♣]", new Hand(List.of(new Card(CardValue.JACK, CardColor.CLUB))).toString());
         assertEquals(
                 "[10♥]", new Hand(List.of(new Card(CardValue.TEN, CardColor.HEART))).toString());
 
         assertEquals(
-                "[A♣, K♣, Q♣, J♣, 10♣]",
+                "[As♣, Roi♣, Dame♣, Valet♣, 10♣]",
                 new Hand(
                                 List.of(
                                         new Card(CardValue.ACE, CardColor.CLUB),
@@ -64,11 +65,11 @@ class HandTest {
             return Stream.of(
                     Arguments.of("ATr", new Hand(List.of(new Card(CardValue.ACE, CardColor.CLUB)))),
                     Arguments.of(
-                            "KTr", new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB)))),
+                            "RTr", new Hand(List.of(new Card(CardValue.KING, CardColor.CLUB)))),
                     Arguments.of(
-                            "QTr", new Hand(List.of(new Card(CardValue.QUEEN, CardColor.CLUB)))),
+                            "DTr", new Hand(List.of(new Card(CardValue.QUEEN, CardColor.CLUB)))),
                     Arguments.of(
-                            "JPi", new Hand(List.of(new Card(CardValue.JACK, CardColor.SPADE)))),
+                            "VPi", new Hand(List.of(new Card(CardValue.JACK, CardColor.SPADE)))),
                     Arguments.of(
                             "10Pi", new Hand(List.of(new Card(CardValue.TEN, CardColor.SPADE)))),
                     Arguments.of(
@@ -88,7 +89,7 @@ class HandTest {
                     Arguments.of(
                             "2Ca", new Hand(List.of(new Card(CardValue.TWO, CardColor.DIAMOND)))),
                     Arguments.arguments(
-                            "ATr KCa QPi JCo 10Tr",
+                            "ATr RCa DPi VCo 10Tr",
                             new Hand(
                                     List.of(
                                             new Card(CardValue.ACE, CardColor.CLUB),
@@ -97,7 +98,7 @@ class HandTest {
                                             new Card(CardValue.JACK, CardColor.HEART),
                                             new Card(CardValue.TEN, CardColor.CLUB)))),
                     Arguments.arguments(
-                            "KTr QCa JPi 10Co 9Tr",
+                            "RTr DCa VPi 10Co 9Tr",
                             new Hand(
                                     List.of(
                                             new Card(CardValue.KING, CardColor.CLUB),
@@ -106,7 +107,7 @@ class HandTest {
                                             new Card(CardValue.TEN, CardColor.HEART),
                                             new Card(CardValue.NINE, CardColor.CLUB)))),
                     Arguments.arguments(
-                            "QTr JCa 10Pi 9Co 8Tr",
+                            "DTr VCa 10Pi 9Co 8Tr",
                             new Hand(
                                     List.of(
                                             new Card(CardValue.QUEEN, CardColor.CLUB),
@@ -115,7 +116,7 @@ class HandTest {
                                             new Card(CardValue.NINE, CardColor.HEART),
                                             new Card(CardValue.EIGHT, CardColor.CLUB)))),
                     Arguments.arguments(
-                            "JTr 10Ca 9Pi 8Co 7Tr",
+                            "VTr 10Ca 9Pi 8Co 7Tr",
                             new Hand(
                                     List.of(
                                             new Card(CardValue.JACK, CardColor.CLUB),

@@ -142,7 +142,7 @@ class GameTest {
                 void test_run_WithEqualHands() {
                     var input =
                             new ByteArrayInputStream(
-                                    "2Pi 8Pi ACa JTr QCo\n2Co 8Ca ACo JPi QTr".getBytes());
+                                    "2Pi 8Pi ACa VTr DCo\n2Co 8Ca ACo VPi DTr".getBytes());
                     var output = new ByteArrayOutputStream();
                     var error = new ByteArrayOutputStream();
                     var consoleInterface =
@@ -185,6 +185,7 @@ class GameTest {
                     game.run(true);
                     assertThat(output.toString()).contains("double paire");
                     assertThat(output.toString()).contains("main 2");
+
                     // Check the reset method
                     assertThat(game.getHands()).isEmpty();
                     assertDoesNotThrow(

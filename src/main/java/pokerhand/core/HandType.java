@@ -60,15 +60,15 @@ public enum HandType {
     @Override
     public String toString() {
         return switch (this) {
-            case HIGH_CARD -> "High Card";
-            case PAIR -> "Pair";
-            case TWO_PAIR -> "Two Pair";
-            case THREE_OF_A_KIND -> "Three of a Kind";
-            case STRAIGHT -> "Straight";
-            case FLUSH -> "Flush";
-            case FULL_HOUSE -> "Full House";
-            case FOUR_OF_A_KIND -> "Four of a Kind";
-            case STRAIGHT_FLUSH -> "Straight Flush";
+            case HIGH_CARD -> "Plus haute carte";
+            case PAIR -> "Paire";
+            case TWO_PAIR -> "Deux paires";
+            case THREE_OF_A_KIND -> "Brelan";
+            case STRAIGHT -> "Suite";
+            case FLUSH -> "Couleur";
+            case FULL_HOUSE -> "Full";
+            case FOUR_OF_A_KIND -> "Carré";
+            case STRAIGHT_FLUSH -> "Quinte flush";
         };
     }
 }

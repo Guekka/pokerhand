@@ -10,7 +10,7 @@ public class Hand {
 
     public Hand(List<Card> cards) {
         if (cards.isEmpty()) {
-            throw new IllegalArgumentException("Hand must contain at least one card");
+            throw new IllegalArgumentException("La main doit contenir au moins une carte");
         }
         this.cards = cards;
         this.calculateValueCount();

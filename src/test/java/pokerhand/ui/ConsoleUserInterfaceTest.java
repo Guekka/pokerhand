@@ -46,7 +46,7 @@ class ConsoleUserInterfaceTest {
     @Test
     void display() {
         consoleUserInterface.display("test");
-        assertEquals("test" + System.lineSeparator(), testOut.toString());
+        assertEquals("test", testOut.toString());
     }
 
     @Test
@@ -66,7 +66,7 @@ class ConsoleUserInterfaceTest {
                                 new Card(CardValue.JACK, CardColor.CLUB),
                                 new Card(CardValue.TEN, CardColor.CLUB)));
         consoleUserInterface.displayHand(hand);
-        assertEquals(hand + System.lineSeparator(), testOut.toString());
+        assertEquals(hand.toString(), testOut.toString());
     }
 
     @Test
@@ -137,7 +137,7 @@ class ConsoleUserInterfaceTest {
                                 UiException.class,
                                 () -> consoleUserInterface.getChoice("test", testChoices));
 
-                assertThat(exception.getMessage()).contains("Invalid input");
+                assertThat(exception.getMessage()).contains("Entrée invalide");
             }
 
             @Test
@@ -153,7 +153,7 @@ class ConsoleUserInterfaceTest {
                         assertThrows(
                                 UiException.class,
                                 () -> consoleUserInterface.getChoice("test", testChoices));
-                assertThat(exception.getMessage()).contains("Invalid choice");
+                assertThat(exception.getMessage()).contains("Choix invalide");
             }
         }
     }

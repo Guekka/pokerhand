@@ -15,22 +15,24 @@ public record Card(CardValue value, CardColor color) implements Comparable<Card>
      */
     public static Card fromString(String string) {
         if (string.length() < 2) {
-            throw new IllegalArgumentException("Card string must be at least 2 characters long");
+            throw new IllegalArgumentException(
+                    "La carte doit être représentée par au moins 2 caractères");
         }
         int splitIndex = string.contains("10") ? 2 : 1;
         String value = string.substring(0, splitIndex);
         CardValue cardValue =
                 switch (value) {
-                    case "J" -> CardValue.JACK;
-                    case "Q" -> CardValue.QUEEN;
-                    case "K" -> CardValue.KING;
+                    case "V" -> CardValue.JACK;
+                    case "D" -> CardValue.QUEEN;
+                    case "R" -> CardValue.KING;
                     case "A" -> CardValue.ACE;
                     default -> {
                         if (value.matches("([2-9]|10)")) {
                             yield (CardValue.values()[Integer.parseInt(value) - 2]);
                         } else {
                             throw new IllegalArgumentException(
-                                    "Card must be between 2 and 10, or J, Q, K, A");
+                                    "La valeur de la carte doit être représentée par un nombre"
+                                            + " entre 2 et 10 ou V, D, R ou A");
                         }
                     }
                 };
@@ -43,7 +45,8 @@ public record Card(CardValue value, CardColor color) implements Comparable<Card>
                     case "ca", "carreau", "♦" -> CardColor.DIAMOND;
                     case "pi", "pique", "♠" -> CardColor.SPADE;
                     default -> throw new IllegalArgumentException(
-                            "CardColor must be between ♣(Trèfle) ,♥(Coeur), ♦(Carreau), ♠(Pique)");
+                            "La couleur de la carte doit être représentée par un caractère ou un"
+                                    + " mot clé, parmi: Tr, Co, Ca, Pi");
                 };
         return new Card(cardValue, cardColor);
     }
