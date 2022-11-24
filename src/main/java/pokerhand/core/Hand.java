@@ -38,6 +38,18 @@ public class Hand {
         }
     }
 
+    public String winningCard() {
+        var secondary = this.power.secondary();
+        List<CardValue> cards =
+                switch (this.getPower().handType()) {
+                    case HIGH_CARD, PAIR, THREE_OF_A_KIND, FOUR_OF_A_KIND -> List.of(
+                            secondary.get(0));
+                    case TWO_PAIR -> List.of(secondary.get(0), secondary.get(1));
+                    case STRAIGHT, FLUSH, FULL_HOUSE, STRAIGHT_FLUSH -> secondary;
+                };
+        return cards.toString();
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(getPower());
