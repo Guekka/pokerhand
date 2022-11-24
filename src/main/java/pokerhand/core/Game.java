@@ -97,9 +97,11 @@ public class Game {
                     "La main "
                             + (this.hands.indexOf(winner.get()) + 1)
                             + " gagne avec "
-                            + winner.get().getPower().winMessage());
+                            + winner.get().getPower().winMessage()
+                            + "\n");
+
         } else {
-            this.ui.display("Egalité");
+            this.ui.display("Egalité\n");
         }
     }
 
