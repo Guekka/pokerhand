@@ -48,6 +48,7 @@ public class ConsoleUserInterface implements UserInterface {
      */
     public void display(String message) {
         out.print(message);
+        out.flush();
     }
 
     /**
@@ -57,6 +58,7 @@ public class ConsoleUserInterface implements UserInterface {
      */
     public void displayError(String message) {
         err.println(message);
+        err.flush();
     }
 
     /**
