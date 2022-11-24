@@ -16,7 +16,7 @@ public class Game {
     }
 
     public Game() {
-        this(new ConsoleUserInterface());
+        this(new ConsoleUserInterface(System.in, System.out, System.out));
     }
 
     public Game(Hand... hands) {
@@ -87,8 +87,8 @@ public class Game {
                 }
                 this.addHand(hand);
             } catch (IllegalArgumentException | IllegalStateException e) {
-                this.ui.displayError(e.getMessage());
                 this.ui.display("\n");
+                this.ui.displayError(e.getMessage());
             }
         }
         Optional<Hand> winner = getWinner();
