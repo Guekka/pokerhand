@@ -29,4 +29,21 @@ public record Power(HandType handType, List<CardValue> secondary) implements Com
     public int hashCode() {
         return Objects.hash(this.handType, this.secondary);
     }
+
+    public String winMessage() {
+        return switch (this.handType) {
+            case HIGH_CARD -> "gagne avec carte la plus élevée : " + secondary.get(0);
+            case PAIR -> "gagne avec paire de " + secondary.get(0);
+            case TWO_PAIR -> "gagne avec double paire de "
+                    + secondary.get(0)
+                    + " et "
+                    + secondary.get(1);
+            case THREE_OF_A_KIND -> "gagne avec brelan de " + secondary.get(0);
+            case STRAIGHT -> "gagne avec quinte de " + secondary.get(0);
+            case FLUSH -> "gagne avec couleur de " + secondary.get(0);
+            case FULL_HOUSE -> "gagne avec full de " + secondary.get(0) + " et " + secondary.get(1);
+            case FOUR_OF_A_KIND -> "gagne avec carré de " + secondary.get(0);
+            case STRAIGHT_FLUSH -> "gagne avec quinte flush de " + secondary.get(0);
+        };
+    }
 }

@@ -92,12 +92,13 @@ public class Game {
         }
         Optional<Hand> winner = getWinner();
         if (winner.isPresent()) {
-            this.ui.display("The winner is Player " + (this.hands.indexOf(winner.get()) + 1));
-            this.ui.displayHand(winner.get());
-            this.ui.display("With a " + winner.get().getPower().handType());
-            this.ui.display("Winning card(s): " + winner.get().winningCard());
+            this.ui.display(
+                    "La main "
+                            + (this.hands.indexOf(winner.get()) + 1)
+                            + " gagne avec "
+                            + winner.get().getPower().winMessage());
         } else {
-            this.ui.display("It's a tie!");
+            this.ui.display("Egalité");
         }
     }
 

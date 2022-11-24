@@ -150,7 +150,7 @@ class GameTest {
                                     input, new PrintStream(output), new PrintStream(error));
                     var game = new Game(consoleInterface);
                     game.run(true);
-                    assertThat(output.toString()).contains("It's a tie!");
+                    assertThat(output.toString()).contains("Egalité");
                     // Check the reset method
                     assertThat(game.getHands()).isEmpty();
                     assertDoesNotThrow(
@@ -183,9 +183,8 @@ class GameTest {
                                     input, new PrintStream(output), new PrintStream(error));
                     var game = new Game(consoleInterface);
                     game.run(true);
-                    assertThat(output.toString()).contains("[5♥, 5♦, 4♦, 4♣, 6♦]");
-                    assertThat(output.toString()).contains("Two Pair");
-                    assertThat(output.toString()).contains("Player 2");
+                    assertThat(output.toString()).contains("double paire");
+                    assertThat(output.toString()).contains("main 2");
                     // Check the reset method
                     assertThat(game.getHands()).isEmpty();
                     assertDoesNotThrow(
